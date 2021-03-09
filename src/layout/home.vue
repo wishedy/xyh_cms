@@ -8,7 +8,8 @@
 <!--        <tags-view v-if="needTagsView" />-->
       </div>
       <section class="app-main">
-
+        <h1 class="title">欢迎使用CRM系统</h1>
+        <h1 class="subTitle">学研汇-科研服务创新平台</h1>
       </section>
 <!--      <right-panel v-if="showSettings">
         <settings />
@@ -71,7 +72,24 @@ export default {
   width: 100%;
   position: relative;
   overflow: hidden;
-  background: url("~@/assets/401_images/crmBg.jpeg") no-repeat center/cover;
+  background: url("~@/assets/401_images/crmBg.jpg") no-repeat center/cover;
+  .subTitle,.title{
+    font-size: 60px;
+    color:#fff;
+    position: absolute;
+    left: 50%;
+    text-align: center;
+    width: 100%;
+    transform: translateX(-50%);
+    top:220px;
+    text-shadow: 0 8px 9px #000, 0px -2px 1px #fff;
+    line-height: 40px;
+  }
+  .subTitle{
+    top:300px;
+    font-size: 64px;
+    text-shadow: 0 12px 9px #000, 0px -2px 1px #fff;
+  }
 }
 
 .fixed-header+.app-main {
