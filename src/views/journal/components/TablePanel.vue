@@ -4,18 +4,39 @@
       :data="list"
       border
     >
-      <el-table-column prop="id" label="操作ID" />
-      <el-table-column prop="user_id" label="操作人ID" />
-      <el-table-column prop="user_name" label="操作人姓名" />
-      <el-table-column prop="handleId" label="被操作人ID" />
-      <el-table-column prop="handle_user_name" label="被操作人姓名" />
-      <el-table-column prop="action_type" label="修改类型" />
-      <el-table-column prop="action_log" label="修改日志">
+      <el-table-column width="70" prop="id" label="ID" />
+      <el-table-column prop="user_name" label="管理员名称" />
+      <el-table-column prop="email" label="邮箱" />
+      <el-table-column prop="phone_number" label="手机号" />
+      <el-table-column prop="roles_name" label="角色" />
+      <el-table-column prop="department" label="部门" />
+      <el-table-column prop="time" label="入职时间" />
+      <el-table-column prop="status_name" label="状态">
         <template slot-scope="scope">
-          <article style="color:#ff0000;" v-text="scope.row.action_log" />
+          <el-tag
+            v-if="parseInt(scope.row.status,10)===0"
+            type="danger"
+            effect="dark"
+          >
+            离职
+          </el-tag>
+          <el-tag
+            v-if="parseInt(scope.row.status,10)===1"
+            type="success"
+            effect="dark"
+          >
+            在职
+          </el-tag>
         </template>
       </el-table-column>
-      <el-table-column prop="time" label="修改时间" />
+      <el-table-column label="操作" fixed="right" align="center">
+        <template slot-scope="scope">
+          <el-button v-if="parseInt(scope.row.status,10)===0" size="mini" icon="el-icon-edit" circle title="编辑" type="primary" @click="$emit('handleEdit',scope.row)" />
+          <el-button v-if="parseInt(scope.row.status,10)===0" type="danger" title="删除" size="mini" icon="el-icon-delete" circle />
+          <el-button v-if="parseInt(scope.row.status,10)===1" type="warning" title="用户列表" size="mini" icon="el-icon-share" circle />
+          <el-button v-if="parseInt(scope.row.status,10)===1" title="权限" size="mini" icon="el-icon-setting" circle />
+        </template>
+      </el-table-column>
     </el-table>
     <!-- 分页 -->
     <div class="page">
@@ -40,37 +61,19 @@ export default {
       pageSize: 20,
       total: 400,
       list: [{
-        id: '444444411',
-        handleId: '1212431',
-        user_id: '88888888',
+        id: '11111111',
         link: '111',
         email: 'webheng@126.com',
         user_name: '张恒',
-        handle_user_name: '赵双全',
-        action_type: '角色',
-        action_log: '角色有修改\n' +
-          '旧角色为：无\n' +
-          '新角色为： 超级管理员, 老师, 外管, 班管, 教学研发, 美标CC, TMK, CC主管, 外教招聘, EDU系统, 增长, OA, EDU研发, 欧标CC',
+        department: '增长前端',
         roles_name: '超级管理员、薪酬、运营、研发',
         time: '2019-02-02 19:00',
         image_url: '11111',
         status: 0
       }, {
-        id: '4341321',
-        handleId: '545454',
-        user_id: '09098',
         link: '111',
-        email: 'webheng@126.com',
-        user_name: '张恒',
-        handle_user_name: '赵双全',
-        action_type: '路由',
-        action_log: '路由有修改\n' +
-          '原路由：无\n' +
-          '新路由为：菜单名称-权限标识-路由名称router',
-        roles_name: '超级管理员、薪酬、运营、研发',
-        time: '2019-02-02 19:00',
         image_url: '11111',
-        status: 0
+        status: 1
       }]
     }
   },

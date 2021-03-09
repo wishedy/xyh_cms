@@ -14,7 +14,7 @@
           v-model="formData.title"
           class="search-box"
           type="text"
-          placeholder="请输入操作人ID"
+          placeholder="请输入员工ID"
           @keyup.enter.native="handleSearch"
         />
       </el-form-item>
@@ -26,15 +26,39 @@
           v-model="formData.title"
           class="search-box"
           type="text"
-          placeholder="请输入操作人姓名"
+          placeholder="请输入姓名"
           @keyup.enter.native="handleSearch"
         />
       </el-form-item>
       <el-form-item
-        label="修改类型:"
+        label="邮箱:"
+        prop="search"
+      >
+        <el-input
+          v-model="formData.title"
+          class="search-box"
+          type="text"
+          placeholder="请输入邮箱"
+          @keyup.enter.native="handleSearch"
+        />
+      </el-form-item>
+      <el-form-item
+        label="手机号:"
+        prop="search"
+      >
+        <el-input
+          v-model="formData.title"
+          class="search-box"
+          type="text"
+          placeholder="请输入手机号"
+          @keyup.enter.native="handleSearch"
+        />
+      </el-form-item>
+      <el-form-item
+        label="角色:"
         prop="status"
       >
-        <el-select v-model="formData.role" clearable placeholder="请选择操作类型" class="search-box">
+        <el-select v-model="formData.role" clearable placeholder="请选择角色" class="search-box">
           <el-option
             v-for="item in roles"
             :key="item.id"
@@ -44,15 +68,17 @@
         </el-select>
       </el-form-item>
       <el-form-item
-        label="日期:"
-        prop="search"
+        label="状态:"
+        prop="status"
       >
-        <el-date-picker
-          v-model="date"
-          type="date"
-          :picker-options="pickerOptions"
-          placeholder="选择日期"
-        />
+        <el-select v-model="formData.status" clearable placeholder="请选择管理员状态" class="search-box">
+          <el-option
+            v-for="item in status"
+            :key="item.id"
+            :label="item.name"
+            :value="item.id"
+          />
+        </el-select>
       </el-form-item>
       <el-form-item class="form-button-line block">
         <el-button
@@ -71,35 +97,9 @@
 </template>
 <script>
 export default {
-  name: 'AdminSearch',
+  name: 'SearchPanel',
   data () {
     return {
-      date: '',
-      pickerOptions: {
-        disabledDate (time) {
-          return time.getTime() > Date.now()
-        },
-        shortcuts: [{
-          text: '今天',
-          onClick (picker) {
-            picker.$emit('pick', new Date())
-          }
-        }, {
-          text: '昨天',
-          onClick (picker) {
-            const date = new Date()
-            date.setTime(date.getTime() - 3600 * 1000 * 24)
-            picker.$emit('pick', date)
-          }
-        }, {
-          text: '一周前',
-          onClick (picker) {
-            const date = new Date()
-            date.setTime(date.getTime() - 3600 * 1000 * 24 * 7)
-            picker.$emit('pick', date)
-          }
-        }]
-      },
       status: [
         {
           id: 0,
@@ -112,26 +112,22 @@ export default {
       ],
       roles: [{
         id: 0,
-        name: '部门'
+        name: '暂无角色'
       }, {
         id: 1,
-        name: '路由'
+        name: '超级管理员'
       }, {
         id: 2,
-        name: '角色'
+        name: '普通管理员'
       }, {
         id: 3,
-        name: '员工'
-      }, {
-        id: 4,
-        name: '权限'
+        name: '小编'
       }],
       originalForm: {
         status: '',
         role: '',
         title: ''
       },
-
       formData: {
         status: '',
         role: '',
@@ -141,17 +137,15 @@ export default {
   },
   methods: {
     handleSearch () {
-      this.$emit('search', this.formData)
+      this.$emit('handleSearch', this.formData)
     },
     handleReset () {
       const _this = this
       _this.formData = JSON.parse(JSON.stringify(_this.originalForm))
-      console.log(_this.formData)
-      console.log('重置参数')
-      _this.$emit('search', _this.formData)
+      _this.$emit('handleSearch', _this.formData)
     },
     handleCreate () {
-      this.$emit('create')
+      this.$emit('handleCreate')
     }
   }
 }
