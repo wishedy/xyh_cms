@@ -25,7 +25,7 @@ import ResizeMixin from './mixin/ResizeHandler'
 import { mapState } from 'vuex'
 
 export default {
-  name: 'Layout',
+  name: 'HomeLayout',
   components: {
     HomeNavbar,
     RightPanel,
