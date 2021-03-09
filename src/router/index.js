@@ -77,12 +77,62 @@ export const constantRoutes = [
     path: '/usr',
     component: Layout,
     redirect: '/home',
+    meta: {
+      title: '会员',
+      icon: 'el-icon-user'
+    },
     children: [
       {
-        path: 'home',
+        path: 'manage',
         component: () => import('@/views/journal/index'),
-        name: 'Home',
-        meta: { title: '员工管理', icon: 'el-icon-user', affix: true }
+        name: 'Manage',
+        meta: { title: '会员管理', icon: 'el-icon-user', affix: true }
+      },
+      {
+        path: 'demand',
+        component: () => import('@/views/journal/index'),
+        name: 'Demand',
+        meta: { title: '会员需求', icon: 'el-icon-user', affix: true }
+      },
+      {
+        path: 'order',
+        component: () => import('@/views/journal/index'),
+        name: 'Order',
+        meta: { title: '会员订单', icon: 'el-icon-user', affix: true }
+      }, {
+        path: 'collect',
+        component: () => import('@/views/journal/index'),
+        name: 'Collect',
+        meta: { title: '会员收藏', icon: 'el-icon-copy-document', affix: true }
+      }
+    ]
+  },
+  {
+    path: '/resource',
+    component: Layout,
+    redirect: '/home',
+    meta: {
+      title: '资源',
+      icon: 'el-icon-video-camera-solid'
+    },
+    children: [
+      {
+        path: 'demandType',
+        component: () => import('@/views/journal/index'),
+        name: 'DemandType',
+        meta: { title: '需求类型', icon: 'el-icon-user', affix: true }
+      },
+      {
+        path: 'article',
+        component: () => import('@/views/journal/index'),
+        name: 'Article',
+        meta: { title: '文章管理', icon: 'el-icon-user', affix: true }
+      },
+      {
+        path: 'video',
+        component: () => import('@/views/journal/index'),
+        name: 'Video',
+        meta: { title: '视频管理', icon: 'el-icon-user', affix: true }
       }
     ]
   }
