@@ -25,7 +25,7 @@ export default {
   data() {
     return {
       title: '学研会',
-      logo: 'https://wpimg.wallstcn.com/69a1c46c-eb1c-4b46-8bd4-e9e686ef5251.png'
+      logo: 'https://raw.githubusercontent.com/wishedy/xyh_cms/master/src/assets/401_images/logo.png'
     }
   }
 }
