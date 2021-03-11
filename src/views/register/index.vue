@@ -3,7 +3,7 @@
 
     <el-form  :model="registerForm" :rules='registerRules' ref="registerForm" label-width="100px" class="register-form demo-ruleForm"  >
       <div class="title-container">
-        <h3 class="title">学研会管理员注册</h3>
+        <h3 class="title">学研汇管理员注册</h3>
       </div>
       <el-form-item label="姓名" prop="userName">
         <el-input type="name" v-model="registerForm.userName" auto-complete="off" placeholder="请输入姓名"></el-input>

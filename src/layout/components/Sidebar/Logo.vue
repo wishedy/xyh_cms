@@ -24,8 +24,8 @@ export default {
   },
   data() {
     return {
-      title: '学研会',
-      logo: 'https://raw.githubusercontent.com/wishedy/xyh_cms/master/src/assets/401_images/logo.png'
+      title: '学研汇',
+      logo: require('@/assets/401_images/logo.png')
     }
   }
 }

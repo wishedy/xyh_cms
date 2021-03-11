@@ -1,5 +1,5 @@
 module.exports = {
-  title: '学研会CRM',
+  title: '学研汇CRM',
 
   /**
    * @type {boolean} true | false
