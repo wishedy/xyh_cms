@@ -21,7 +21,7 @@ Vue.use(Router)
     title: 'title'               the name show in sidebar and breadcrumb (recommend set)
     icon: 'svg-name'/'el-icon-x' the icon show in the sidebar
     noCache: true                if set true, the page will no be cached(default is false)
-    affix: true                  if set true, the tag will affix in the tags-view
+    affix: false                  if set true, the tag will affix in the tags-view
     breadcrumb: false            if set false, the item will hidden in breadcrumb(default is true)
     activeMenu: '/example/list'  if set path, the sidebar will highlight the path you set
   }
@@ -76,7 +76,7 @@ export const constantRoutes = [
   {
     path: '/usr',
     component: Layout,
-    redirect: '/home',
+    redirect: '/usr/manage',
     meta: {
       title: '会员',
       icon: 'el-icon-user'
@@ -84,33 +84,38 @@ export const constantRoutes = [
     children: [
       {
         path: 'manage',
-        component: () => import('@/views/journal/index'),
+        component: () => import('@/views/member/memberList/index'),
         name: 'Manage',
-        meta: { title: '会员管理', icon: 'el-icon-user', affix: true }
+        meta: { title: '会员管理', icon: 'el-icon-user', affix: false }
       },
       {
         path: 'demand',
-        component: () => import('@/views/journal/index'),
+        component: () => import('@/views/member/memberDemand/index'),
         name: 'Demand',
-        meta: { title: '会员需求', icon: 'el-icon-user', affix: true }
+        meta: { title: '会员需求', icon: 'el-icon-s-shop', affix: false }
       },
       {
         path: 'order',
         component: () => import('@/views/journal/index'),
         name: 'Order',
-        meta: { title: '会员订单', icon: 'el-icon-user', affix: true }
+        meta: { title: '课程订单', icon: 'el-icon-s-goods', affix: false }
       }, {
         path: 'collect',
         component: () => import('@/views/journal/index'),
         name: 'Collect',
-        meta: { title: '会员收藏', icon: 'el-icon-copy-document', affix: true }
+        meta: { title: '会员收藏', icon: 'el-icon-star-off', affix: false }
+      }, {
+        path: 'invoice',
+        component: () => import('@/views/journal/index'),
+        name: 'Invoice',
+        meta: { title: '发票信息', icon: 'el-icon-s-ticket', affix: false }
       }
     ]
   },
   {
     path: '/resource',
     component: Layout,
-    redirect: '/home',
+    redirect: '/resource/article',
     meta: {
       title: '资源',
       icon: 'el-icon-video-camera-solid'
@@ -120,19 +125,155 @@ export const constantRoutes = [
         path: 'demandType',
         component: () => import('@/views/journal/index'),
         name: 'DemandType',
-        meta: { title: '需求类型', icon: 'el-icon-user', affix: true }
+        meta: { title: '需求类型', icon: 'el-icon-menu', affix: false }
       },
       {
         path: 'article',
         component: () => import('@/views/journal/index'),
         name: 'Article',
-        meta: { title: '文章管理', icon: 'el-icon-user', affix: true }
+        meta: { title: '文章管理', icon: 'el-icon-tickets', affix: false }
       },
       {
         path: 'video',
         component: () => import('@/views/journal/index'),
         name: 'Video',
-        meta: { title: '视频管理', icon: 'el-icon-user', affix: true }
+        meta: { title: '视频管理', icon: 'el-icon-video-camera', affix: false }
+      }
+    ]
+  },
+  {
+    path: '/side',
+    component: Layout,
+    redirect: '/side/banner',
+    meta: {
+      title: '站点管理',
+      icon: 'el-icon-platform-eleme'
+    },
+    children: [
+      {
+        path: 'banner',
+        component: () => import('@/views/journal/index'),
+        name: 'Banner',
+        meta: { title: 'Banner位管理', icon: 'el-icon-picture', affix: false }
+      },
+      {
+        path: 'sideHome',
+        name: 'SideHome',
+        component: () => import('@/views/journal/testRouter'),
+        meta: { title: '首页', icon: 'el-icon-s-home', affix: false },
+        redirect: '/side/banner',
+        children: [
+          {
+            path: 'homeColumn',
+            component: () => import('@/views/journal/index'),
+            name: 'HomeColumn',
+            meta: { title: '首页产品类型', icon: 'el-icon-files', affix: false }
+          },
+          {
+            path: 'homeList',
+            component: () => import('@/views/journal/index'),
+            name: 'HomeList',
+            meta: { title: '首页产品列表', icon: 'el-icon-present', affix: false }
+          }
+        ]
+      },
+      {
+        path: 'servicePlatform',
+        component: () => import('@/views/journal/index'),
+        name: 'ServicePlatform',
+        meta: { title: '服务平台管理', icon: 'el-icon-service', affix: false }
+      },
+      {
+        path: 'classroom',
+        name: 'Classroom',
+        component: () => import('@/views/journal/testRouter'),
+        meta: { title: '学研课堂', icon: 'el-icon-school', affix: false },
+        redirect: '/classroom/column',
+        children: [
+          {
+            path: 'classroomColumn',
+            component: () => import('@/views/journal/index'),
+            name: 'ClassroomColumn',
+            meta: { title: '课程类别', icon: 'el-icon-coin', affix: false }
+          },
+          {
+            path: 'classroomList',
+            component: () => import('@/views/journal/index'),
+            name: 'ClassroomList',
+            meta: { title: '课程列表', icon: 'el-icon-s-data', affix: false }
+          }
+        ]
+      },
+      {
+        path: 'feature',
+        component: () => import('@/views/journal/index'),
+        name: 'Feature',
+        meta: { title: '优势特色', icon: 'el-icon-share', affix: false }
+      },
+      {
+        path: 'cooperation',
+        component: () => import('@/views/journal/index'),
+        name: 'Cooperation',
+        meta: { title: '全球合作', icon: 'el-icon-s-help', affix: false }
+      },
+      {
+        path: 'service',
+        component: () => import('@/views/journal/index'),
+        name: 'Service',
+        meta: { title: '小程序服务入口', icon: 'el-icon-apple', affix: false }
+      },
+      {
+        path: 'qrcode',
+        component: () => import('@/views/journal/index'),
+        name: 'Qrcode',
+        meta: { title: '二维码管理', icon: 'el-icon-s-grid', affix: false }
+      },
+      {
+        path: 'about',
+        component: () => import('@/views/journal/index'),
+        name: 'About',
+        meta: { title: '关于我们', icon: 'el-icon-s-opportunity', affix: false }
+      },
+      {
+        path: 'zoology',
+        component: () => import('@/views/journal/index'),
+        name: 'Zoology',
+        meta: { title: '合作生态', icon: 'el-icon-bangzhu', affix: false }
+      },
+      {
+        path: 'client',
+        component: () => import('@/views/journal/index'),
+        name: 'Client',
+        meta: { title: '服务客户', icon: 'el-icon-hot-water', affix: false }
+      }
+    ]
+  },
+  {
+    path: '/system',
+    component: Layout,
+    redirect: '/system/administrator',
+    meta: {
+      title: '系统',
+      icon: 'el-icon-video-camera-solid'
+    },
+    children: [
+      {
+        path: 'administrator',
+        component: () => import('@/views/journal/index'),
+        name: 'Administrator',
+        meta: { title: '管理员管理', icon: 'el-icon-office-building', affix: false }
+      },
+      {
+        path: 'password',
+        component: () => import('@/views/journal/index'),
+        name: 'Password',
+        meta: { title: '修改密码', icon: 'el-icon-lock', affix: false }
+      },
+      {
+        path: 'information',
+        component: () => import('@/views/journal/index'),
+        name: 'Information',
+        meta: { title: '消息统计', icon: 'el-icon-message', affix: false }
       }
     ]
   }
