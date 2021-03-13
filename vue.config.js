@@ -32,18 +32,18 @@ module.exports = {
     port: port,
     hot:true,
     open: true,
+    overlay: {
+      warnings: false,
+      errors: true
+    },
     proxy: {
       '/api': {
-        target: 'http://39.106.209.74:8099',
+        target: 'http://8.140.156.144:6060',
         changeOrigin: true,
         pathRewrite: {
           '^/api': '/api'
         }
       }
-    },
-    overlay: {
-      warnings: false,
-      errors: true
     }
   },
   configureWebpack: {

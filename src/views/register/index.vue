@@ -5,20 +5,20 @@
       <div class="title-container">
         <h3 class="title">学研汇管理员注册</h3>
       </div>
-      <el-form-item label="姓名" prop="userName">
-        <el-input type="name" v-model="registerForm.userName" auto-complete="off" placeholder="请输入姓名"></el-input>
+      <el-form-item label="姓名" prop="realName">
+        <el-input type="name" v-model="registerForm.realName" auto-complete="off" placeholder="请输入姓名"></el-input>
       </el-form-item>
       <el-form-item label="E-mail" prop="email">
         <el-input v-model="registerForm.email" auto-complete="off" placeholder="请输入邮箱"></el-input>
       </el-form-item>
-      <el-form-item label="手机号" prop="phonenumber">
-        <el-input v-model="registerForm.phoneNumber" auto-complete="off" placeholder="请输入手机号"></el-input>
+      <el-form-item label="手机号" prop="phoneNum">
+        <el-input v-model="registerForm.phoneNum" auto-complete="off" placeholder="请输入手机号"></el-input>
       </el-form-item>
-      <el-form-item label="身份证号" prop="identityCard">
-        <el-input v-model="registerForm.identityCard" auto-complete="off" placeholder="请输入身份证号"></el-input>
+      <el-form-item label="身份证号" prop="idNum">
+        <el-input v-model="registerForm.idNum" auto-complete="off" placeholder="请输入身份证号"></el-input>
       </el-form-item>
-      <el-form-item label="管理级别" prop="remark">
-        <el-select v-model="registerForm.remark" clearable placeholder="请选择" style="width:256px;"  auto-complete="off">
+      <el-form-item label="管理级别" prop="role">
+        <el-select v-model="registerForm.role" clearable placeholder="请选择" style="width:256px;"  auto-complete="off">
           <el-option
             v-for="item in options"
             :key="item.value"
@@ -27,8 +27,8 @@
           </el-option>
         </el-select>
       </el-form-item>
-      <el-form-item label="性别" prop="sex">
-        <el-radio-group v-model="registerForm.sex">
+      <el-form-item label="性别" prop="gender">
+        <el-radio-group v-model="registerForm.gender">
           <el-radio label="1">男</el-radio>
           <el-radio label="2">女</el-radio>
         </el-radio-group>
@@ -37,7 +37,7 @@
         <el-input type="password" v-model="registerForm.password" auto-complete="off" placeholder="请输入密码"></el-input>
       </el-form-item>
       <el-form-item class="submit-item">
-        <el-button type="primary">提交</el-button>
+        <el-button type="primary" @click="handleSubmit">提交</el-button>
         <el-button @click="handleReset">重置</el-button>
       </el-form-item>
     </el-form>
@@ -47,25 +47,35 @@
 
 <script>
 import { testPhoneNum, testEmail, testID, testName, testPassword } from '@/utils'
-import { getOrderList } from '@/resource'
-
+import { handleRegister } from '@/resource'
+import md5 from 'blueimp-md5'
 export default {
   name: 'register',
   methods: {
+    handleSubmit () {
+      const _this = this
+      _this.$refs.registerForm.validate(async (valid) => {
+        if (valid) {
+          _this.registerForm.password = md5(_this.registerForm.password)
+          const res = await handleRegister(_this.registerForm)
+          console.log(res)
+        } else {
+          console.log('error submit!!')
+          return false
+        }
+      })
+    },
     handleReset () {
       const _this = this
       _this.registerForm = JSON.parse(JSON.stringify(_this.originalForm))
     }
-  },
-  mounted () {
-    getOrderList()
   },
   data () {
     const validateName = (rule, value, callBack) => {
       if (value === '') {
         callBack(new Error('请输入名字'))
       } else {
-        console.log(this.registerForm.userName, value, testName(value))
+        console.log(this.registerForm.realName, value, testName(value))
         if (!testName(value)) {
           callBack(new Error('请输入正确的名字'))
         } else {
@@ -79,19 +89,19 @@ export default {
         callBack(new Error('请输入邮件'))
       } else {
         if (testEmail(value)) {
-          this.$refs.registerForm.validateField('phonenumber')
+          this.$refs.registerForm.validateField('phoneNum')
         } else {
           callBack(new Error('请输入正确的邮件'))
         }
         callBack()
       }
     }
-    const validateIdentityCard = (rule, value, callBack) => {
+    const validateidNum = (rule, value, callBack) => {
       if (value === '') {
         callBack(new Error('请输入身份号'))
       } else {
         if (testID(value)) {
-          this.$refs.registerForm.validateField('remark')
+          this.$refs.registerForm.validateField('role')
         } else {
           callBack(new Error('请输入正确的身份号'))
         }
@@ -138,7 +148,7 @@ export default {
         label: '普通管理员'
       }],
       registerRules: {
-        userName: [
+        realName: [
           {
             required: true,
             message: '管理员名称不能为空',
@@ -158,7 +168,7 @@ export default {
             validator: validateEmail, trigger: 'blur'
           }
         ],
-        phonenumber: [
+        phoneNum: [
           {
             required: true,
             message: '手机号不能为空',
@@ -168,21 +178,21 @@ export default {
             validator: validatePhoneNum, trigger: 'blur'
           }
         ],
-        sex: [
+        gender: [
           {
             required: true,
             message: '性别不能为空',
             trigger: 'blur'
           }
         ],
-        identityCard: [
+        idNum: [
           {
             required: true,
             message: '身份证号不能为空',
             trigger: 'blur'
           },
           {
-            validator: validateIdentityCard, trigger: 'blur'
+            validator: validateidNum, trigger: 'blur'
           }
         ],
         password: [
@@ -195,7 +205,7 @@ export default {
             validator: validatePassWord, trigger: 'blur'
           }
         ],
-        remark: [
+        role: [
           {
             required: true,
             message: '管理员级别不能为空',
@@ -207,22 +217,22 @@ export default {
         ]
       },
       registerForm: {
-        userName: '',
+        realName: '',
         email: '',
-        phoneNumber: '',
-        identityCard: '',
-        remark: '',
+        phoneNum: '',
+        idNum: '',
+        role: '',
         password: '',
-        sex: '1'
+        gender: '1'
       },
       originalForm: {
-        userName: '',
+        realName: '',
         email: '',
-        phoneNumber: '',
-        identityCard: '',
-        remark: '',
+        phoneNum: '',
+        idNum: '',
+        role: '',
         password: '',
-        sex: '1'
+        gender: '1'
       }
     }
   }

@@ -4,30 +4,20 @@
       :data="list"
       border
     >
-      <el-table-column prop="id" label="需求ID" />
+      <el-table-column prop="id" label="课程订单ID" />
       <el-table-column prop="id" label="用户ID" />
       <el-table-column prop="user_name" label="用户姓名" />
       <el-table-column prop="email" label="邮箱" />
       <el-table-column prop="phone_number" label="手机号" />
-      <el-table-column prop="roles_name" label="微信号" />
-      <el-table-column prop="roles_name" label="需求类型" />
-      <el-table-column prop="roles_name" label="需求描述" />
-      <el-table-column prop="roles_name" label="需求跟进管理员" />
-      <el-table-column prop="department" label="需求提交时间" />
-      <el-table-column prop="status_name" label="操作"  fixed="right" align="center">
-        <template slot-scope="scope">
-          <section class="handle-item">
-            <el-tag
-              title="点击重置用户密码"
-              v-if="parseInt(scope.row.status,10)===0"
-              effect="dark"
-              @click="$emit('handleEdit',scope.row)"
-            >
-              指派业务经理
-            </el-tag>
-          </section>
-        </template>
-      </el-table-column>
+      <el-table-column prop="roles_name" label="课程名" />
+      <el-table-column prop="roles_name" label="课程价格" />
+      <el-table-column prop="roles_name" label="课程ID" />
+      <el-table-column prop="roles_name" label="资源类型" />
+      <el-table-column prop="roles_name" label="支付状态" />
+      <el-table-column prop="roles_name" label="支付时间" />
+      <el-table-column prop="roles_name" label="支付端" />
+      <el-table-column prop="roles_name" label="课程创建管理员" />
+      <el-table-column prop="department" label="订单提交时间" />
     </el-table>
     <!-- 分页 -->
     <div class="page">

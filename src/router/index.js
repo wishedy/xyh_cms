@@ -96,17 +96,17 @@ export const constantRoutes = [
       },
       {
         path: 'order',
-        component: () => import('@/views/journal/index'),
+        component: () => import('@/views/member/memberOrder/index'),
         name: 'Order',
         meta: { title: '课程订单', icon: 'el-icon-s-goods', affix: false }
       }, {
         path: 'collect',
-        component: () => import('@/views/journal/index'),
+        component: () => import('@/views/member/memberCollect/index'),
         name: 'Collect',
         meta: { title: '会员收藏', icon: 'el-icon-star-off', affix: false }
       }, {
         path: 'invoice',
-        component: () => import('@/views/journal/index'),
+        component: () => import('@/views/member/memberInvoice/index'),
         name: 'Invoice',
         meta: { title: '发票信息', icon: 'el-icon-s-ticket', affix: false }
       }
