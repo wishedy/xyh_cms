@@ -254,7 +254,7 @@ export const constantRoutes = [
     redirect: '/system/administrator',
     meta: {
       title: '系统',
-      icon: 'el-icon-video-camera-solid'
+      icon: 'el-icon-s-tools'
     },
     children: [
       {
