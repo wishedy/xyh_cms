@@ -33,8 +33,8 @@
           <el-radio label="2">女</el-radio>
         </el-radio-group>
       </el-form-item>
-      <el-form-item label="密码"  prop="password">
-        <el-input type="password" v-model="registerForm.password" auto-complete="off" placeholder="请输入密码"></el-input>
+      <el-form-item label="密码"  prop="code">
+        <el-input type="password" v-model="registerForm.code" auto-complete="off" placeholder="请输入密码"></el-input>
       </el-form-item>
       <el-form-item class="submit-item">
         <el-button type="primary" @click="handleSubmit">提交</el-button>
@@ -56,9 +56,13 @@ export default {
       const _this = this
       _this.$refs.registerForm.validate(async (valid) => {
         if (valid) {
-          _this.registerForm.password = md5(_this.registerForm.password)
-          const res = await handleRegister(_this.registerForm)
-          console.log(res)
+          _this.registerForm.password = md5(_this.registerForm.code)
+          try {
+            const res = await handleRegister(_this.registerForm)
+            console.log(res)
+          } catch (e) {
+            _this.$message.error(e.msg)
+          }
         } else {
           console.log('error submit!!')
           return false
@@ -195,7 +199,7 @@ export default {
             validator: validateidNum, trigger: 'blur'
           }
         ],
-        password: [
+        code: [
           {
             required: true,
             message: '密码不能为空',
@@ -220,12 +224,14 @@ export default {
         realName: '',
         email: '',
         phoneNum: '',
+        code: '',
         idNum: '',
         role: '',
         password: '',
         gender: '1'
       },
       originalForm: {
+        code: '',
         realName: '',
         email: '',
         phoneNum: '',

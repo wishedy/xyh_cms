@@ -259,7 +259,7 @@ export const constantRoutes = [
     children: [
       {
         path: 'administrator',
-        component: () => import('@/views/journal/index'),
+        component: () => import('@/views/adminor/adminorList/index'),
         name: 'Administrator',
         meta: { title: '管理员管理', icon: 'el-icon-office-building', affix: false }
       },

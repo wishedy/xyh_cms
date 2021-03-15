@@ -38,7 +38,7 @@ module.exports = {
     },
     proxy: {
       '/api': {
-        target: 'http://8.140.156.144:6060',
+        target: 'http://xue-api.xueyanhui.com',
         changeOrigin: true,
         pathRewrite: {
           '^/api': '/api'

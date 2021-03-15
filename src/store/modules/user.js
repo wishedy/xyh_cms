@@ -1,4 +1,5 @@
 // import { login, logout, getInfo } from '@/api/user'
+import {userLogin} from "@/resource";
 import { logout, getInfo } from '@/api/user'
 import { getToken, setToken, removeToken } from '@/utils/auth'
 import router, { resetRouter } from '@/router'
@@ -33,18 +34,16 @@ const actions = {
   // user login
   login ({ commit }, userInfo) {
     // const { username, password } = userInfo
-    return new Promise((resolve, reject) => {
-      commit('SET_TOKEN', 'admin-token')
-      setToken('admin-token')
-      resolve()
-      /* login({ username: username.trim(), password: password }).then(response => {
-        const { data } = response
-        commit('SET_TOKEN', data.token)
-        setToken(data.token)
+    return new Promise(async (resolve, reject) => {
+      try {
+        const res = await userLogin(userInfo)
+        console.log(res)
+        commit('SET_TOKEN', res.result)
+        setToken(res.result)
         resolve()
-      }).catch(error => {
-        reject(error)
-      }) */
+      }catch (e){
+        reject(e)
+      }
     })
   },
 
