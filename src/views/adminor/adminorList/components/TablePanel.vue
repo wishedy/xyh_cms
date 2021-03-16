@@ -24,6 +24,12 @@
           <span v-if="parseInt(scope.row.states,10)===3">用户注销</span>
         </template>
       </el-table-column>
+      <el-table-column prop="states" label="是否为客服经理">
+        <template slot-scope="scope">
+          <span v-if="parseInt(scope.row.isManager,10)===0">否</span>
+          <span v-if="parseInt(scope.row.isManager,10)===1">是</span>
+        </template>
+      </el-table-column>
       <el-table-column prop="registerTime" label="注册时间">
         <template slot-scope="scope">
           <span
@@ -32,6 +38,16 @@
       </el-table-column>
       <el-table-column prop="status_name" label="操作"  fixed="right" align="center">
         <template slot-scope="scope">
+          <section class="handle-item">
+            <el-tag
+              title="点击重置管理员密码"
+              type="danger"
+              effect="dark"
+              @click="handleSetManger(scope.row.id)"
+            >
+              设为客户经理
+            </el-tag>
+          </section>
           <section class="handle-item">
             <el-tag
               title="点击重置管理员密码"
@@ -131,6 +147,10 @@ export default {
     handleResetPassword (id) {
       const _this = this
       _this.$emit('handleResetPassword', { sysUserId: id })
+    },
+    handleSetManger (id) {
+      const _this = this
+      _this.$emit('handleSetManger', { id, isManager: 1 })
     },
     handleCurrentChange (page) {
       console.log(page)

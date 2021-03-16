@@ -123,7 +123,7 @@ export const constantRoutes = [
     children: [
       {
         path: 'demandType',
-        component: () => import('@/views/journal/index'),
+        component: () => import('@/views/resource/demand/index'),
         name: 'DemandType',
         meta: { title: '需求类型', icon: 'el-icon-menu', affix: false }
       },
@@ -265,7 +265,7 @@ export const constantRoutes = [
       },
       {
         path: 'password',
-        component: () => import('@/views/journal/index'),
+        component: () => import('@/views/adminor/adminorPassword/index'),
         name: 'Password',
         meta: { title: '修改密码', icon: 'el-icon-lock', affix: false }
       },

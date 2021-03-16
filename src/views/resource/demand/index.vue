@@ -1,22 +1,26 @@
 <template>
   <section class="el-main">
     <SearchPanel @handleSearch="getList"/>
+    <HandleBar @handleCreate="createData"/>
     <TablePanel
       @handleEdit="editData"
       :pageSize="pageSize"
       :pageNum="pageNum"
       :total="total"
       :list="list"
-      @handleAuditAdmin="handleAuditAdmin"
-      @handleSetManger="handleSetManger"
-      @handleResetPassword="handleResetPassword"
       @handleSizeChange="handleSizeChange"
       @handlePageChange="handlePageChange"/>
-    <EditPanel :visible.sync="visible" @handleCancel="closeEditPanel" />
+    <EditPanel
+      :visible.sync="visible"
+      @submit="handleSubmit"
+      :editItemData="editItemData"
+      @handleCancel="closeEditPanel"
+      :editType="editType"/>
   </section>
 </template>
 <script>
-import { setManager, getAdminList, handleAdmin, passwordReset } from '@/resource'
+import HandleBar from '@/views/resource/demand/components/HandleBar'
+import { createDemand, getDemandList, updateDemand } from '@/resource'
 import EditPanel from './components/EditPanel'
 import SearchPanel from './components/SearchPanel'
 import TablePanel from './components/TablePanel'
@@ -25,10 +29,14 @@ export default {
   components: {
     SearchPanel,
     TablePanel,
+    HandleBar,
     EditPanel
   },
   data () {
     return {
+      submitForm: {},
+      editItemData: {},
+      editType: 0,
       visible: false,
       pageSize: 10,
       total: 0,
@@ -41,63 +49,35 @@ export default {
     _this.getList()
   },
   methods: {
-    handleAuditAdmin (options) {
+    handleSubmit (form) {
       const _this = this
-      console.log(options)
-      const statusText = `${parseInt(options.states, 10) === 1 ? '通过' : parseInt(options.states, 10) === 2 ? '拒绝' : '注销'}`
-      _this.$confirm('确定' + statusText + '该管理员审核?', '提示', {
-        confirmButtonText: '确定',
-        cancelButtonText: '取消',
-        type: 'warning',
-        center: true
-      }).then(async () => {
-        try {
-          const res = await handleAdmin(options)
-          console.log(res)
-          _this.$message({
-            message: '操作已完成',
-            type: 'success'
-          })
-          _this.handleAfterRequest()
-        } catch (e) {
-          _this.$message.error(e.msg)
-        }
-      }).catch(() => {})
+      _this.submitForm = form
+      if (parseInt(_this.editType, 10) === 0) {
+        // 无id新增
+        _this.handleAddRequest()
+      } else {
+        _this.handleEditConfirm()
+      }
     },
-    handleResetPassword (options) {
+    async handleAddRequest () {
       const _this = this
-      console.log(options)
-      const statusText = '重置'
-      _this.$confirm('确定' + statusText + '该管理员密码?', '提示', {
-        confirmButtonText: '确定',
-        cancelButtonText: '取消',
-        type: 'warning',
-        center: true
-      }).then(async () => {
-        try {
-          const res = await passwordReset(options)
-          console.log(res)
-          _this.$message({
-            message: '操作已完成',
-            type: 'success'
-          })
-          _this.handleAfterRequest()
-        } catch (e) {
-          _this.$message.error(e.msg)
-        }
-      }).catch(() => {})
+      console.log(_this.submitForm)
+      const res = await createDemand(_this.submitForm)
+      if (res) {
+        this.$message.success('保存成功')
+      }
+      _this.handleAfterRequest()
     },
-    handleSetManger (options) {
+    handleEditConfirm () {
       const _this = this
-      console.log(options)
-      _this.$confirm('设置改管理员为客服经理？', '提示', {
+      _this.$confirm('是否保存当前修改?', '提示', {
         confirmButtonText: '确定',
         cancelButtonText: '取消',
         type: 'warning',
         center: true
       }).then(async () => {
         try {
-          const res = await setManager(options)
+          const res = await updateDemand(_this.submitForm)
           console.log(res)
           _this.$message({
             message: '操作已完成',
@@ -111,6 +91,8 @@ export default {
     },
     handleAfterRequest () {
       const _this = this
+      _this.submitForm = {}
+      _this.closeEditPanel()
       _this.getList()
     },
     handleSizeChange (size) {
@@ -125,7 +107,7 @@ export default {
     },
     async getList (form) {
       const _this = this
-      const res = await getAdminList({
+      const res = await getDemandList({
         pageSize: _this.pageSize,
         pageNum: _this.pageNum,
         ...form
@@ -135,9 +117,6 @@ export default {
       console.log(res)
       console.log(form)
     },
-    createItem () {
-      this.openEditPanel()
-    },
     openEditPanel () {
       this.visible = true
     },
@@ -145,7 +124,14 @@ export default {
       console.log('触发')
       this.visible = false
     },
-    editData () {
+    createData () {
+      this.editType = 0
+      this.editItemData = {}
+      this.openEditPanel()
+    },
+    editData (form) {
+      this.editType = 1
+      this.editItemData = form
       this.openEditPanel()
     }
   }
