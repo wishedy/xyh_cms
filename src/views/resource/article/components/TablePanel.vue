@@ -4,8 +4,18 @@
       :data="list"
       border
     >
-      <el-table-column prop="id" label="需求ID" />
-      <el-table-column prop="names" label="需求类型名称" />
+      <el-table-column prop="id" label="文章ID" />
+      <el-table-column prop="names" label="文章名称" />
+      <el-table-column prop="needName" label="需求类型" />
+      <el-table-column prop="introduce" label="文章简介" />
+      <el-table-column prop="author" label="作者" />
+      <el-table-column prop="createUserName" label="创建管理员" />
+      <el-table-column prop="createTime" label="发布时间">
+        <template slot-scope="scope">
+          <span
+          >{{moment(scope.row.createTime).format("YYYY-MM-DD HH:mm:ss")}}</span>
+        </template>
+      </el-table-column>
       <el-table-column prop="createTime" label="创建时间">
         <template slot-scope="scope">
           <span
@@ -15,11 +25,11 @@
       <el-table-column prop="status_name" label="操作">
         <template slot-scope="scope">
           <el-tag
-            title="点击编辑需求类型"
+            title="点击编辑文章"
             type="success"
             style="cursor: pointer;"
             effect="dark"
-            @click="editData(scope.row.names,scope.row.id)"
+            @click="editData(scope.row)"
           >
             编辑
           </el-tag>
@@ -77,9 +87,9 @@ export default {
       const _this = this
       _this.$emit('handleSizeChange', size)
     },
-    editData (names, id) {
+    editData (data) {
       const _this = this
-      _this.$emit('handleEdit', { names, id })
+      _this.$emit('handleEdit', data)
     },
     handleResetPassword (id) {
       const _this = this

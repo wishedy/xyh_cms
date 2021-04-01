@@ -38,8 +38,8 @@ const actions = {
       try {
         const res = await userLogin(userInfo)
         console.log(res)
-        commit('SET_TOKEN', res.result)
-        setToken(res.result)
+        commit('SET_TOKEN', res.result.token)
+        setToken(res.result.token)
         resolve()
       }catch (e){
         reject(e)

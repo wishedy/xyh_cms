@@ -4,8 +4,16 @@
       :data="list"
       border
     >
-      <el-table-column prop="id" label="需求ID" />
-      <el-table-column prop="names" label="需求类型名称" />
+      <el-table-column prop="id" label="合作资源ID" />
+      <el-table-column prop="title" label="合作资源名称" />
+      <el-table-column prop="showType" label="合作资源类型"  :formatter="formatTypes"/>
+      <el-table-column label="优势封面" min-width="140px">
+        <template slot-scope="scope">
+          <img :src="scope.row.imgUrl" alt class="table-img" />
+        </template>
+      </el-table-column>
+      <el-table-column prop="url" label="跳转连接" />
+      <el-table-column prop="createUserName" label="创建管理员" />
       <el-table-column prop="createTime" label="创建时间">
         <template slot-scope="scope">
           <span
@@ -19,7 +27,7 @@
             type="success"
             style="cursor: pointer;"
             effect="dark"
-            @click="editData(scope.row.names,scope.row.id)"
+            @click="editData(scope.row)"
           >
             编辑
           </el-tag>
@@ -72,14 +80,26 @@ export default {
   },
   methods: {
     moment,
+    formatTypes: function (row, column) {
+      let title = ''
+      switch (parseInt(row.showType)) {
+        case 0:
+          title = '全球合作'
+          break
+        case 1:
+          title = '服务客户'
+          break
+      }
+      return title
+    },
     handleSizeChange (size) {
       console.log(size)
       const _this = this
       _this.$emit('handleSizeChange', size)
     },
-    editData (names, id) {
+    editData (data) {
       const _this = this
-      _this.$emit('handleEdit', { names, id })
+      _this.$emit('handleEdit', data)
     },
     handleResetPassword (id) {
       const _this = this
@@ -95,16 +115,16 @@ export default {
 </script>
 <style lang="scss" scoped>
 .table-wrap{
-.handle-item{
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  justify-content: center;
-  margin: 5px;
-  cursor: pointer;
-  ::v-deep .el-tag{
-    margin: 3px;
+  .handle-item{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    margin: 5px;
+    cursor: pointer;
+    ::v-deep .el-tag{
+      margin: 3px;
+    }
   }
-}
 }
 </style>

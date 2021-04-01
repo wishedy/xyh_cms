@@ -7,26 +7,36 @@
       label-width="110px"
     >
       <el-form-item
-        label="需求类型ID:"
+        label="课程类别ID:"
       >
         <el-input
           v-model="formData.id"
           class="search-box"
           type="text"
-          placeholder="请输入需求类型ID"
+          placeholder="请输入课程类别ID"
           @keyup.enter.native="handleSearch"
         />
       </el-form-item>
       <el-form-item
-        label="需求类型名称:"
+        label="课程类别名称:"
       >
         <el-input
           v-model="formData.names"
           class="search-box"
           type="text"
-          placeholder="请输入需求类型名称"
+          placeholder="请输入课程类别名称"
           @keyup.enter.native="handleSearch"
         />
+      </el-form-item>
+      <el-form-item label="需求类型" prop="needId">
+        <el-select v-model="formData.needId" clearable placeholder="请选择" style="width:256px;"  auto-complete="off">
+          <el-option
+            v-for="item in demandList"
+            :key="item.id"
+            :label="item.names"
+            :value="item.id">
+          </el-option>
+        </el-select>
       </el-form-item>
       <el-form-item class="form-button-line block">
         <el-button
@@ -46,14 +56,24 @@
 <script>
 export default {
   name: 'SearchPanel',
+  props: {
+    demandList: {
+      default () {
+        return []
+      },
+      type: Array
+    }
+  },
   data () {
     return {
       originalForm: {
         id: '',
+        needId: '',
         names: ''
       },
       formData: {
         id: '',
+        needId: '',
         names: ''
       }
     }

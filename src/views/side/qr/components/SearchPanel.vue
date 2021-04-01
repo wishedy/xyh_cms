@@ -7,24 +7,24 @@
       label-width="110px"
     >
       <el-form-item
-        label="需求类型ID:"
+        label="二维码ID:"
       >
         <el-input
           v-model="formData.id"
           class="search-box"
           type="text"
-          placeholder="请输入需求类型ID"
+          placeholder="请输入二维码ID"
           @keyup.enter.native="handleSearch"
         />
       </el-form-item>
       <el-form-item
-        label="需求类型名称:"
+        label="二维码名称:"
       >
         <el-input
-          v-model="formData.names"
+          v-model="formData.title"
           class="search-box"
           type="text"
-          placeholder="请输入需求类型名称"
+          placeholder="请输入二维码名称"
           @keyup.enter.native="handleSearch"
         />
       </el-form-item>
@@ -46,15 +46,25 @@
 <script>
 export default {
   name: 'SearchPanel',
+  props: {
+    demandList: {
+      default () {
+        return []
+      },
+      type: Array
+    }
+  },
   data () {
     return {
       originalForm: {
         id: '',
-        names: ''
+        needId: '',
+        title: ''
       },
       formData: {
         id: '',
-        names: ''
+        needId: '',
+        title: ''
       }
     }
   },

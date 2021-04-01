@@ -4,8 +4,8 @@
       :data="list"
       border
     >
-      <el-table-column prop="id" label="需求ID" />
-      <el-table-column prop="names" label="需求类型名称" />
+      <el-table-column prop="id" label="产品ID" />
+      <el-table-column prop="names" label="产品类型名称" />
       <el-table-column prop="createTime" label="创建时间">
         <template slot-scope="scope">
           <span
@@ -15,7 +15,7 @@
       <el-table-column prop="status_name" label="操作">
         <template slot-scope="scope">
           <el-tag
-            title="点击编辑需求类型"
+            title="点击编辑产品类型"
             type="success"
             style="cursor: pointer;"
             effect="dark"

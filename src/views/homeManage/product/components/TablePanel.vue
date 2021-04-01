@@ -4,8 +4,17 @@
       :data="list"
       border
     >
-      <el-table-column prop="id" label="需求ID" />
-      <el-table-column prop="names" label="需求类型名称" />
+      <el-table-column prop="id" label="产品ID" />
+      <el-table-column prop="title" label="产品标题" />
+      <el-table-column prop="describes" label="产品描述" />
+      <el-table-column label="优势封面" min-width="140px">
+        <template slot-scope="scope">
+          <img :src="scope.row.imgUrl" alt class="table-img" />
+        </template>
+      </el-table-column>
+      <el-table-column prop="url" label="产品跳转连接" />
+      <el-table-column prop="proTypeId" label="产品类型" />
+      <el-table-column prop="createUserName" label="创建管理员" />
       <el-table-column prop="createTime" label="创建时间">
         <template slot-scope="scope">
           <span
@@ -15,11 +24,11 @@
       <el-table-column prop="status_name" label="操作">
         <template slot-scope="scope">
           <el-tag
-            title="点击编辑需求类型"
+            title="点击编辑产品类型"
             type="success"
             style="cursor: pointer;"
             effect="dark"
-            @click="editData(scope.row.names,scope.row.id)"
+            @click="editData(scope.row)"
           >
             编辑
           </el-tag>
@@ -77,9 +86,9 @@ export default {
       const _this = this
       _this.$emit('handleSizeChange', size)
     },
-    editData (names, id) {
+    editData (data) {
       const _this = this
-      _this.$emit('handleEdit', { names, id })
+      _this.$emit('handleEdit', data)
     },
     handleResetPassword (id) {
       const _this = this

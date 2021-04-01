@@ -129,13 +129,13 @@ export const constantRoutes = [
       },
       {
         path: 'article',
-        component: () => import('@/views/journal/index'),
+        component: () => import('@/views/resource/article/index'),
         name: 'Article',
         meta: { title: '文章管理', icon: 'el-icon-tickets', affix: false }
       },
       {
         path: 'video',
-        component: () => import('@/views/journal/index'),
+        component: () => import('@/views/resource/video/index'),
         name: 'Video',
         meta: { title: '视频管理', icon: 'el-icon-video-camera', affix: false }
       }
@@ -152,26 +152,26 @@ export const constantRoutes = [
     children: [
       {
         path: 'banner',
-        component: () => import('@/views/journal/index'),
+        component: () => import('@/views/side/banner/index'),
         name: 'Banner',
         meta: { title: 'Banner位管理', icon: 'el-icon-picture', affix: false }
       },
       {
         path: 'sideHome',
         name: 'SideHome',
-        component: () => import('@/views/journal/testRouter'),
+        component: () => import('@/views/homeManage/index'),
         meta: { title: '首页', icon: 'el-icon-s-home', affix: false },
         redirect: '/side/banner',
         children: [
           {
             path: 'homeColumn',
-            component: () => import('@/views/journal/index'),
+            component: () => import('@/views/homeManage/demand/index'),
             name: 'HomeColumn',
             meta: { title: '首页产品类型', icon: 'el-icon-files', affix: false }
           },
           {
             path: 'homeList',
-            component: () => import('@/views/journal/index'),
+            component: () => import('@/views/homeManage/product/index'),
             name: 'HomeList',
             meta: { title: '首页产品列表', icon: 'el-icon-present', affix: false }
           }
@@ -186,19 +186,19 @@ export const constantRoutes = [
       {
         path: 'classroom',
         name: 'Classroom',
-        component: () => import('@/views/journal/testRouter'),
+        component: () => import('@/views/side/classRoom/index'),
         meta: { title: '学研课堂', icon: 'el-icon-school', affix: false },
         redirect: '/classroom/column',
         children: [
           {
             path: 'classroomColumn',
-            component: () => import('@/views/journal/index'),
+            component: () => import('@/views/side/classRoom/classType/index'),
             name: 'ClassroomColumn',
             meta: { title: '课程类别', icon: 'el-icon-coin', affix: false }
           },
           {
             path: 'classroomList',
-            component: () => import('@/views/journal/index'),
+            component: () => import('@/views/side/classRoom/classResource/index'),
             name: 'ClassroomList',
             meta: { title: '课程列表', icon: 'el-icon-s-data', affix: false }
           }
@@ -206,43 +206,43 @@ export const constantRoutes = [
       },
       {
         path: 'feature',
-        component: () => import('@/views/journal/index'),
+        component: () => import('@/views/side/feature/index'),
         name: 'Feature',
         meta: { title: '优势特色', icon: 'el-icon-share', affix: false }
       },
       {
         path: 'cooperation',
-        component: () => import('@/views/journal/index'),
+        component: () => import('@/views/side/global/index'),
         name: 'Cooperation',
         meta: { title: '全球合作', icon: 'el-icon-s-help', affix: false }
       },
       {
         path: 'service',
-        component: () => import('@/views/journal/index'),
+        component: () => import('@/views/side/miniapp/index'),
         name: 'Service',
         meta: { title: '小程序服务入口', icon: 'el-icon-apple', affix: false }
       },
       {
         path: 'qrcode',
-        component: () => import('@/views/journal/index'),
+        component: () => import('@/views/side/qr/index'),
         name: 'Qrcode',
         meta: { title: '二维码管理', icon: 'el-icon-s-grid', affix: false }
       },
       {
         path: 'about',
-        component: () => import('@/views/journal/index'),
+        component: () => import('@/views/side/about/index'),
         name: 'About',
         meta: { title: '关于我们', icon: 'el-icon-s-opportunity', affix: false }
       },
       {
         path: 'zoology',
-        component: () => import('@/views/journal/index'),
+        component: () => import('@/views/side/about/index'),
         name: 'Zoology',
         meta: { title: '合作生态', icon: 'el-icon-bangzhu', affix: false }
       },
       {
         path: 'client',
-        component: () => import('@/views/journal/index'),
+        component: () => import('@/views/side/about/index'),
         name: 'Client',
         meta: { title: '服务客户', icon: 'el-icon-hot-water', affix: false }
       }

@@ -4,8 +4,12 @@
       :data="list"
       border
     >
-      <el-table-column prop="id" label="需求ID" />
-      <el-table-column prop="names" label="需求类型名称" />
+      <el-table-column prop="id" label="视频ID" />
+      <el-table-column prop="videoName" label="视频名称" />
+      <el-table-column prop="author" label="作者" />
+      <el-table-column prop="needName" label="需求类型" />
+      <el-table-column prop="urls" label="视频链接" />
+      <el-table-column prop="createUserName" label="创建管理员" />
       <el-table-column prop="createTime" label="创建时间">
         <template slot-scope="scope">
           <span
@@ -19,7 +23,7 @@
             type="success"
             style="cursor: pointer;"
             effect="dark"
-            @click="editData(scope.row.names,scope.row.id)"
+            @click="editData(scope.row)"
           >
             编辑
           </el-tag>
@@ -77,9 +81,10 @@ export default {
       const _this = this
       _this.$emit('handleSizeChange', size)
     },
-    editData (names, id) {
+    editData (data) {
       const _this = this
-      _this.$emit('handleEdit', { names, id })
+      console.log(data.videoName)
+      _this.$emit('handleEdit', { names: data.videoName, needId: data.needId, id: data.id, author: data.author, urls: data.urls })
     },
     handleResetPassword (id) {
       const _this = this

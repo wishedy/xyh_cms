@@ -7,26 +7,46 @@
       label-width="110px"
     >
       <el-form-item
-        label="需求类型ID:"
+        label="产品ID:"
       >
         <el-input
           v-model="formData.id"
           class="search-box"
           type="text"
-          placeholder="请输入需求类型ID"
+          placeholder="请输入产品ID"
           @keyup.enter.native="handleSearch"
         />
       </el-form-item>
       <el-form-item
-        label="需求类型名称:"
+        label="产品名称:"
       >
         <el-input
-          v-model="formData.names"
+          v-model="formData.title"
           class="search-box"
           type="text"
-          placeholder="请输入需求类型名称"
+          placeholder="请输入产品名称"
           @keyup.enter.native="handleSearch"
         />
+      </el-form-item>
+      <el-form-item label="产品类型" prop="proTypeId">
+        <el-select v-model="formData.proTypeId" clearable placeholder="请选择" style="width:256px;"  auto-complete="off">
+          <el-option
+            v-for="item in demandList"
+            :key="item.id"
+            :label="item.names"
+            :value="item.id">
+          </el-option>
+        </el-select>
+      </el-form-item>
+      <el-form-item label="产品状态" prop="proTypeId">
+        <el-select v-model="formData.status" clearable placeholder="请选择" style="width:256px;"  auto-complete="off">
+          <el-option
+            v-for="item in status"
+            :key="item.value"
+            :label="item.name"
+            :value="item.value">
+          </el-option>
+        </el-select>
       </el-form-item>
       <el-form-item class="form-button-line block">
         <el-button
@@ -46,15 +66,37 @@
 <script>
 export default {
   name: 'SearchPanel',
+  props: {
+    demandList: {
+      default () {
+        return []
+      },
+      type: Array
+    }
+  },
   data () {
     return {
+      status: [
+        {
+          value: '0',
+          name: '下架'
+        },
+        {
+          value: '1',
+          name: '上架'
+        }
+      ],
       originalForm: {
         id: '',
-        names: ''
+        status: '',
+        proTypeId: '',
+        title: ''
       },
       formData: {
         id: '',
-        names: ''
+        status: '',
+        proTypeId: '',
+        title: ''
       }
     }
   },

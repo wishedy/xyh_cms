@@ -38,7 +38,7 @@ module.exports = {
     },
     proxy: {
       '/api': {
-        target: 'http://xue-api.xueyanhui.com',
+        target: 'https://xue-api.xueyanhui.com',
         changeOrigin: true,
         pathRewrite: {
           '^/api': '/api'

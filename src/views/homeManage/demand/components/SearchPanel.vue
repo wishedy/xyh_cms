@@ -7,24 +7,24 @@
       label-width="110px"
     >
       <el-form-item
-        label="需求类型ID:"
+        label="产品类型ID:"
       >
         <el-input
           v-model="formData.id"
           class="search-box"
           type="text"
-          placeholder="请输入需求类型ID"
+          placeholder="请输入产品类型ID"
           @keyup.enter.native="handleSearch"
         />
       </el-form-item>
       <el-form-item
-        label="需求类型名称:"
+        label="产品类型名称:"
       >
         <el-input
           v-model="formData.names"
           class="search-box"
           type="text"
-          placeholder="请输入需求类型名称"
+          placeholder="请输入产品类型名称"
           @keyup.enter.native="handleSearch"
         />
       </el-form-item>

@@ -30,10 +30,10 @@
           <span v-if="parseInt(scope.row.isManager,10)===1">是</span>
         </template>
       </el-table-column>
-      <el-table-column prop="registerTime" label="注册时间">
+      <el-table-column prop="createTime" label="注册时间">
         <template slot-scope="scope">
           <span
-          >{{moment(scope.row.registerTime).format("YYYY-MM-DD HH:mm:ss")}}</span>
+          >{{moment(scope.row.createTime).format("YYYY-MM-DD HH:mm:ss")}}</span>
         </template>
       </el-table-column>
       <el-table-column prop="status_name" label="操作"  fixed="right" align="center">
