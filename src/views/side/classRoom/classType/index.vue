@@ -24,7 +24,7 @@
 </template>
 <script>
 import HandleBar from '@/views/resource/demand/components/HandleBar'
-import { createClassType, getDemandList, updateClassType, getClassTypeList } from '@/resource'
+import { createClassType, updateClassType, getClassTypeList } from '@/resource'
 import EditPanel from './components/EditPanel'
 import SearchPanel from './components/SearchPanel'
 import TablePanel from './components/TablePanel'
@@ -38,7 +38,20 @@ export default {
   },
   data () {
     return {
-      demandList: [],
+      demandList: [
+        {
+          id: 1,
+          names: '专栏'
+        },
+        {
+          id: 2,
+          names: '标签'
+        },
+        {
+          id: 3,
+          names: '分类'
+        }
+      ],
       submitForm: {},
       editItemData: {},
       editType: 0,
@@ -51,7 +64,6 @@ export default {
   },
   mounted () {
     const _this = this
-    _this.getDemand()
     _this.getList()
   },
   methods: {
@@ -110,12 +122,6 @@ export default {
       const _this = this
       _this.pageNum = page
       _this.getList()
-    },
-    async getDemand () {
-      const _this = this
-      const res = await getDemandList()
-      console.log(res)
-      _this.demandList = res.result
     },
     async getList (form) {
       const _this = this
