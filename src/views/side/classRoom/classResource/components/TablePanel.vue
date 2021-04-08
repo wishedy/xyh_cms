@@ -4,8 +4,26 @@
       :data="list"
       border
     >
-      <el-table-column prop="id" label="需求ID" />
-      <el-table-column prop="names" label="需求类型名称" />
+      <el-table-column prop="id" label="课程ID" />
+      <el-table-column label="课程封面" min-width="140px">
+        <template slot-scope="scope">
+          <img :src="scope.row.imgUrl" alt class="table-img" />
+        </template>
+      </el-table-column>
+      <el-table-column prop="title" label="课程标题" />
+      <el-table-column prop="introduce" label="课程简介" />
+      <el-table-column prop="videoUrl" label="视频链接" />
+      <el-table-column prop="articleUrl" label="文章链接" />
+      <el-table-column prop="orderBy" label="排序" />
+      <el-table-column prop="resType" label="课程类型" :formatter="formatTypes"/>
+      <el-table-column prop="resId" label="资源ID"/>
+      <el-table-column prop="chargeType" label="收费类型" :formatter="formatChargeTypes"/>
+      <el-table-column prop="price" label="课程价格"/>
+      <el-table-column prop="shareNum" label="分享量"/>
+      <el-table-column prop="browseNum" label="浏览量"/>
+      <el-table-column prop="collNum" label="收藏量"/>
+      <el-table-column prop="goodNum" label="点赞"/>
+      <el-table-column prop="createUserName" label="创建管理员" />
       <el-table-column prop="createTime" label="创建时间">
         <template slot-scope="scope">
           <span
@@ -15,7 +33,7 @@
       <el-table-column prop="status_name" label="操作">
         <template slot-scope="scope">
           <el-tag
-            title="点击编辑需求类型"
+            title="点击编辑课程类型"
             type="success"
             style="cursor: pointer;"
             effect="dark"
@@ -72,6 +90,33 @@ export default {
   },
   methods: {
     moment,
+    formatTypes: function (row, column) {
+      let title = ''
+      switch (parseInt(row.resType)) {
+        case 1:
+          title = '文章'
+          break
+        case 2:
+          title = '视频'
+          break
+      }
+      return title
+    },
+    formatChargeTypes: function (row, column) {
+      let title = ''
+      switch (parseInt(row.resType)) {
+        case 1:
+          title = '全员免费'
+          break
+        case 2:
+          title = '会员免费'
+          break
+        case 3:
+          title = '收费'
+          break
+      }
+      return title
+    },
     handleSizeChange (size) {
       console.log(size)
       const _this = this

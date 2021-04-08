@@ -7,33 +7,43 @@
       label-width="110px"
     >
       <el-form-item
-        label="课程类别ID:"
+        label="课程ID:"
       >
         <el-input
           v-model="formData.id"
           class="search-box"
           type="text"
-          placeholder="请输入课程类别ID"
+          placeholder="请输入课程ID"
           @keyup.enter.native="handleSearch"
         />
       </el-form-item>
       <el-form-item
-        label="课程类别名称:"
+        label="课程名称:"
       >
         <el-input
-          v-model="formData.names"
+          v-model="formData.title"
           class="search-box"
           type="text"
-          placeholder="请输入课程类别名称"
+          placeholder="请输入课程名称"
           @keyup.enter.native="handleSearch"
         />
       </el-form-item>
-      <el-form-item label="需求类型" prop="needId">
-        <el-select v-model="formData.needId" clearable placeholder="请选择" style="width:256px;"  auto-complete="off">
+      <el-form-item label="资源类型" prop="resType">
+        <el-select v-model="formData.resType" clearable placeholder="请选择" style="width:256px;"  auto-complete="off">
           <el-option
-            v-for="item in demandList"
+            v-for="item in resTypeList"
             :key="item.id"
-            :label="item.names"
+            :label="item.title"
+            :value="item.id">
+          </el-option>
+        </el-select>
+      </el-form-item>
+      <el-form-item label="收费类型" prop="resType">
+        <el-select v-model="formData.chargeType" clearable placeholder="请选择" style="width:256px;"  auto-complete="off">
+          <el-option
+            v-for="item in chargeTypeList"
+            :key="item.id"
+            :label="item.title"
             :value="item.id">
           </el-option>
         </el-select>
@@ -66,15 +76,38 @@ export default {
   },
   data () {
     return {
+      resTypeList: [
+        {
+          id: 1,
+          title: '文章'
+        }, {
+          id: 2,
+          title: '视频'
+        }
+      ],
+      chargeTypeList: [
+        {
+          id: 1,
+          title: '全员免费'
+        }, {
+          id: 2,
+          title: '会员免费'
+        }, {
+          id: 3,
+          title: '收费'
+        }
+      ],
       originalForm: {
         id: '',
-        needId: '',
-        names: ''
+        resType: '',
+        chargeType: '',
+        title: ''
       },
       formData: {
         id: '',
-        needId: '',
-        names: ''
+        resType: '',
+        chargeType: '',
+        title: ''
       }
     }
   },

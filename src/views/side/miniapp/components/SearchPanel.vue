@@ -21,7 +21,7 @@
         label="入口名称:"
       >
         <el-input
-          v-model="formData.names"
+          v-model="formData.title"
           class="search-box"
           type="text"
           placeholder="请输入入口名称"
@@ -59,12 +59,12 @@ export default {
       originalForm: {
         id: '',
         needId: '',
-        names: ''
+        title: ''
       },
       formData: {
         id: '',
         needId: '',
-        names: ''
+        title: ''
       }
     }
   },

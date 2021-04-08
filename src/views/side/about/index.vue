@@ -41,6 +41,7 @@ export default {
         }
 
       },
+      id: '',
       contents: '',
       demandList: [],
       editItemData: {},
@@ -84,7 +85,7 @@ export default {
       }).then(async () => {
         try {
           const form = {
-            id: _this.contentType[_this.$route.name],
+            id: _this.id,
             introduce: _this.contents
           }
           const res = await updateAbout(form)
@@ -117,7 +118,8 @@ export default {
     async getList () {
       const _this = this
       const res = await getAboutList({ type: _this.contentType[_this.$route.name] })
-      _this.contents = res.result ? '' : res.result
+      _this.contents = res.result && res.result.introduce ? res.result.introduce : ''
+      _this.id = res.result.id
     },
     openEditPanel () {
       this.visible = true

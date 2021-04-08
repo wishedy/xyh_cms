@@ -17,6 +17,9 @@
       :visible.sync="visible"
       @submit="handleSubmit"
       :demandList="demandList"
+      :itemize="itemize"
+      :label="label"
+      :column="column"
       :editItemData="editItemData"
       @handleCancel="closeEditPanel"
       :editType="editType"/>
@@ -24,7 +27,7 @@
 </template>
 <script>
 import HandleBar from '@/views/resource/demand/components/HandleBar'
-import { createClassResource, getDemandList, updateClassResource, getClassResourceList } from '@/resource'
+import { getClassTypeList, createClassResource, getDemandList, updateClassResource, getClassResourceList } from '@/resource'
 import EditPanel from './components/EditPanel'
 import SearchPanel from './components/SearchPanel'
 import TablePanel from './components/TablePanel'
@@ -39,6 +42,9 @@ export default {
   data () {
     return {
       demandList: [],
+      itemize: [],
+      label: [],
+      column: [],
       submitForm: {},
       editItemData: {},
       editType: 0,
@@ -53,8 +59,18 @@ export default {
     const _this = this
     _this.getDemand()
     _this.getList()
+    _this.getTypeList()
   },
   methods: {
+    async getTypeList () {
+      const _this = this
+      const itemize = await getClassTypeList({ types: 1 })
+      const label = await getClassTypeList({ types: 2 })
+      const column = await getClassTypeList({ types: 3 })
+      _this.itemize = itemize.result
+      _this.label = label.result
+      _this.column = column.result
+    },
     handleSubmit (form) {
       const _this = this
       _this.submitForm = form

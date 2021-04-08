@@ -2,42 +2,63 @@
   <BaseDrawer
     :visible="visible"
     :show-footer="true"
-    :names="editTypeNames"
+    :title="editTypetitle"
     width="650px"
     @confirm="handleConfirm"
     @cancel="$emit('handleCancel')"
     @close="$emit('handleCancel')"
   >
     <el-form :model="ruleForm" status-icon :rules="rules" ref="editForm" label-width="120px" class="demo-ruleForm">
-      <el-form-item label="课程名" prop="names">
-        <el-input  v-model="ruleForm.names" autocomplete="off"></el-input>
+      <el-form-item label="课程名" prop="title">
+        <el-input  v-model="ruleForm.title" autocomplete="off"></el-input>
       </el-form-item>
-      <el-form-item label="文章跳转链接" prop="names">
-        <el-input  v-model="ruleForm.names" autocomplete="off"></el-input>
-      </el-form-item>
-      <el-form-item label="视频链接" prop="names">
-        <el-input  v-model="ruleForm.names" autocomplete="off"></el-input>
-      </el-form-item>
-      <el-form-item label="类别排序" prop="orderBy">
-        <el-input-number v-model="ruleForm.orderBy" :min="1" label="请输入排序"></el-input-number>
-      </el-form-item>
-    <el-form-item label="描述简介" prop="names">
-      <el-input  v-model="ruleForm.names" autocomplete="off"></el-input>
-    </el-form-item>
-      <el-form-item label="资源类型" prop="types">
-        <el-radio-group v-model="ruleForm.types">
-          <el-radio label="1">专栏</el-radio>
-          <el-radio label="2">标签</el-radio>
-          <el-radio label="3">分类</el-radio>
+      <el-form-item label="资源类型" prop="resType">
+        <el-radio-group v-model="ruleForm.resType">
+          <el-radio label="2">视频</el-radio>
+          <el-radio label="1">文章</el-radio>
         </el-radio-group>
       </el-form-item>
+      <el-form-item label="文章跳转链接" prop="articleUrl" v-if="parseInt(ruleForm.resType,10)===1">
+        <el-input  v-model="ruleForm.articleUrl" autocomplete="off"></el-input>
+      </el-form-item>
+      <el-form-item label="视频链接" prop="videoUrl" v-if="parseInt(ruleForm.resType,10)===2">
+        <el-input  v-model="ruleForm.videoUrl" autocomplete="off"></el-input>
+      </el-form-item>
+      <el-form-item label="收费类型" prop="chargeType">
+        <el-radio-group v-model="ruleForm.chargeType">
+          <el-radio label="1">全员免费</el-radio>
+          <el-radio label="2">会员免费</el-radio>
+          <el-radio label="3">收费</el-radio>
+        </el-radio-group>
+      </el-form-item>
+      <el-form-item label="课程标签" prop="labelList" v-if="label&&label.length">
+        <el-checkbox-group v-model="ruleForm.labelList">
+          <el-checkbox :label="item.id" name="labelList" v-for="(item) in label" :key="item.id">{{item.names}}</el-checkbox>
+        </el-checkbox-group>
+      </el-form-item>
+      <el-form-item label="课程专栏" prop="columnList" v-if="column&&column.length">
+        <el-checkbox-group v-model="ruleForm.columnList">
+          <el-checkbox :label="item.id" name="columnList" v-for="(item) in column" :key="item.id">{{item.names}}</el-checkbox>
+        </el-checkbox-group>
+      </el-form-item>
+      <el-form-item label="课程分类" prop="itemizeList" v-if="itemize&&itemize.length">
+        <el-checkbox-group v-model="ruleForm.itemizeList">
+          <el-checkbox :label="item.id" name="itemizeList" v-for="(item) in itemize" :key="item.id">{{item.names}}</el-checkbox>
+        </el-checkbox-group>
+      </el-form-item>
       <el-form-item label="类别排序" prop="orderBy">
         <el-input-number v-model="ruleForm.orderBy" :min="1" label="请输入排序"></el-input-number>
       </el-form-item>
-      <el-form-item label="资源ID" prop="names">
-        <el-input  v-model="ruleForm.names" autocomplete="off"></el-input>
+    <el-form-item label="描述简介" prop="introduce">
+      <el-input  v-model="ruleForm.introduce" autocomplete="off"></el-input>
+    </el-form-item>
+      <el-form-item label="资源ID" prop="title">
+        <el-input  v-model="ruleForm.resId" autocomplete="off"></el-input>
       </el-form-item>
-      <el-form-item label="课程封面" prop="url">
+      <el-form-item label="资源价格" prop="price">
+        <el-input  v-model="ruleForm.price" autocomplete="off"></el-input>
+      </el-form-item>
+      <el-form-item label="课程封面" prop="imgUrl">
         <el-upload
           class="avatar-uploader"
           action="/api/upload/uploadImg"
@@ -75,6 +96,24 @@ export default {
       },
       type: Array
     },
+    itemize: {
+      default () {
+        return []
+      },
+      type: Array
+    },
+    label: {
+      default () {
+        return []
+      },
+      type: Array
+    },
+    column: {
+      default () {
+        return []
+      },
+      type: Array
+    },
     editItemData: {
       default () {
         return {}
@@ -87,7 +126,7 @@ export default {
     }
   },
   computed: {
-    editTypeNames () {
+    editTypetitle () {
       const _this = this
       return parseInt(_this.editType, 10) === 1 ? '编辑课程类别' : '新建课程类别'
     }
@@ -105,25 +144,71 @@ export default {
   },
   data () {
     return {
-      imageUrl: '11111',
       ruleForm: {
         id: '',
         orderBy: '',
-        names: '',
-        types: ''
+        price: '',
+        chargeType: '',
+        imgUrl: '',
+        articleUrl: '',
+        videoUrl: '',
+        resId: '',
+        introduce: '',
+        labelList: [],
+        columnList: [],
+        itemizeList: [],
+        title: '',
+        resType: ''
       },
       originalForm: {
         id: '',
-        types: '',
+        resType: '',
+        price: '',
+        imgUrl: '',
+        introduce: '',
+        articleUrl: '',
+        videoUrl: '',
+        chargeType: '',
+        resId: '',
         orderBy: '',
-        names: ''
+        labelList: [],
+        columnList: [],
+        itemizeList: [],
+        title: ''
       },
       rules: {
-        names: [
-          { required: true, message: '请输入课程类别名称', trigger: 'blur' }
+        title: [
+          { required: true, message: '请输入课程名称', trigger: 'blur' }
         ],
-        types: [
+        introduce: [
+          { required: true, message: '请输入课程简介', trigger: 'blur' }
+        ],
+        labelList: [
+          { required: true, message: '请选择课程标签', trigger: 'blur' }
+        ],
+        columnList: [
+          { required: true, message: '请选择课程专栏', trigger: 'blur' }
+        ],
+        itemizeList: [
+          { required: true, message: '请选择课程分类', trigger: 'blur' }
+        ],
+        videoUrl: [
+          { required: true, message: '请输入视频链接', trigger: 'blur' }
+        ],
+        articleUrl: [
+          { required: true, message: '请输入文章链接', trigger: 'blur' }
+        ],
+        imgUrl: [
+          { required: true, message: '请上传课程封面', trigger: 'blur' }
+        ],
+        resType: [
           { required: true, message: '请选择课程类别维度', trigger: 'blur' }
+        ],
+        price: [
+          { required: true, message: '请输入课程价格', trigger: 'blur' }
+        ],
+        chargeType: [
+          { required: true, message: '请选择付费类型', trigger: 'blur' }
         ],
         orderBy: [
           { required: true, message: '请输入课程类别排序', trigger: 'blur' }
@@ -132,8 +217,13 @@ export default {
     }
   },
   methods: {
+    deleteVideo () {
+      const _this = this
+      _this.ruleForm.imgUrl = ''
+    },
     handleAvatarSuccess (res, file) {
       const _this = this
+      console.log(res)
       if (res && parseInt(res.code, 10) === 200) {
         _this.ruleForm.imgUrl = res.result.url
       }
