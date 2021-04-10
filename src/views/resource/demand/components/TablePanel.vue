@@ -6,6 +6,7 @@
     >
       <el-table-column prop="id" label="需求ID" />
       <el-table-column prop="names" label="需求类型名称" />
+      <el-table-column prop="status" label="需求类型状态" :formatter="formatStatus"/>
       <el-table-column prop="createTime" label="创建时间">
         <template slot-scope="scope">
           <span
@@ -19,9 +20,31 @@
             type="success"
             style="cursor: pointer;"
             effect="dark"
+            class="tag-btn"
             @click="editData(scope.row.names,scope.row.id)"
           >
             编辑
+          </el-tag>
+          <el-tag
+            title="点击上架需求类型"
+            style="cursor: pointer;"
+            effect="dark"
+            v-if="parseInt(scope.row.status,10)===0"
+            class="tag-btn"
+            @click="updateStatus(scope.row)"
+          >
+            上架
+          </el-tag>
+          <el-tag
+            title="点击下架需求类型"
+            style="cursor: pointer;"
+            effect="dark"
+            type="danger"
+            v-if="parseInt(scope.row.status,10)===1"
+            class="tag-btn"
+            @click="updateStatus(scope.row)"
+          >
+            下架
           </el-tag>
         </template>
       </el-table-column>
@@ -72,6 +95,18 @@ export default {
   },
   methods: {
     moment,
+    formatStatus (row) {
+      let title = ''
+      switch (parseInt(row.status, 10)) {
+        case 0:
+          title = '下架'
+          break
+        case 1:
+          title = '上架'
+          break
+      }
+      return title
+    },
     handleSizeChange (size) {
       console.log(size)
       const _this = this
@@ -80,6 +115,10 @@ export default {
     editData (names, id) {
       const _this = this
       _this.$emit('handleEdit', { names, id })
+    },
+    updateStatus (data) {
+      const _this = this
+      _this.$emit('handleStatus', data)
     },
     handleResetPassword (id) {
       const _this = this

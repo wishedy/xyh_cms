@@ -6,6 +6,7 @@
     >
       <el-table-column prop="id" label="视频ID" />
       <el-table-column prop="videoName" label="视频名称" />
+      <el-table-column prop="status" label="视频状态" :formatter="formatStatus"/>
       <el-table-column prop="author" label="作者" />
       <el-table-column prop="needName" label="需求类型" />
       <el-table-column prop="urls" label="视频链接" />
@@ -26,6 +27,27 @@
             @click="editData(scope.row)"
           >
             编辑
+          </el-tag>
+          <el-tag
+            title="点击上架视频资源"
+            style="cursor: pointer;"
+            effect="dark"
+            v-if="parseInt(scope.row.status,10)===0"
+            class="tag-btn"
+            @click="updateStatus(scope.row)"
+          >
+            上架
+          </el-tag>
+          <el-tag
+            title="点击下架视频资源"
+            style="cursor: pointer;"
+            effect="dark"
+            type="danger"
+            v-if="parseInt(scope.row.status,10)===1"
+            class="tag-btn"
+            @click="updateStatus(scope.row)"
+          >
+            下架
           </el-tag>
         </template>
       </el-table-column>
@@ -76,6 +98,22 @@ export default {
   },
   methods: {
     moment,
+    formatStatus (row) {
+      let title = ''
+      switch (parseInt(row.status, 10)) {
+        case 0:
+          title = '下架'
+          break
+        case 1:
+          title = '上架'
+          break
+      }
+      return title
+    },
+    updateStatus (data) {
+      const _this = this
+      _this.$emit('handleStatus', data)
+    },
     handleSizeChange (size) {
       console.log(size)
       const _this = this

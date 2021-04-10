@@ -11,6 +11,7 @@
         </template>
       </el-table-column>
       <el-table-column prop="title" label="课程标题" />
+      <el-table-column prop="status" label="课程状态" :formatter="formatStatus"/>
       <el-table-column prop="introduce" label="课程简介" />
       <el-table-column prop="videoUrl" label="视频链接" />
       <el-table-column prop="articleUrl" label="文章链接" />
@@ -37,9 +38,30 @@
             type="success"
             style="cursor: pointer;"
             effect="dark"
-            @click="editData(scope.row.names,scope.row.id)"
+            @click="editData(scope.row)"
           >
             编辑
+          </el-tag>
+          <el-tag
+            title="点击上架课程"
+            style="cursor: pointer;"
+            effect="dark"
+            v-if="parseInt(scope.row.status,10)===0"
+            class="tag-btn"
+            @click="updateStatus(scope.row)"
+          >
+            上架
+          </el-tag>
+          <el-tag
+            title="点击下架课程"
+            style="cursor: pointer;"
+            effect="dark"
+            type="danger"
+            v-if="parseInt(scope.row.status,10)===1"
+            class="tag-btn"
+            @click="updateStatus(scope.row)"
+          >
+            下架
           </el-tag>
         </template>
       </el-table-column>
@@ -90,6 +112,22 @@ export default {
   },
   methods: {
     moment,
+    formatStatus (row) {
+      let title = ''
+      switch (parseInt(row.status, 10)) {
+        case 0:
+          title = '下架'
+          break
+        case 1:
+          title = '上架'
+          break
+      }
+      return title
+    },
+    updateStatus (data) {
+      const _this = this
+      _this.$emit('handleStatus', data)
+    },
     formatTypes: function (row, column) {
       let title = ''
       switch (parseInt(row.resType)) {
@@ -122,9 +160,21 @@ export default {
       const _this = this
       _this.$emit('handleSizeChange', size)
     },
-    editData (names, id) {
+    editData (data) {
       const _this = this
-      _this.$emit('handleEdit', { names, id })
+      const formattingList = (list) => {
+        const originalList = JSON.parse(JSON.stringify(list))
+        const resultList = []
+        for (let num = 0; num < originalList.length; num++) {
+          const item = originalList[num]
+          resultList.push(item.id)
+        }
+        return resultList
+      }
+      data.columnList = formattingList(data.columnList)
+      data.labelList = formattingList(data.labelList)
+      data.itemizeList = formattingList(data.itemizeList)
+      _this.$emit('handleEdit', data)
     },
     handleResetPassword (id) {
       const _this = this

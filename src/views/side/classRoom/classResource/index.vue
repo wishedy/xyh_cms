@@ -7,6 +7,7 @@
     <HandleBar @handleCreate="createData"/>
     <TablePanel
       @handleEdit="editData"
+      @handleStatus="updateStatus"
       :pageSize="pageSize"
       :pageNum="pageNum"
       :total="total"
@@ -27,7 +28,13 @@
 </template>
 <script>
 import HandleBar from '@/views/resource/demand/components/HandleBar'
-import { getClassTypeList, createClassResource, getDemandList, updateClassResource, getClassResourceList } from '@/resource'
+import {
+  getClassTypeList,
+  createClassResource,
+  getDemandList,
+  updateClassResource,
+  getClassResourceList
+} from '@/resource'
 import EditPanel from './components/EditPanel'
 import SearchPanel from './components/SearchPanel'
 import TablePanel from './components/TablePanel'
@@ -62,11 +69,35 @@ export default {
     _this.getTypeList()
   },
   methods: {
+    updateStatus (data) {
+      const _this = this
+      const warn = parseInt(data.status, 10) === 1 ? '下架该课程资源' : '上架该课程资源'
+      const form = {
+        id: data.id,
+        status: parseInt(data.status, 10) === 1 ? '0' : '1'
+      }
+      _this.$confirm(`请确认${warn}？`, {
+        confirmButtonText: '确定',
+        cancelButtonText: '取消',
+        type: 'warning'
+      }).then(async () => {
+        try {
+          await updateClassResource(form)
+          _this.$message({
+            message: '操作已完成',
+            type: 'success'
+          })
+          _this.handleAfterRequest()
+        } catch (e) {
+          _this.$message.error(e.msg)
+        }
+      }).catch(() => {})
+    },
     async getTypeList () {
       const _this = this
-      const itemize = await getClassTypeList({ types: 1 })
+      const column = await getClassTypeList({ types: 1 })
       const label = await getClassTypeList({ types: 2 })
-      const column = await getClassTypeList({ types: 3 })
+      const itemize = await getClassTypeList({ types: 3 })
       _this.itemize = itemize.result
       _this.label = label.result
       _this.column = column.result

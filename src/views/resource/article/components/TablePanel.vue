@@ -6,6 +6,7 @@
     >
       <el-table-column prop="id" label="文章ID" />
       <el-table-column prop="names" label="文章名称" />
+      <el-table-column prop="status" label="文章状态" :formatter="formatStatus"/>
       <el-table-column prop="needName" label="需求类型" />
       <el-table-column prop="introduce" label="文章简介" />
       <el-table-column prop="author" label="作者" />
@@ -32,6 +33,27 @@
             @click="editData(scope.row)"
           >
             编辑
+          </el-tag>
+          <el-tag
+            title="点击上架文章资源"
+            style="cursor: pointer;"
+            effect="dark"
+            v-if="parseInt(scope.row.status,10)===0"
+            class="tag-btn"
+            @click="updateStatus(scope.row)"
+          >
+            上架
+          </el-tag>
+          <el-tag
+            title="点击下架文章资源"
+            style="cursor: pointer;"
+            effect="dark"
+            type="danger"
+            v-if="parseInt(scope.row.status,10)===1"
+            class="tag-btn"
+            @click="updateStatus(scope.row)"
+          >
+            下架
           </el-tag>
         </template>
       </el-table-column>
@@ -82,10 +104,26 @@ export default {
   },
   methods: {
     moment,
+    formatStatus (row) {
+      let title = ''
+      switch (parseInt(row.status, 10)) {
+        case 0:
+          title = '下架'
+          break
+        case 1:
+          title = '上架'
+          break
+      }
+      return title
+    },
     handleSizeChange (size) {
       console.log(size)
       const _this = this
       _this.$emit('handleSizeChange', size)
+    },
+    updateStatus (data) {
+      const _this = this
+      _this.$emit('handleStatus', data)
     },
     editData (data) {
       const _this = this

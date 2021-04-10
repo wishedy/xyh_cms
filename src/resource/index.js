@@ -136,3 +136,6 @@ export function getProductList (params) {
 export function updateProduct (params) {
   return api.post('/api/product/update', params)
 }
+export function getUserDemandList (params) {
+  return api.post('/api/userNeed/assignFollowUser', params)
+}

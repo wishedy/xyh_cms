@@ -4,6 +4,7 @@
     <HandleBar @handleCreate="createData"/>
     <TablePanel
       @handleEdit="editData"
+      @handleStatus="updateStatus"
       :pageSize="pageSize"
       :pageNum="pageNum"
       :total="total"
@@ -128,6 +129,30 @@ export default {
       this.editType = 0
       this.editItemData = {}
       this.openEditPanel()
+    },
+    updateStatus (data) {
+      const _this = this
+      const warn = parseInt(data.status, 10) === 1 ? '下架该需求类型' : '上架该需求类型'
+      const form = {
+        id: data.id,
+        status: parseInt(data.status, 10) === 1 ? 0 : 1
+      }
+      _this.$confirm(`请确认${warn}？`, {
+        confirmButtonText: '确定',
+        cancelButtonText: '取消',
+        type: 'warning'
+      }).then(async () => {
+        try {
+          await updateDemand(form)
+          _this.$message({
+            message: '操作已完成',
+            type: 'success'
+          })
+          _this.handleAfterRequest()
+        } catch (e) {
+          _this.$message.error(e.msg)
+        }
+      }).catch(() => {})
     },
     editData (form) {
       this.editType = 1

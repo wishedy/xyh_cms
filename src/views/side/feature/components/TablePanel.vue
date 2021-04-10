@@ -6,6 +6,7 @@
     >
       <el-table-column prop="id" label="优势ID" />
       <el-table-column prop="title" label="优势名称" />
+      <el-table-column prop="status" label="优势状态" :formatter="formatStatus"/>
       <el-table-column label="优势封面" min-width="140px">
         <template slot-scope="scope">
           <img :src="scope.row.imgUrl" alt class="table-img" />
@@ -30,6 +31,27 @@
             @click="editData(scope.row.title,scope.row.id)"
           >
             编辑
+          </el-tag>
+          <el-tag
+            title="点击上架Banner位"
+            style="cursor: pointer;"
+            effect="dark"
+            v-if="parseInt(scope.row.status,10)===0"
+            class="tag-btn"
+            @click="updateStatus(scope.row)"
+          >
+            上架
+          </el-tag>
+          <el-tag
+            title="点击下架Banner位"
+            style="cursor: pointer;"
+            effect="dark"
+            type="danger"
+            v-if="parseInt(scope.row.status,10)===1"
+            class="tag-btn"
+            @click="updateStatus(scope.row)"
+          >
+            下架
           </el-tag>
         </template>
       </el-table-column>
@@ -80,6 +102,22 @@ export default {
   },
   methods: {
     moment,
+    formatStatus (row) {
+      let title = ''
+      switch (parseInt(row.status, 10)) {
+        case 0:
+          title = '下架'
+          break
+        case 1:
+          title = '上架'
+          break
+      }
+      return title
+    },
+    updateStatus (data) {
+      const _this = this
+      _this.$emit('handleStatus', data)
+    },
     handleSizeChange (size) {
       console.log(size)
       const _this = this

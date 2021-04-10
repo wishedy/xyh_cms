@@ -4,6 +4,7 @@
     <HandleBar @handleCreate="createData"/>
     <TablePanel
       @handleEdit="editData"
+      @handleStatus="updateStatus"
       :pageSize="pageSize"
       :pageNum="pageNum"
       :total="total"
@@ -58,6 +59,30 @@ export default {
       } else {
         _this.handleEditConfirm()
       }
+    },
+    updateStatus (data) {
+      const _this = this
+      const warn = parseInt(data.status, 10) === 1 ? '下架该产品类型' : '上架该产品类型'
+      const form = {
+        id: data.id,
+        status: parseInt(data.status, 10) === 1 ? '0' : '1'
+      }
+      _this.$confirm(`请确认${warn}？`, {
+        confirmButtonText: '确定',
+        cancelButtonText: '取消',
+        type: 'warning'
+      }).then(async () => {
+        try {
+          await updateProductType(form)
+          _this.$message({
+            message: '操作已完成',
+            type: 'success'
+          })
+          _this.handleAfterRequest()
+        } catch (e) {
+          _this.$message.error(e.msg)
+        }
+      }).catch(() => {})
     },
     async handleAddRequest () {
       const _this = this

@@ -71,9 +71,13 @@ export default {
   methods: {
     handleSizeChange (size) {
       console.log(size)
+      const _this = this
+      _this.$emit('handleSizeChange', size)
     },
     handleCurrentChange (page) {
       console.log(page)
+      const _this = this
+      _this.$emit('handlePageChange', page)
     }
   }
 }

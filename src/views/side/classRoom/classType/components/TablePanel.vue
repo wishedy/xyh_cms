@@ -6,6 +6,7 @@
     >
       <el-table-column prop="id" label="类别ID" />
       <el-table-column prop="names" label="类别名称" />
+      <el-table-column prop="status" label="类别状态" :formatter="formatStatus"/>
       <el-table-column prop="createUserName" label="创建管理员" />
       <el-table-column prop="orderBy" label="排序" />
       <el-table-column prop="types" label="类别" :formatter="formatTypes"/>
@@ -25,6 +26,27 @@
             @click="editData(scope.row)"
           >
             编辑
+          </el-tag>
+          <el-tag
+            title="点击上架课程类别"
+            style="cursor: pointer;"
+            effect="dark"
+            v-if="parseInt(scope.row.status,10)===0"
+            class="tag-btn"
+            @click="updateStatus(scope.row)"
+          >
+            上架
+          </el-tag>
+          <el-tag
+            title="点击下架课程类别"
+            style="cursor: pointer;"
+            effect="dark"
+            type="danger"
+            v-if="parseInt(scope.row.status,10)===1"
+            class="tag-btn"
+            @click="updateStatus(scope.row)"
+          >
+            下架
           </el-tag>
         </template>
       </el-table-column>
@@ -75,6 +97,22 @@ export default {
   },
   methods: {
     moment,
+    formatStatus (row) {
+      let title = ''
+      switch (parseInt(row.status, 10)) {
+        case 0:
+          title = '下架'
+          break
+        case 1:
+          title = '上架'
+          break
+      }
+      return title
+    },
+    updateStatus (data) {
+      const _this = this
+      _this.$emit('handleStatus', data)
+    },
     formatTypes: function (row, column) {
       let title = ''
       switch (parseInt(row.types)) {
