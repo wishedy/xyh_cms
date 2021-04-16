@@ -24,7 +24,7 @@
   </section>
 </template>
 <script>
-import HandleBar from '@/views/resource/demand/components/HandleBar'
+import HandleBar from '@/views/homeManage/product/components/HandleBar'
 import { createProduct, getProductTypeList, updateProduct, getProductList } from '@/resource'
 import EditPanel from './components/EditPanel'
 import SearchPanel from './components/SearchPanel'

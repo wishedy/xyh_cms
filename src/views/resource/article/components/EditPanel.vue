@@ -42,11 +42,13 @@
   </BaseDrawer>
 </template>
 <script>
+// import { quillRedefine } from 'vue-quill-editor-upload'
 import BaseDrawer from '@/components/Drawer/BaseDrawer'
 export default {
   name: 'EditPanel',
   components: {
     BaseDrawer
+    // quillRedefine
   },
   props: {
     editType: {
@@ -73,6 +75,9 @@ export default {
     }
   },
   computed: {
+    editor () {
+      return this.$refs.myQuillEditor.quill
+    },
     editTypeTitle () {
       const _this = this
       return parseInt(_this.editType, 10) === 1 ? '编辑文章' : '新建文章'
@@ -90,6 +95,30 @@ export default {
       }
     }
   },
+  /* created () {
+    const _this = this
+    _this.editorOption = quillRedefine(
+      {
+        // 图片上传的设置
+        uploadConfig: {
+          action: '/api/upload/uploadImg', // 必填参数 图片上传地址
+          // 必选参数  res是一个函数，函数接收的response为上传成功时服务器返回的数据
+          // 你必须把返回的数据中所包含的图片地址 return 回去
+          res: (response) => {
+            /!* console.log(response)
+            const path = response.path// 这里return你的图片地址即可
+            return path *!/
+            console.log(response)
+          },
+          name: 'img' // 图片上传参数名
+        },
+        toolOptions: [
+          [{ color: [] }, { background: [] }],
+          ['image']
+        ]
+      }
+    )
+  }, */
   data () {
     return {
       editorOption: {

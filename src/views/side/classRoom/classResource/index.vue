@@ -27,7 +27,7 @@
   </section>
 </template>
 <script>
-import HandleBar from '@/views/resource/demand/components/HandleBar'
+import HandleBar from '@/views/side/classRoom/classResource/components/HandleBar'
 import {
   getClassTypeList,
   createClassResource,

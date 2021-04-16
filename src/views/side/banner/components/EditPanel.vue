@@ -15,7 +15,7 @@
       <el-form-item label="跳转连接" prop="url">
         <el-input  v-model="ruleForm.url" autocomplete="off"></el-input>
       </el-form-item>
-      <el-form-item label="展示页面">
+      <el-form-item label="展示页面" prop="showType">
         <el-radio-group v-model="ruleForm.showType">
           <el-radio label="1">PC首页</el-radio>
           <el-radio label="10">小程序</el-radio>

@@ -20,7 +20,7 @@
   </section>
 </template>
 <script>
-import HandleBar from '@/views/resource/demand/components/HandleBar'
+import HandleBar from '@/views/side/feature/components/HandleBar'
 import { createFeature, getFeatureList, updateFeature } from '@/resource'
 import EditPanel from './components/EditPanel'
 import SearchPanel from './components/SearchPanel'

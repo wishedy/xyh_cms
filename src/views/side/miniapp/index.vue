@@ -24,7 +24,7 @@
   </section>
 </template>
 <script>
-import HandleBar from '@/views/resource/demand/components/HandleBar'
+import HandleBar from '@/views/side/miniapp/components/HandleBar'
 import { createMiniAppEntrance, updateMiniAppEntrance, getMiniAppEntranceList } from '@/resource'
 import EditPanel from './components/EditPanel'
 import SearchPanel from './components/SearchPanel'

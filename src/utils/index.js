@@ -2,6 +2,8 @@
  * Created by PanJiaChen on 16/11/18.
  */
 
+import {getArticleList, getVideoList} from "@/resource";
+
 /**
  * Parse the time to string
  * @param {(Object|string|number)} time
@@ -401,4 +403,37 @@ export const json2Query = function (json) {
 }
 export const getBasicAuth = (token) => {
   return token ? 'login_tokens:' + token : ''
+}
+export const checkResource = (param)=>{
+const productType = parseInt(param.type,10)//0首页产品，1课程资源
+  const resType = parseInt(param.resType,10)
+  let checkResType = 1//1视频2文章
+  return new Promise(async (resolve,reject)=>{
+    if(productType===0){
+      checkResType = resType
+    }else if(productType===2){
+      if(resType===1){
+        checkResType=2
+      }else if(resType===2){
+        checkResType=1
+      }
+    }
+    if(checkResType===1){
+      //检查是否有视频资源
+      try {
+        const res = await getVideoList({id:param.id})
+        console.log(res)
+      }catch (e){
+        reject(e)
+      }
+    }else if(checkResType===2){
+      //检查是否有文章资源
+      try {
+        const res = await getArticleList({id:param.id})
+        console.log(res)
+      }catch (e){
+        reject(e)
+      }
+    }
+  })
 }
