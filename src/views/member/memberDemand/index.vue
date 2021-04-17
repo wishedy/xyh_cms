@@ -1,22 +1,26 @@
 <template>
   <section class="el-main">
-    <SearchPanel @handleSearch="getList"/>
-    <TablePanel @handleEdit="editData"
-                :pageSize="pageSize"
-                :pageNum="pageNum"
-                :total="total"
-                :list="list"
-                @handleSizeChange="handleSizeChange"
-                @handlePageChange="handlePageChange"
+    <SearchPanel
+      @handleSearch="getList"
+      :demandList="demandList"
+    />
+    <TablePanel
+      @handleEdit="editData"
+      :pageSize="pageSize"
+      :pageNum="pageNum"
+      :total="total"
+      :list="list"
+      @handleSizeChange="handleSizeChange"
+      @handlePageChange="handlePageChange"
     />
     <EditPanel :visible.sync="visible" @handleCancel="closeEditPanel" />
   </section>
 </template>
 <script>
+import { getDemandList, getUserDemandList } from '@/resource'
 import EditPanel from './components/EditPanel'
 import SearchPanel from './components/SearchPanel'
 import TablePanel from './components/TablePanel'
-import { getUserDemandList } from '@/resource'
 export default {
   name: 'Administrator',
   components: {
@@ -26,18 +30,35 @@ export default {
   },
   data () {
     return {
-      pageSize: 10,
-      total: 0,
-      pageNum: 1,
       list: [],
+      demandList: [],
+      pageSize: 20,
+      pageNum: 1,
+      total: 0,
       visible: false
     }
   },
   mounted () {
     const _this = this
     _this.getList()
+    _this.getDemand()
   },
   methods: {
+    async getDemand () {
+      const _this = this
+      const res = await getDemandList({ status: 1 })
+      _this.demandList = res.result
+    },
+    async getList (form) {
+      const _this = this
+      const res = await getUserDemandList({
+        pageSize: _this.pageSize,
+        pageNum: _this.pageNum,
+        ...form
+      })
+      _this.total = res && res.result && res.result.total ? res.result.total : 0
+      _this.list = res && res.result && res.result.list ? res.result.list : []
+    },
     handleSizeChange (size) {
       const _this = this
       _this.pageSize = size
@@ -47,18 +68,6 @@ export default {
       const _this = this
       _this.pageNum = page
       _this.getList()
-    },
-    async getList (form) {
-      const _this = this
-      const res = await getUserDemandList({
-        pageSize: _this.pageSize,
-        pageNum: _this.pageNum,
-        ...form
-      })
-      _this.total = res.result.total
-      _this.list = res.result.list
-      console.log(res)
-      console.log(form)
     },
     createItem () {
       this.openEditPanel()
@@ -70,8 +79,7 @@ export default {
       console.log('触发')
       this.visible = false
     },
-    editData (data) {
-      console.log(data)
+    editData () {
       this.openEditPanel()
     }
   }

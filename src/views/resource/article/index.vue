@@ -138,8 +138,7 @@ export default {
     },
     async getDemand () {
       const _this = this
-      const res = await getDemandList()
-      console.log(res)
+      const res = await getDemandList({ status: 1 })
       _this.demandList = res.result
     },
     async getList (form) {
@@ -151,14 +150,11 @@ export default {
       })
       _this.total = res.result.total
       _this.list = res.result.list
-      console.log(res)
-      console.log(form)
     },
     openEditPanel () {
       this.visible = true
     },
     closeEditPanel () {
-      console.log('触发')
       this.visible = false
     },
     createData () {

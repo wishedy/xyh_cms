@@ -2,7 +2,6 @@
   <section class="el-main">
     <SearchPanel
       @handleSearch="getList"
-      :demandList="demandList"
     />
     <HandleBar @handleCreate="createData"/>
     <TablePanel
@@ -17,7 +16,6 @@
     <EditPanel
       :visible.sync="visible"
       @submit="handleSubmit"
-      :demandList="demandList"
       :itemize="itemize"
       :label="label"
       :column="column"
@@ -31,7 +29,6 @@ import HandleBar from '@/views/side/classRoom/classResource/components/HandleBar
 import {
   getClassTypeList,
   createClassResource,
-  getDemandList,
   updateClassResource,
   getClassResourceList
 } from '@/resource'
@@ -48,7 +45,6 @@ export default {
   },
   data () {
     return {
-      demandList: [],
       itemize: [],
       label: [],
       column: [],
@@ -64,7 +60,6 @@ export default {
   },
   mounted () {
     const _this = this
-    _this.getDemand()
     _this.getList()
     _this.getTypeList()
   },
@@ -95,9 +90,9 @@ export default {
     },
     async getTypeList () {
       const _this = this
-      const column = await getClassTypeList({ types: 1 })
-      const label = await getClassTypeList({ types: 2 })
-      const itemize = await getClassTypeList({ types: 3 })
+      const column = await getClassTypeList({ status: 1, types: 1 })
+      const label = await getClassTypeList({ status: 1, types: 2 })
+      const itemize = await getClassTypeList({ status: 1, types: 3 })
       _this.itemize = itemize.result
       _this.label = label.result
       _this.column = column.result
@@ -157,12 +152,6 @@ export default {
       const _this = this
       _this.pageNum = page
       _this.getList()
-    },
-    async getDemand () {
-      const _this = this
-      const res = await getDemandList()
-      console.log(res)
-      _this.demandList = res.result
     },
     async getList (form) {
       const _this = this

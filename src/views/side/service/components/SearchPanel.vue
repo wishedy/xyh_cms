@@ -7,28 +7,36 @@
       label-width="110px"
     >
       <el-form-item
-        label="发票ID:"
-        prop="search"
+        label="服务类型ID:"
       >
         <el-input
           v-model="formData.id"
           class="search-box"
           type="text"
-          placeholder="请输入需求ID"
+          placeholder="请输入服务类型ID"
           @keyup.enter.native="handleSearch"
         />
       </el-form-item>
       <el-form-item
-        label="发票抬头:"
-        prop="search"
+        label="服务类型名称:"
       >
         <el-input
-          v-model="formData.rise"
+          v-model="formData.names"
           class="search-box"
           type="text"
-          placeholder="请输入发票抬头"
+          placeholder="请输入服务类型名称"
           @keyup.enter.native="handleSearch"
         />
+      </el-form-item>
+      <el-form-item label="服务类型状态" prop="proTypeId">
+        <el-select v-model="formData.status" clearable placeholder="请选择" style="width:256px;"  auto-complete="off">
+          <el-option
+            v-for="item in status"
+            :key="item.value"
+            :label="item.name"
+            :value="item.value">
+          </el-option>
+        </el-select>
       </el-form-item>
       <el-form-item class="form-button-line block">
         <el-button
@@ -60,34 +68,25 @@ export default {
     return {
       status: [
         {
-          id: 0,
-          name: '离职'
+          value: '0',
+          name: '下架'
         },
         {
-          id: 1,
-          name: '在职'
+          value: '1',
+          name: '上架'
         }
       ],
-      roles: [{
-        id: 0,
-        name: '暂无角色'
-      }, {
-        id: 1,
-        name: '超级管理员'
-      }, {
-        id: 2,
-        name: '普通管理员'
-      }, {
-        id: 3,
-        name: '小编'
-      }],
       originalForm: {
         id: '',
-        rise: ''
+        status: '',
+        proTypeId: '',
+        title: ''
       },
       formData: {
         id: '',
-        rise: ''
+        status: '',
+        proTypeId: '',
+        title: ''
       }
     }
   },

@@ -42,13 +42,12 @@
   </BaseDrawer>
 </template>
 <script>
-// import { quillRedefine } from 'vue-quill-editor-upload'
+import { quillRedefine } from 'vue-quill-editor-upload'
 import BaseDrawer from '@/components/Drawer/BaseDrawer'
 export default {
   name: 'EditPanel',
   components: {
     BaseDrawer
-    // quillRedefine
   },
   props: {
     editType: {
@@ -95,7 +94,7 @@ export default {
       }
     }
   },
-  /* created () {
+  created () {
     const _this = this
     _this.editorOption = quillRedefine(
       {
@@ -105,20 +104,33 @@ export default {
           // 必选参数  res是一个函数，函数接收的response为上传成功时服务器返回的数据
           // 你必须把返回的数据中所包含的图片地址 return 回去
           res: (response) => {
-            /!* console.log(response)
-            const path = response.path// 这里return你的图片地址即可
-            return path *!/
-            console.log(response)
+            const path = response.result.url// 这里return你的图片地址即可
+            return path
           },
-          name: 'img' // 图片上传参数名
+          name: 'file' // 图片上传参数名
         },
-        toolOptions: [
-          [{ color: [] }, { background: [] }],
-          ['image']
-        ]
+        placeholder: '请输入文章内容',
+        modules: {
+          toolbar: [
+            ['bold', 'italic', 'underline', 'strike'], // 加粗，斜体，下划线，删除线
+            ['blockquote', 'code-block'], // 引用，代码块
+            [{ header: 1 }, { header: 2 }], // 标题，键值对的形式；1、2表示字体大小
+            [{ list: 'ordered' }, { list: 'bullet' }], // 列表
+            [{ script: 'sub' }, { script: 'super' }], // 上下标
+            [{ indent: '-1' }, { indent: '+1' }], // 缩进
+            [{ direction: 'rtl' }], // 文本方向
+            [{ size: ['small', false, 'large', 'huge'] }], // 字体大小
+            [{ header: [1, 2, 3, 4, 5, 6, false] }], // 几级标题
+            [{ color: [] }, { background: [] }], // 字体颜色，字体背景颜色
+            [{ font: [] }], // 字体
+            [{ align: [] }], // 对齐方式
+            ['clean'], // 清除字体样式
+            ['image'] // 上传图片、上传视频
+          ]
+        }
       }
     )
-  }, */
+  },
   data () {
     return {
       editorOption: {

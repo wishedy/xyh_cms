@@ -179,7 +179,7 @@ export const constantRoutes = [
       },
       {
         path: 'servicePlatform',
-        component: () => import('@/views/journal/index'),
+        component: () => import('@/views/side/service/index'),
         name: 'ServicePlatform',
         meta: { title: '服务平台管理', icon: 'el-icon-service', affix: false }
       },

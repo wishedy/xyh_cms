@@ -2,7 +2,6 @@
   <section class="el-main">
     <SearchPanel
       @handleSearch="getList"
-      :demandList="demandList"
     />
     <HandleBar @handleCreate="createData"/>
     <TablePanel
@@ -17,7 +16,6 @@
     <EditPanel
       :visible.sync="visible"
       @submit="handleSubmit"
-      :demandList="demandList"
       :editItemData="editItemData"
       @handleCancel="closeEditPanel"
       :editType="editType"/>
@@ -25,7 +23,7 @@
 </template>
 <script>
 import HandleBar from '@/views/side/banner/components/HandleBar'
-import { createBanner, getDemandList, updateBanner, getBannerList } from '@/resource'
+import { createBanner, updateBanner, getBannerList } from '@/resource'
 import EditPanel from './components/EditPanel'
 import SearchPanel from './components/SearchPanel'
 import TablePanel from './components/TablePanel'
@@ -39,7 +37,6 @@ export default {
   },
   data () {
     return {
-      demandList: [],
       submitForm: {},
       editItemData: {},
       editType: 0,
@@ -52,7 +49,6 @@ export default {
   },
   mounted () {
     const _this = this
-    _this.getDemand()
     _this.getList()
   },
   methods: {
@@ -135,12 +131,6 @@ export default {
       const _this = this
       _this.pageNum = page
       _this.getList()
-    },
-    async getDemand () {
-      const _this = this
-      const res = await getDemandList()
-      console.log(res)
-      _this.demandList = res.result
     },
     async getList (form) {
       const _this = this

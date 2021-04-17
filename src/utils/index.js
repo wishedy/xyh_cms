@@ -405,13 +405,13 @@ export const getBasicAuth = (token) => {
   return token ? 'login_tokens:' + token : ''
 }
 export const checkResource = (param)=>{
-const productType = parseInt(param.type,10)//0首页产品，1课程资源
+const productType = parseInt(param.type,10)//0首页产品，1课程资源2服务类型
   const resType = parseInt(param.resType,10)
   let checkResType = 1//1视频2文章
   return new Promise(async (resolve,reject)=>{
     if(productType===0){
       checkResType = resType
-    }else if(productType===2){
+    }else if(productType===1||productType===2){
       if(resType===1){
         checkResType=2
       }else if(resType===2){
@@ -421,16 +421,24 @@ const productType = parseInt(param.type,10)//0首页产品，1课程资源
     if(checkResType===1){
       //检查是否有视频资源
       try {
-        const res = await getVideoList({id:param.id})
-        console.log(res)
+        const res = await getVideoList({id:param.id,status:1})
+        if(res&&res.result&&res.result.length){
+          resolve()
+        }else{
+          reject()
+        }
       }catch (e){
         reject(e)
       }
     }else if(checkResType===2){
       //检查是否有文章资源
       try {
-        const res = await getArticleList({id:param.id})
-        console.log(res)
+        const res = await getArticleList({id:param.id,status:1})
+        if(res&&res.result&&res.result.length){
+          resolve()
+        }else{
+          reject()
+        }
       }catch (e){
         reject(e)
       }

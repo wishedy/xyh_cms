@@ -136,6 +136,24 @@ export function getProductList (params) {
 export function updateProduct (params) {
   return api.post('/api/product/update', params)
 }
+export function getServiceTypeList (params) {
+  return api.get(`/api/serverType/query?${json2Query(params)}`)
+}
+export function updateServiceType (params) {
+  return api.post('/api/serverType/update', params)
+}
+export function createService (params) {
+  return api.post('/api/serverType/add', params)
+}
+export function getUserList (params) {
+  return api.get(`/api/user/query?${json2Query(params)}`)
+}
 export function getUserDemandList (params) {
-  return api.post('/api/userNeed/assignFollowUser', params)
+  return api.get(`/api/userNeed/query?${json2Query(params)}`)
+}
+export function getUserOrderList (params) {
+  return api.get(`/api/orders/query?${json2Query(params)}`)
+}
+export function getInvoiceList (params) {
+  return api.get(`/api/invoice/query?${json2Query(params)}`)
 }

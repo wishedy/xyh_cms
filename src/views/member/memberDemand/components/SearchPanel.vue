@@ -7,14 +7,48 @@
       label-width="110px"
     >
       <el-form-item
-        label="用户:"
+        label="需求ID:"
         prop="search"
       >
         <el-input
-          v-model="formData.title"
+          v-model="formData.id"
           class="search-box"
           type="text"
-          placeholder="请输入用户ID"
+          placeholder="请输入需求ID"
+          @keyup.enter.native="handleSearch"
+        />
+      </el-form-item>
+      <el-form-item label="需求类型" prop="needId">
+        <el-select v-model="formData.needId" clearable placeholder="请选择" style="width:256px;"  auto-complete="off">
+          <el-option
+            v-for="item in demandList"
+            :key="item.id"
+            :label="item.names"
+            :value="item.id">
+          </el-option>
+        </el-select>
+      </el-form-item>
+      <el-form-item
+        label="用户微信名称:"
+        prop="search"
+      >
+        <el-input
+          v-model="formData.wxNum"
+          class="search-box"
+          type="text"
+          placeholder="请输入用户姓名"
+          @keyup.enter.native="handleSearch"
+        />
+      </el-form-item>
+      <el-form-item
+        label="跟进经理:"
+        prop="search"
+      >
+        <el-input
+          v-model="formData.followUserName"
+          class="search-box"
+          type="text"
+          placeholder="请输入经理姓名"
           @keyup.enter.native="handleSearch"
         />
       </el-form-item>
@@ -23,22 +57,10 @@
         prop="search"
       >
         <el-input
-          v-model="formData.title"
+          v-model="formData.contacts"
           class="search-box"
           type="text"
           placeholder="请输入用户姓名"
-          @keyup.enter.native="handleSearch"
-        />
-      </el-form-item>
-      <el-form-item
-        label="管理员姓名:"
-        prop="search"
-      >
-        <el-input
-          v-model="formData.title"
-          class="search-box"
-          type="text"
-          placeholder="请输入用户管理员姓名"
           @keyup.enter.native="handleSearch"
         />
       </el-form-item>
@@ -47,7 +69,7 @@
         prop="search"
       >
         <el-input
-          v-model="formData.title"
+          v-model="formData.email"
           class="search-box"
           type="text"
           placeholder="请输入用户邮箱"
@@ -59,25 +81,12 @@
         prop="search"
       >
         <el-input
-          v-model="formData.title"
+          v-model="formData.phone"
           class="search-box"
           type="text"
           placeholder="请输入用户手机号"
           @keyup.enter.native="handleSearch"
         />
-      </el-form-item>
-      <el-form-item
-        label="需求类型:"
-        prop="status"
-      >
-        <el-select v-model="formData.status" clearable placeholder="请选择需求类型" class="search-box">
-          <el-option
-            v-for="item in status"
-            :key="item.id"
-            :label="item.name"
-            :value="item.id"
-          />
-        </el-select>
       </el-form-item>
       <el-form-item class="form-button-line block">
         <el-button
@@ -97,16 +106,24 @@
 <script>
 export default {
   name: 'SearchPanel',
+  props: {
+    demandList: {
+      default () {
+        return []
+      },
+      type: Array
+    }
+  },
   data () {
     return {
       status: [
         {
           id: 0,
-          name: '需求类型1'
+          name: '离职'
         },
         {
           id: 1,
-          name: '需求类型2'
+          name: '在职'
         }
       ],
       roles: [{
@@ -123,14 +140,22 @@ export default {
         name: '小编'
       }],
       originalForm: {
-        status: '',
-        role: '',
-        title: ''
+        id: '',
+        phone: '',
+        needType: '',
+        contacts: '',
+        followUserName: '',
+        email: '',
+        wxNum: ''
       },
       formData: {
-        status: '',
-        role: '',
-        title: ''
+        id: '',
+        phone: '',
+        needType: '',
+        contacts: '',
+        followUserName: '',
+        email: '',
+        wxNum: ''
       }
     }
   },

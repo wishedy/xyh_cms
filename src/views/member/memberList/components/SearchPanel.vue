@@ -7,14 +7,26 @@
       label-width="110px"
     >
       <el-form-item
-        label="用户:"
+        label="用户ID:"
         prop="search"
       >
         <el-input
-          v-model="formData.title"
+          v-model="formData.id"
           class="search-box"
           type="text"
           placeholder="请输入用户ID"
+          @keyup.enter.native="handleSearch"
+        />
+      </el-form-item>
+      <el-form-item
+        label="用户微信名称:"
+        prop="search"
+      >
+        <el-input
+          v-model="formData.wxName"
+          class="search-box"
+          type="text"
+          placeholder="请输入用户姓名"
           @keyup.enter.native="handleSearch"
         />
       </el-form-item>
@@ -23,7 +35,7 @@
         prop="search"
       >
         <el-input
-          v-model="formData.title"
+          v-model="formData.names"
           class="search-box"
           type="text"
           placeholder="请输入用户姓名"
@@ -35,7 +47,7 @@
         prop="search"
       >
         <el-input
-          v-model="formData.title"
+          v-model="formData.email"
           class="search-box"
           type="text"
           placeholder="请输入用户邮箱"
@@ -47,7 +59,7 @@
         prop="search"
       >
         <el-input
-          v-model="formData.title"
+          v-model="formData.phone"
           class="search-box"
           type="text"
           placeholder="请输入用户手机号"
@@ -98,14 +110,18 @@ export default {
         name: '小编'
       }],
       originalForm: {
-        status: '',
-        role: '',
-        title: ''
+        id: '',
+        phone: '',
+        names: '',
+        email: '',
+        wxName: ''
       },
       formData: {
-        status: '',
-        role: '',
-        title: ''
+        id: '',
+        phone: '',
+        names: '',
+        email: '',
+        wxName: ''
       }
     }
   },

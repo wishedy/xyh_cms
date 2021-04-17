@@ -4,25 +4,33 @@
       :data="list"
       border
     >
-      <el-table-column prop="id" label="课程订单ID" />
-      <el-table-column prop="id" label="用户ID" />
-      <el-table-column prop="user_name" label="用户姓名" />
+      <el-table-column prop="id" label="订单ID" />
+      <el-table-column prop="userName" label="用户姓名" />
       <el-table-column prop="email" label="邮箱" />
-      <el-table-column prop="phone_number" label="手机号" />
-      <el-table-column prop="roles_name" label="课程名" />
-      <el-table-column prop="roles_name" label="课程价格" />
-      <el-table-column prop="roles_name" label="课程ID" />
-      <el-table-column prop="roles_name" label="资源类型" />
-      <el-table-column prop="roles_name" label="支付状态" />
-      <el-table-column prop="roles_name" label="支付时间" />
-      <el-table-column prop="roles_name" label="支付端" />
-      <el-table-column prop="roles_name" label="课程创建管理员" />
-      <el-table-column prop="department" label="订单提交时间" />
+      <el-table-column prop="phone" label="手机号" />
+      <el-table-column prop="wxName" label="微信号" />
+      <el-table-column prop="courseName" label="课程名称" />
+      <el-table-column prop="courseId" label="课程ID" />
+      <el-table-column prop="resType" label="需求类型"  :formatter="formatResourceType"/>
+      <el-table-column prop="department" label="注册时间" />
+      <el-table-column prop="status_name" label="操作"  fixed="right" align="center">
+<!--        <template slot-scope="scope">
+          <section class="handle-item">
+            <el-tag
+              title="点击指派业务经理"
+              type="danger"
+              effect="dark"
+            >
+              指派业务经理
+            </el-tag>
+          </section>
+        </template>-->
+      </el-table-column>
     </el-table>
     <!-- 分页 -->
     <div class="page">
       <el-pagination
-        :current-page="page"
+        :current-page="pageNum"
         :page-sizes="[10, 20, 30, 50]"
         :page-size="pageSize"
         layout="total, sizes, prev, pager, next, jumper"
@@ -36,29 +44,45 @@
 <script>
 export default {
   name: 'AdminTable',
-  data () {
-    return {
-      page: 1,
-      pageSize: 10,
-      total: 400,
-      list: [{
-        id: '11111111',
-        link: '111',
-        email: 'webheng@126.com',
-        user_name: '张恒',
-        department: '1111',
-        roles_name: '111111',
-        time: '2019-02-02 19:00',
-        image_url: '11111',
-        status: 0
-      }, {
-        link: '111',
-        image_url: '11111',
-        status: 1
-      }]
+  props: {
+    pageNum: {
+      default () {
+        return 1
+      },
+      type: Number
+    },
+    list: {
+      default () {
+        return []
+      },
+      type: Array
+    },
+    total: {
+      default () {
+        return 0
+      },
+      type: Number
+    },
+    pageSize: {
+      default () {
+        return 10
+      },
+      type: Number
     }
   },
   methods: {
+    formatResourceType (row) {
+      let title = ''
+      switch (parseInt(row.resType, 10)) {
+        case 1:
+          title = '文章'
+          break
+        case 2:
+          title = '视频'
+          break
+      }
+      return title
+    },
     handleSizeChange (size) {
       console.log(size)
     },

@@ -5,34 +5,32 @@
       border
     >
       <el-table-column prop="id" label="需求ID" />
-      <el-table-column prop="id" label="用户ID" />
-      <el-table-column prop="user_name" label="用户姓名" />
+      <el-table-column prop="contacts" label="用户姓名" />
       <el-table-column prop="email" label="邮箱" />
-      <el-table-column prop="phone_number" label="手机号" />
-      <el-table-column prop="roles_name" label="微信号" />
-      <el-table-column prop="roles_name" label="需求类型" />
-      <el-table-column prop="roles_name" label="需求描述" />
-      <el-table-column prop="roles_name" label="需求跟进管理员" />
-      <el-table-column prop="department" label="需求提交时间" />
+      <el-table-column prop="phone" label="手机号" />
+      <el-table-column prop="wxNum" label="微信号" />
+      <el-table-column prop="followUser" label="跟进人ID" />
+      <el-table-column prop="followUserName" label="跟进人姓名" />
+      <el-table-column prop="needType" label="需求类型" />
+      <el-table-column prop="department" label="注册时间" />
       <el-table-column prop="status_name" label="操作"  fixed="right" align="center">
-        <template slot-scope="scope">
+<!--        <template slot-scope="scope">
           <section class="handle-item">
             <el-tag
-              title="点击重置用户密码"
-              v-if="parseInt(scope.row.status,10)===0"
+              title="点击指派业务经理"
+              type="danger"
               effect="dark"
-              @click="$emit('handleEdit',scope.row)"
             >
               指派业务经理
             </el-tag>
           </section>
-        </template>
+        </template>-->
       </el-table-column>
     </el-table>
     <!-- 分页 -->
     <div class="page">
       <el-pagination
-        :current-page="page"
+        :current-page="pageNum"
         :page-sizes="[10, 20, 30, 50]"
         :page-size="pageSize"
         layout="total, sizes, prev, pager, next, jumper"
@@ -46,38 +44,38 @@
 <script>
 export default {
   name: 'AdminTable',
-  data () {
-    return {
-      page: 1,
-      pageSize: 10,
-      total: 400,
-      list: [{
-        id: '11111111',
-        link: '111',
-        email: 'webheng@126.com',
-        user_name: '张恒',
-        department: '1111',
-        roles_name: '111111',
-        time: '2019-02-02 19:00',
-        image_url: '11111',
-        status: 0
-      }, {
-        link: '111',
-        image_url: '11111',
-        status: 1
-      }]
+  props: {
+    pageNum: {
+      default () {
+        return 1
+      },
+      type: Number
+    },
+    list: {
+      default () {
+        return []
+      },
+      type: Array
+    },
+    total: {
+      default () {
+        return 0
+      },
+      type: Number
+    },
+    pageSize: {
+      default () {
+        return 10
+      },
+      type: Number
     }
   },
   methods: {
     handleSizeChange (size) {
       console.log(size)
-      const _this = this
-      _this.$emit('handleSizeChange', size)
     },
     handleCurrentChange (page) {
       console.log(page)
-      const _this = this
-      _this.$emit('handlePageChange', page)
     }
   }
 }

@@ -2,7 +2,6 @@
   <section class="el-main">
     <SearchPanel
       @handleSearch="getList"
-      :demandList="demandList"
     />
     <HandleBar @handleCreate="createData"/>
     <TablePanel
@@ -17,15 +16,14 @@
     <EditPanel
       :visible.sync="visible"
       @submit="handleSubmit"
-      :demandList="demandList"
       :editItemData="editItemData"
       @handleCancel="closeEditPanel"
       :editType="editType"/>
   </section>
 </template>
 <script>
-import HandleBar from '@/views/resource/video/components/HandleBar'
-import { createVideo, getDemandList, updateVideo, getVideoList } from '@/resource'
+import HandleBar from '@/views/homeManage/product/components/HandleBar'
+import { createService, updateServiceType, getServiceTypeList } from '@/resource'
 import EditPanel from './components/EditPanel'
 import SearchPanel from './components/SearchPanel'
 import TablePanel from './components/TablePanel'
@@ -39,7 +37,6 @@ export default {
   },
   data () {
     return {
-      demandList: [],
       submitForm: {},
       editItemData: {},
       editType: 0,
@@ -52,10 +49,33 @@ export default {
   },
   mounted () {
     const _this = this
-    _this.getDemand()
     _this.getList()
   },
   methods: {
+    updateStatus (data) {
+      const _this = this
+      const warn = parseInt(data.status, 10) === 1 ? '下架该产品' : '上架该产品'
+      const form = {
+        id: data.id,
+        status: parseInt(data.status, 10) === 1 ? '0' : '1'
+      }
+      _this.$confirm(`请确认${warn}？`, {
+        confirmButtonText: '确定',
+        cancelButtonText: '取消',
+        type: 'warning'
+      }).then(async () => {
+        try {
+          await updateServiceType(form)
+          _this.$message({
+            message: '操作已完成',
+            type: 'success'
+          })
+          _this.handleAfterRequest()
+        } catch (e) {
+          _this.$message.error(e.msg)
+        }
+      }).catch(() => {})
+    },
     handleSubmit (form) {
       const _this = this
       _this.submitForm = form
@@ -69,7 +89,7 @@ export default {
     async handleAddRequest () {
       const _this = this
       console.log(_this.submitForm)
-      const res = await createVideo(_this.submitForm)
+      const res = await createService(_this.submitForm)
       if (res) {
         this.$message.success('保存成功')
       }
@@ -84,7 +104,7 @@ export default {
         center: true
       }).then(async () => {
         try {
-          const res = await updateVideo(_this.submitForm)
+          const res = await updateServiceType(_this.submitForm)
           console.log(res)
           _this.$message({
             message: '操作已完成',
@@ -112,48 +132,17 @@ export default {
       _this.pageNum = page
       _this.getList()
     },
-    async getDemand () {
-      const _this = this
-      const res = await getDemandList({ status: 1 })
-      console.log(res)
-      _this.demandList = res.result
-    },
     async getList (form) {
       const _this = this
-      console.log('点击搜索')
-      const res = await getVideoList({
+      const res = await getServiceTypeList({
         pageSize: _this.pageSize,
         pageNum: _this.pageNum,
         ...form
       })
-      _this.total = res.result.total
-      _this.list = res.result.list
+      _this.total = res && res.result && res.result.total ? res.result.total : 0
+      _this.list = res && res.result && res.result.list ? res.result.list : []
       console.log(res)
       console.log(form)
-    },
-    updateStatus (data) {
-      const _this = this
-      const warn = parseInt(data.status, 10) === 1 ? '下架该视频资源' : '上架该视频资源'
-      const form = {
-        id: data.id,
-        status: parseInt(data.status, 10) === 1 ? '0' : '1'
-      }
-      _this.$confirm(`请确认${warn}？`, {
-        confirmButtonText: '确定',
-        cancelButtonText: '取消',
-        type: 'warning'
-      }).then(async () => {
-        try {
-          await updateVideo(form)
-          _this.$message({
-            message: '操作已完成',
-            type: 'success'
-          })
-          _this.handleAfterRequest()
-        } catch (e) {
-          _this.$message.error(e.msg)
-        }
-      }).catch(() => {})
     },
     openEditPanel () {
       this.visible = true
@@ -169,7 +158,6 @@ export default {
     },
     editData (form) {
       this.editType = 1
-      console.log(form)
       this.editItemData = form
       this.openEditPanel()
     }

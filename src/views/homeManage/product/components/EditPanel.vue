@@ -57,6 +57,7 @@
 </template>
 <script>
 import BaseDrawer from '@/components/Drawer/BaseDrawer'
+import { checkResource } from '@/utils'
 export default {
   name: 'EditPanel',
   components: {
@@ -180,7 +181,11 @@ export default {
       const _this = this
       this.$refs.editForm.validate((valid) => {
         if (valid) {
-          _this.$emit('submit', _this.ruleForm)
+          checkResource({ type: 0, id: _this.ruleForm.resId, resType: _this.ruleForm.resType }).then((res) => {
+            _this.$emit('submit', _this.ruleForm)
+          }).catch(() => {
+            _this.$message.error('您所输入的资源不存在，请重新复制')
+          })
         } else {
           console.log('error submit!!')
           return false

@@ -138,7 +138,7 @@ export default {
     },
     async getDemand () {
       const _this = this
-      const res = await getProductTypeList()
+      const res = await getProductTypeList({ status: 1 })
       console.log(res)
       _this.demandList = res.result
     },
