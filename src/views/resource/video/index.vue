@@ -68,7 +68,6 @@ export default {
     },
     async handleAddRequest () {
       const _this = this
-      console.log(_this.submitForm)
       const res = await createVideo(_this.submitForm)
       if (res) {
         this.$message.success('保存成功')
@@ -84,8 +83,7 @@ export default {
         center: true
       }).then(async () => {
         try {
-          const res = await updateVideo(_this.submitForm)
-          console.log(res)
+          await updateVideo(_this.submitForm)
           _this.$message({
             message: '操作已完成',
             type: 'success'
@@ -115,12 +113,10 @@ export default {
     async getDemand () {
       const _this = this
       const res = await getDemandList({ status: 1 })
-      console.log(res)
       _this.demandList = res.result
     },
     async getList (form) {
       const _this = this
-      console.log('点击搜索')
       const res = await getVideoList({
         pageSize: _this.pageSize,
         pageNum: _this.pageNum,
@@ -128,8 +124,6 @@ export default {
       })
       _this.total = res.result.total
       _this.list = res.result.list
-      console.log(res)
-      console.log(form)
     },
     updateStatus (data) {
       const _this = this
@@ -159,7 +153,6 @@ export default {
       this.visible = true
     },
     closeEditPanel () {
-      console.log('触发')
       this.visible = false
     },
     createData () {
@@ -169,7 +162,6 @@ export default {
     },
     editData (form) {
       this.editType = 1
-      console.log(form)
       this.editItemData = form
       this.openEditPanel()
     }

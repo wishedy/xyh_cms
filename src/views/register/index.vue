@@ -58,8 +58,7 @@ export default {
         if (valid) {
           _this.registerForm.password = md5(_this.registerForm.code)
           try {
-            const res = await handleRegister(_this.registerForm)
-            console.log(res)
+            await handleRegister(_this.registerForm)
           } catch (e) {
             _this.$message.error(e.msg)
           }
@@ -79,7 +78,6 @@ export default {
       if (value === '') {
         callBack(new Error('请输入名字'))
       } else {
-        console.log(this.registerForm.realName, value, testName(value))
         if (!testName(value)) {
           callBack(new Error('请输入正确的名字'))
         } else {

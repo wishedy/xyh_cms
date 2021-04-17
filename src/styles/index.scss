@@ -315,7 +315,50 @@ aside {
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  background: rgba(0,0,0,.4);
+  &:hover{
+    .avatar-delete-handle{
+      background: rgba(0,0,0,.4);
+      position: absolute;
+      top:0;
+      left: 0;
+      right: 0;
+      bottom:0;
+      z-index: 3;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+    }
+  }
+  .avatar-delete-content,.avatar-delete-handle{
+    position: absolute;
+    top:0;
+    left: 0;
+    right: 0;
+    bottom:0;
+    z-index: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+  }
+  .avatar-delete-handle{
+    z-index: 3;
+    display: none;
+  }
+  .avatar-delete-video{
+    background: rgba(0,0,0,.4);
+    position: absolute;
+    top:0;
+    left: 0;
+    right: 0;
+    bottom:0;
+    z-index: 3;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+  }
   .handle-item{
     display: block;
     font-size: 20px;

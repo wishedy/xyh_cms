@@ -91,7 +91,6 @@ export default {
     },
     async handleAddRequest () {
       const _this = this
-      console.log(_this.submitForm)
       const res = await createQr(_this.submitForm)
       if (res) {
         this.$message.success('保存成功')
@@ -107,8 +106,7 @@ export default {
         center: true
       }).then(async () => {
         try {
-          const res = await updateQr(_this.submitForm)
-          console.log(res)
+          await updateQr(_this.submitForm)
           _this.$message({
             message: '操作已完成',
             type: 'success'
@@ -144,14 +142,11 @@ export default {
       })
       _this.total = res.result.total
       _this.list = res.result.list
-      console.log(res)
-      console.log(form)
     },
     openEditPanel () {
       this.visible = true
     },
     closeEditPanel () {
-      console.log('触发')
       this.visible = false
     },
     createData () {

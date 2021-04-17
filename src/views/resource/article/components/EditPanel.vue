@@ -88,7 +88,6 @@ export default {
       _this.resetForm()
       if (show && _this.editItemData.id) {
         Object.keys(_this.ruleForm).forEach((key) => {
-          console.log(key)
           _this.ruleForm[key] = _this.editItemData[key]
         })
       }

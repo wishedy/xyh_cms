@@ -9,7 +9,11 @@
       <el-table-column prop="status" label="视频状态" :formatter="formatStatus"/>
       <el-table-column prop="author" label="作者" />
       <el-table-column prop="needName" label="需求类型" />
-      <el-table-column prop="urls" label="视频链接" />
+      <el-table-column label="视频链接" min-width="120px">
+        <template slot-scope="scope">
+          <el-button type="text" @click="handleCopyLink('https://www.xueyanhui.com/video?id='+scope.row.id)">复制完整链接</el-button>
+        </template>
+      </el-table-column>
       <el-table-column prop="createUserName" label="创建管理员" />
       <el-table-column prop="createTime" label="创建时间">
         <template slot-scope="scope">
@@ -68,6 +72,7 @@
 </template>
 <script>
 import moment from 'moment'
+import { copyToClipboard } from '@/utils'
 export default {
   name: 'AdminTable',
   props: {
@@ -98,6 +103,16 @@ export default {
   },
   methods: {
     moment,
+    handleCopyLink (link) {
+      if (copyToClipboard(link)) {
+        this.$message({
+          type: 'success',
+          message: '链接复制成功'
+        })
+      } else {
+        this.$message.error('您的系统不支持复制到剪切板')
+      }
+    },
     formatStatus (row) {
       let title = ''
       switch (parseInt(row.status, 10)) {
@@ -115,13 +130,11 @@ export default {
       _this.$emit('handleStatus', data)
     },
     handleSizeChange (size) {
-      console.log(size)
       const _this = this
       _this.$emit('handleSizeChange', size)
     },
     editData (data) {
       const _this = this
-      console.log(data.videoName)
       _this.$emit('handleEdit', { names: data.videoName, needId: data.needId, id: data.id, author: data.author, urls: data.urls })
     },
     handleResetPassword (id) {
@@ -129,7 +142,6 @@ export default {
       _this.$emit('handleResetPassword', { sysUserId: id })
     },
     handleCurrentChange (page) {
-      console.log(page)
       const _this = this
       _this.$emit('handlePageChange', page)
     }

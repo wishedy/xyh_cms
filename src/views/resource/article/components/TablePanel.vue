@@ -8,6 +8,11 @@
       <el-table-column prop="names" label="文章名称" />
       <el-table-column prop="status" label="文章状态" :formatter="formatStatus"/>
       <el-table-column prop="needName" label="需求类型" />
+      <el-table-column label="文章链接" min-width="120px">
+        <template slot-scope="scope">
+          <el-button type="text" @click="handleCopyLink('https://www.xueyanhui.com/article?id='+scope.row.id)">复制完整链接</el-button>
+        </template>
+      </el-table-column>
       <el-table-column prop="introduce" label="文章简介" />
       <el-table-column prop="author" label="作者" />
       <el-table-column prop="createUserName" label="创建管理员" />
@@ -73,6 +78,7 @@
   </section>
 </template>
 <script>
+import { copyToClipboard } from '@/utils'
 import moment from 'moment'
 export default {
   name: 'AdminTable',
@@ -104,6 +110,16 @@ export default {
   },
   methods: {
     moment,
+    handleCopyLink (link) {
+      if (copyToClipboard(link)) {
+        this.$message({
+          type: 'success',
+          message: '链接复制成功'
+        })
+      } else {
+        this.$message.error('您的系统不支持复制到剪切板')
+      }
+    },
     formatStatus (row) {
       let title = ''
       switch (parseInt(row.status, 10)) {
@@ -117,7 +133,6 @@ export default {
       return title
     },
     handleSizeChange (size) {
-      console.log(size)
       const _this = this
       _this.$emit('handleSizeChange', size)
     },
@@ -134,7 +149,6 @@ export default {
       _this.$emit('handleResetPassword', { sysUserId: id })
     },
     handleCurrentChange (page) {
-      console.log(page)
       const _this = this
       _this.$emit('handlePageChange', page)
     }

@@ -24,11 +24,9 @@ export default {
       this.visible = true
     },
     closeEditPanel () {
-      console.log('触发')
       this.visible = false
     },
     editData (data) {
-      console.log(data)
       this.openEditPanel()
     }
   }

@@ -43,7 +43,6 @@ export default {
   methods: {
     handleAuditAdmin (options) {
       const _this = this
-      console.log(options)
       const statusText = `${parseInt(options.states, 10) === 1 ? '通过' : parseInt(options.states, 10) === 2 ? '拒绝' : '注销'}`
       _this.$confirm('确定' + statusText + '该管理员审核?', '提示', {
         confirmButtonText: '确定',
@@ -52,8 +51,7 @@ export default {
         center: true
       }).then(async () => {
         try {
-          const res = await handleAdmin(options)
-          console.log(res)
+          await handleAdmin(options)
           _this.$message({
             message: '操作已完成',
             type: 'success'
@@ -66,7 +64,6 @@ export default {
     },
     handleResetPassword (options) {
       const _this = this
-      console.log(options)
       const statusText = '重置'
       _this.$confirm('确定' + statusText + '该管理员密码?', '提示', {
         confirmButtonText: '确定',
@@ -75,8 +72,7 @@ export default {
         center: true
       }).then(async () => {
         try {
-          const res = await passwordReset(options)
-          console.log(res)
+          await passwordReset(options)
           _this.$message({
             message: '操作已完成',
             type: 'success'
@@ -89,7 +85,6 @@ export default {
     },
     handleSetManger (options) {
       const _this = this
-      console.log(options)
       _this.$confirm('设置改管理员为客服经理？', '提示', {
         confirmButtonText: '确定',
         cancelButtonText: '取消',
@@ -97,8 +92,7 @@ export default {
         center: true
       }).then(async () => {
         try {
-          const res = await setManager(options)
-          console.log(res)
+          await setManager(options)
           _this.$message({
             message: '操作已完成',
             type: 'success'
@@ -132,8 +126,6 @@ export default {
       })
       _this.total = res.result.total
       _this.list = res.result.list
-      console.log(res)
-      console.log(form)
     },
     createItem () {
       this.openEditPanel()
@@ -142,7 +134,6 @@ export default {
       this.visible = true
     },
     closeEditPanel () {
-      console.log('触发')
       this.visible = false
     },
     editData () {

@@ -23,8 +23,11 @@
           :on-success="handleAvatarSuccess"
           :before-upload="beforeAvatarUpload">
           <div class="avatar-delete-mask" v-if="ruleForm.imgUrl">
-            <span class="handle-item el-icon-delete-solid" @click="deleteVideo">删除</span>
-            <span class="handle-item el-icon-success">上传成功</span>
+            <section class="avatar-delete-content" :style="{background:'url('+ruleForm.imgUrl+') no-repeat center/contain'}"></section>
+            <section class="avatar-delete-handle">
+              <span class="handle-item el-icon-delete-solid" @click="deleteVideo">删除</span>
+              <span class="handle-item el-icon-success">上传成功</span>
+            </section>
           </div>
 <!--          <img v-if="imageUrl" :src="imageUrl" class="avatar">-->
           <i v-else class="el-icon-plus avatar-uploader-icon"></i>

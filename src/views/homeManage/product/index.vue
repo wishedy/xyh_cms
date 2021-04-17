@@ -92,7 +92,6 @@ export default {
     },
     async handleAddRequest () {
       const _this = this
-      console.log(_this.submitForm)
       const res = await createProduct(_this.submitForm)
       if (res) {
         this.$message.success('保存成功')
@@ -108,8 +107,7 @@ export default {
         center: true
       }).then(async () => {
         try {
-          const res = await updateProduct(_this.submitForm)
-          console.log(res)
+          await updateProduct(_this.submitForm)
           _this.$message({
             message: '操作已完成',
             type: 'success'
@@ -139,7 +137,6 @@ export default {
     async getDemand () {
       const _this = this
       const res = await getProductTypeList({ status: 1 })
-      console.log(res)
       _this.demandList = res.result
     },
     async getList (form) {
@@ -151,14 +148,11 @@ export default {
       })
       _this.total = res && res.result && res.result.total ? res.result.total : 0
       _this.list = res && res.result && res.result.list ? res.result.list : []
-      console.log(res)
-      console.log(form)
     },
     openEditPanel () {
       this.visible = true
     },
     closeEditPanel () {
-      console.log('触发')
       this.visible = false
     },
     createData () {

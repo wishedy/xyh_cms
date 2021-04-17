@@ -137,7 +137,6 @@ export default {
       return title
     },
     handleSizeChange (size) {
-      console.log(size)
       const _this = this
       _this.$emit('handleSizeChange', size)
     },
@@ -150,7 +149,6 @@ export default {
       _this.$emit('handleResetPassword', { sysUserId: id })
     },
     handleCurrentChange (page) {
-      console.log(page)
       const _this = this
       _this.$emit('handlePageChange', page)
     }

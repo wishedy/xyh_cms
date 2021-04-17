@@ -61,8 +61,6 @@ export default {
   },
   mounted () {
     const _this = this
-    console.log('在这里')
-    console.log(_this.$route.name)
     _this.getList()
   },
   created () {
@@ -131,8 +129,7 @@ export default {
             id: _this.id,
             introduce: _this.contents
           }
-          const res = await updateAbout(form)
-          console.log(res)
+          await updateAbout(form)
           _this.$message({
             message: '操作已完成',
             type: 'success'
@@ -168,7 +165,6 @@ export default {
       this.visible = true
     },
     closeEditPanel () {
-      console.log('触发')
       this.visible = false
     },
     createData () {
