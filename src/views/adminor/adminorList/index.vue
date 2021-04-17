@@ -38,6 +38,22 @@ export default {
   },
   mounted () {
     const _this = this
+    const userInfo = localStorage.getItem('user')
+    const warn = () => {
+      this.$alert('抱歉，您不是超级管理员，无该权限?', {
+        confirmButtonText: '确定',
+        callback: action => {
+          location.href = '/'
+        }
+      })
+    }
+    if (userInfo) {
+      if (JSON.parse(userInfo).role !== 1) {
+        warn()
+      }
+    } else {
+      warn()
+    }
     _this.getList()
   },
   methods: {

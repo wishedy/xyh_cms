@@ -37,7 +37,7 @@ const actions = {
     return new Promise(async (resolve, reject) => {
       try {
         const res = await userLogin(userInfo)
-        console.log(res)
+        localStorage.setItem('user',JSON.stringify(res.result.sysUser))
         commit('SET_TOKEN', res.result.token)
         setToken(res.result.token)
         resolve()
@@ -82,6 +82,7 @@ const actions = {
     return new Promise((resolve, reject) => {
       commit('SET_TOKEN', '')
       commit('SET_ROLES', [])
+      localStorage.removeItem('user')
       removeToken()
       resetRouter()
 

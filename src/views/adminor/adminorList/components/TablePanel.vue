@@ -36,9 +36,9 @@
           >{{moment(scope.row.createTime).format("YYYY-MM-DD HH:mm:ss")}}</span>
         </template>
       </el-table-column>
-      <el-table-column prop="status_name" label="操作"  fixed="right" align="center">
+      <el-table-column prop="status_name" label="操作" width="180">
         <template slot-scope="scope">
-          <section class="handle-item">
+          <section class="handle-item" v-if="parseInt(scope.row.role,10)===1">
             <el-tag
               title="点击重置管理员密码"
               type="danger"

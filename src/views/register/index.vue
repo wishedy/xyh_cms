@@ -17,16 +17,6 @@
       <el-form-item label="身份证号" prop="idNum">
         <el-input v-model="registerForm.idNum" auto-complete="off" placeholder="请输入身份证号"></el-input>
       </el-form-item>
-      <el-form-item label="管理级别" prop="role">
-        <el-select v-model="registerForm.role" clearable placeholder="请选择" style="width:256px;"  auto-complete="off">
-          <el-option
-            v-for="item in options"
-            :key="item.value"
-            :label="item.label"
-            :value="item.value">
-          </el-option>
-        </el-select>
-      </el-form-item>
       <el-form-item label="性别" prop="gender">
         <el-radio-group v-model="registerForm.gender">
           <el-radio label="1">男</el-radio>
@@ -224,7 +214,7 @@ export default {
         phoneNum: '',
         code: '',
         idNum: '',
-        role: '',
+        role: '1',
         password: '',
         gender: '1'
       },
@@ -234,7 +224,7 @@ export default {
         email: '',
         phoneNum: '',
         idNum: '',
-        role: '',
+        role: '1',
         password: '',
         gender: '1'
       }
