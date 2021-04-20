@@ -8,7 +8,7 @@
       <el-table-column prop="title" label="合作资源名称" />
       <el-table-column prop="status" label="合作资源状态" :formatter="formatStatus"/>
       <el-table-column prop="showType" label="合作资源类型"  :formatter="formatTypes"/>
-      <el-table-column label="优势封面" min-width="140px">
+      <el-table-column label="封面" min-width="140px">
         <template slot-scope="scope">
           <img :src="scope.row.imgUrl" alt class="table-img" />
         </template>

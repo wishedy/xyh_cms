@@ -18,7 +18,7 @@
       <el-form-item label="优势描述" prop="describes">
         <el-input  v-model="ruleForm.describes" autocomplete="off"></el-input>
       </el-form-item>
-      <el-form-item label="优势封面" prop="imgUrl">
+      <el-form-item label="封面" prop="imgUrl">
         <el-upload
           class="avatar-uploader"
           action="/api/upload/uploadImg"
@@ -121,7 +121,7 @@ export default {
           { required: true, message: '请选择资源类型', trigger: 'blur' }
         ],
         imgUrl: [
-          { required: true, message: '请上传优势封面图', trigger: 'blur' }
+          { required: true, message: '请上传封面图', trigger: 'blur' }
         ],
         proTypeId: [
           { required: true, message: '请选择优势类型', trigger: 'blur' }

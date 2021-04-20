@@ -7,7 +7,7 @@
       <el-table-column prop="id" label="优势ID" />
       <el-table-column prop="title" label="优势名称" />
       <el-table-column prop="status" label="优势状态" :formatter="formatStatus"/>
-      <el-table-column label="优势封面" min-width="140px">
+      <el-table-column label="封面" min-width="140px">
         <template slot-scope="scope">
           <img :src="scope.row.imgUrl" alt class="table-img" />
         </template>

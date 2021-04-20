@@ -48,7 +48,7 @@ export default {
       })
     }
     if (userInfo) {
-      if (JSON.parse(userInfo).role !== 1) {
+      if (JSON.parse(userInfo).role === 1) {
         warn()
       }
     } else {

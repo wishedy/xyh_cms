@@ -8,7 +8,7 @@
       <el-table-column prop="title" label="产品标题" />
       <el-table-column prop="status" label="产品状态" :formatter="formatStatus"/>
       <el-table-column prop="describes" label="产品描述" />
-      <el-table-column label="优势封面" min-width="140px">
+      <el-table-column label="封面" min-width="140px">
         <template slot-scope="scope">
           <img :src="scope.row.imgUrl" alt class="table-img" />
         </template>

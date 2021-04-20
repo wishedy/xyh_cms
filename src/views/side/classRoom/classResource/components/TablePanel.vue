@@ -162,7 +162,7 @@ export default {
     editData (data) {
       const _this = this
       const formattingList = (list) => {
-        const originalList = JSON.parse(JSON.stringify(list))
+        const originalList = list ? JSON.parse(JSON.stringify(list)) : []
         const resultList = []
         for (let num = 0; num < originalList.length; num++) {
           const item = originalList[num]
