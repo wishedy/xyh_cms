@@ -81,7 +81,7 @@
 </template>
 <script>
 import BaseDrawer from '@/components/Drawer/BaseDrawer'
-import { checkResource } from '@/utils'
+import { checkResource, isURL } from '@/utils'
 export default {
   name: 'EditPanel',
   components: {
@@ -147,6 +147,22 @@ export default {
     }
   },
   data () {
+    const checkArticleUrl = (rule, value, callback) => {
+      const val = this.ruleForm.articleUrl
+      if (isURL(val)) {
+        return callback()
+      } else {
+        return callback(new Error('请输入正确的连接地址'))
+      }
+    }
+    const checkVideoUrl = (rule, value, callback) => {
+      const val = this.ruleForm.videoUrl
+      if (isURL(val)) {
+        return callback()
+      } else {
+        return callback(new Error('请输入正确的连接地址'))
+      }
+    }
     return {
       ruleForm: {
         id: '',
@@ -197,9 +213,11 @@ export default {
           { required: true, message: '请选择课程分类', trigger: 'blur' }
         ],
         videoUrl: [
+          { message: '请输入正确的跳转连接', validator: checkVideoUrl, trigger: 'blur' },
           { required: true, message: '请输入视频链接', trigger: 'blur' }
         ],
         articleUrl: [
+          { message: '请输入正确的跳转连接', validator: checkArticleUrl, trigger: 'blur' },
           { required: true, message: '请输入文章链接', trigger: 'blur' }
         ],
         imgUrl: [

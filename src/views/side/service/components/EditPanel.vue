@@ -29,7 +29,7 @@
 </template>
 <script>
 import BaseDrawer from '@/components/Drawer/BaseDrawer'
-import { checkResource } from '@/utils'
+import { checkResource, isURL } from '@/utils'
 export default {
   name: 'EditPanel',
   components: {
@@ -71,6 +71,14 @@ export default {
     }
   },
   data () {
+    const checkUrl = (rule, value, callback) => {
+      const val = this.ruleForm.url
+      if (isURL(val)) {
+        return callback()
+      } else {
+        return callback(new Error('请输入正确的连接地址'))
+      }
+    }
     return {
       imageUrl: '11111',
       ruleForm: {
@@ -95,6 +103,7 @@ export default {
           { required: true, message: '请选择资源类型', trigger: 'blur' }
         ],
         url: [
+          { message: '请输入正确的跳转连接', validator: checkUrl, trigger: 'blur' },
           { required: true, message: '请输入服务类型跳转连接', trigger: 'blur' }
         ],
         resId: [

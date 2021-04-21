@@ -37,7 +37,7 @@
           </el-option>
         </el-select>
       </el-form-item>
-      <el-form-item label="课程封面" prop="imgUrl">
+      <el-form-item label="封面" prop="imgUrl">
         <el-upload
           class="avatar-uploader"
           action="/api/upload/uploadImg"
@@ -60,7 +60,7 @@
 </template>
 <script>
 import BaseDrawer from '@/components/Drawer/BaseDrawer'
-import { checkResource } from '@/utils'
+import { checkResource, isURL } from '@/utils'
 export default {
   name: 'EditPanel',
   components: {
@@ -108,6 +108,14 @@ export default {
     }
   },
   data () {
+    const checkUrl = (rule, value, callback) => {
+      const val = this.ruleForm.url
+      if (isURL(val)) {
+        return callback()
+      } else {
+        return callback(new Error('请输入正确的连接地址'))
+      }
+    }
     return {
       imageUrl: '11111',
       ruleForm: {
@@ -147,6 +155,7 @@ export default {
           { required: true, message: '请选择产品类型', trigger: 'blur' }
         ],
         url: [
+          { message: '请输入正确的跳转连接', validator: checkUrl, trigger: 'blur' },
           { required: true, message: '请输入产品跳转连接', trigger: 'blur' }
         ],
         types: [

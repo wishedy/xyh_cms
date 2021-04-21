@@ -5,7 +5,7 @@
       border
     >
       <el-table-column prop="id" label="课程ID" />
-      <el-table-column label="课程封面" min-width="140px">
+      <el-table-column label="课程封面" min-width="240px">
         <template slot-scope="scope">
           <img :src="scope.row.imgUrl" alt class="table-img" />
         </template>

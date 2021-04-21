@@ -8,7 +8,7 @@
       <el-table-column prop="title" label="轮播名称" />
       <el-table-column prop="status" label="Banner状态" :formatter="formatStatus"/>
       <el-table-column prop="showType" label="轮播位"  :formatter="formatTypes"/>
-      <el-table-column label="封面" min-width="140px">
+      <el-table-column label="轮播图封面" min-width="240px">
         <template slot-scope="scope">
           <img :src="scope.row.imgUrl" alt class="table-img" />
         </template>
@@ -21,7 +21,7 @@
           >{{moment(scope.row.createTime).format("YYYY-MM-DD HH:mm:ss")}}</span>
         </template>
       </el-table-column>
-      <el-table-column prop="status_name" label="操作">
+      <el-table-column prop="status_name" label="操作" min-width="120px">
         <template slot-scope="scope">
           <el-tag
             title="点击编辑需求类型"

@@ -21,7 +21,7 @@
           >{{moment(scope.row.createTime).format("YYYY-MM-DD HH:mm:ss")}}</span>
         </template>
       </el-table-column>
-      <el-table-column prop="status_name" label="操作">
+      <el-table-column prop="status_name" label="操作" min-width="100px">
         <template slot-scope="scope">
           <el-tag
             title="点击编辑需求类型"

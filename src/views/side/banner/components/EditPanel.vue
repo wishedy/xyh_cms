@@ -45,6 +45,7 @@
   </BaseDrawer>
 </template>
 <script>
+import { isURL } from '@/utils'
 import BaseDrawer from '@/components/Drawer/BaseDrawer'
 export default {
   name: 'EditPanel',
@@ -93,8 +94,16 @@ export default {
     }
   },
   data () {
+    const checkUrl = (rule, value, callback) => {
+      const val = this.ruleForm.url
+      if (isURL(val)) {
+        return callback()
+      } else {
+        return callback(new Error('请输入正确的连接地址'))
+      }
+    }
     return {
-      imageUrl: '11111',
+      imageUrl: '',
       ruleForm: {
         id: '',
         title: '',
@@ -120,7 +129,8 @@ export default {
           { required: true, message: '请输入轮播图内容', trigger: 'blur' }
         ],
         url: [
-          { required: true, message: '请输入轮播图作者名称', trigger: 'blur' }
+          { message: '请输入正确的跳转连接', validator: checkUrl, trigger: 'blur' },
+          { required: true, message: '请输入轮播图跳转连接', trigger: 'blur' }
         ],
         introduce: [
           { required: true, message: '请输入轮播图简介', trigger: 'blur' }
