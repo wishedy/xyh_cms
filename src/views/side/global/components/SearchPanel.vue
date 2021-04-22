@@ -46,6 +46,14 @@
 <script>
 export default {
   name: 'SearchPanel',
+  props: {
+    triggerReset: {
+      default () {
+        return 0
+      },
+      type: Number
+    }
+  },
   data () {
     return {
       originalForm: {
@@ -56,6 +64,12 @@ export default {
         id: '',
         names: ''
       }
+    }
+  },
+  watch: {
+    triggerReset () {
+      const _this = this
+      _this.formData = JSON.parse(JSON.stringify(_this.originalForm))
     }
   },
   methods: {

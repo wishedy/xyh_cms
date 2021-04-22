@@ -58,6 +58,20 @@ export default {
       }
     }
   },
+  props: {
+    triggerReset: {
+      default () {
+        return 0
+      },
+      type: Number
+    }
+  },
+  watch: {
+    triggerReset () {
+      const _this = this
+      _this.formData = JSON.parse(JSON.stringify(_this.originalForm))
+    }
+  },
   methods: {
     handleSearch () {
       this.$emit('handleSearch', this.formData)

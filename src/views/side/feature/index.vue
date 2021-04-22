@@ -1,6 +1,9 @@
 <template>
   <section class="el-main">
-    <SearchPanel @handleSearch="getList"/>
+    <SearchPanel
+      :triggerReset="reset"
+      @handleSearch="getList"
+    />
     <HandleBar @handleCreate="createData"/>
     <TablePanel
       @handleEdit="editData"
@@ -35,7 +38,9 @@ export default {
   },
   data () {
     return {
+      reset: 0,
       submitForm: {},
+      searchForm: {},
       editItemData: {},
       editType: 0,
       visible: false,
@@ -116,12 +121,12 @@ export default {
       const _this = this
       _this.submitForm = {}
       _this.closeEditPanel()
-      _this.getList()
+      _this.getList(_this.searchForm)
     },
     handleSizeChange (size) {
       const _this = this
       _this.pageSize = size
-      _this.getList()
+      _this.getList(_this.searchForm)
     },
     handlePageChange (page) {
       const _this = this
@@ -130,10 +135,14 @@ export default {
     },
     async getList (form) {
       const _this = this
+      _this.searchForm = form ? JSON.parse(JSON.stringify(form)) : {}
+      if (Object.keys(_this.searchForm).length === 0) {
+        _this.reset++
+      }
       const res = await getFeatureList({
         pageSize: _this.pageSize,
         pageNum: _this.pageNum,
-        ...form
+        ..._this.searchForm
       })
       _this.total = res.result.total
       _this.list = res.result.list

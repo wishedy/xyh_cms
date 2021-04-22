@@ -3,6 +3,7 @@
     <SearchPanel
       @handleSearch="getList"
       :demandList="demandList"
+      :triggerReset="reset"
     />
     <HandleBar @handleCreate="createData"/>
     <TablePanel
@@ -39,6 +40,7 @@ export default {
   },
   data () {
     return {
+      reset: 0,
       demandList: [
         {
           id: 1,
@@ -54,6 +56,7 @@ export default {
         }
       ],
       submitForm: {},
+      searchForm: {},
       editItemData: {},
       editType: 0,
       visible: false,
@@ -139,19 +142,23 @@ export default {
     handleSizeChange (size) {
       const _this = this
       _this.pageSize = size
-      _this.getList()
+      _this.getList(_this.searchForm)
     },
     handlePageChange (page) {
       const _this = this
       _this.pageNum = page
-      _this.getList()
+      _this.getList(_this.searchForm)
     },
     async getList (form) {
       const _this = this
+      _this.searchForm = form ? JSON.parse(JSON.stringify(form)) : {}
+      if (Object.keys(_this.searchForm).length === 0) {
+        _this.reset++
+      }
       const res = await getClassTypeList({
         pageSize: _this.pageSize,
         pageNum: _this.pageNum,
-        ...form
+        ..._this.searchForm
       })
       _this.total = res.result.total
       _this.list = res.result.list

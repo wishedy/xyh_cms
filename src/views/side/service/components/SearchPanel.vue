@@ -57,11 +57,23 @@
 export default {
   name: 'SearchPanel',
   props: {
+    triggerReset: {
+      default () {
+        return 0
+      },
+      type: Number
+    },
     demandList: {
       default () {
         return []
       },
       type: Array
+    }
+  },
+  watch: {
+    triggerReset () {
+      const _this = this
+      _this.formData = JSON.parse(JSON.stringify(_this.originalForm))
     }
   },
   data () {
