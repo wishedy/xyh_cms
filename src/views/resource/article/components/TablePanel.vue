@@ -7,7 +7,7 @@
       <el-table-column prop="id" label="文章ID" />
       <el-table-column prop="names" label="文章名称" />
       <el-table-column prop="status" label="文章状态" :formatter="formatStatus"/>
-      <el-table-column prop="needName" label="需求类型" />
+      <el-table-column prop="platform" label="资源类型" :formatter="formatPlatform"/>
       <el-table-column label="文章链接" min-width="120px">
         <template slot-scope="scope">
           <el-button type="text" @click="handleCopyLink('https://www.xueyanhui.com/article?id='+scope.row.id)">复制完整链接</el-button>
@@ -128,6 +128,24 @@ export default {
           break
         case 1:
           title = '上架'
+          break
+      }
+      return title
+    },
+    formatPlatform (row) {
+      let title = ''
+      switch (parseInt(row.platform, 10)) {
+        case 1:
+          title = '平台介绍'
+          break
+        case 2:
+          title = '活动介绍'
+          break
+        case 3:
+          title = '业务介绍'
+          break
+        case 4:
+          title = '课堂资源'
           break
       }
       return title

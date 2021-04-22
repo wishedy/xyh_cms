@@ -15,8 +15,8 @@
       <el-form-item label="作者" prop="author">
         <el-input  v-model="ruleForm.author" autocomplete="off"></el-input>
       </el-form-item>
-      <el-form-item label="需求类型" prop="needId">
-        <el-select v-model="ruleForm.needId" clearable placeholder="请选择" style="width:256px;"  auto-complete="off">
+      <el-form-item label="资源类型" prop="platform">
+        <el-select v-model="ruleForm.platform" clearable placeholder="请选择" style="width:256px;"  auto-complete="off">
           <el-option
             v-for="item in demandList"
             :key="item.id"
@@ -158,7 +158,7 @@ export default {
         id: '',
         names: '',
         introduce: '',
-        needId: '',
+        platform: '',
         author: '',
         contents: ''
       },
@@ -166,7 +166,7 @@ export default {
         id: '',
         names: '',
         introduce: '',
-        needId: '',
+        platform: '',
         author: '',
         contents: ''
       },
@@ -183,8 +183,8 @@ export default {
         introduce: [
           { required: true, message: '请输入文章简介', trigger: 'blur' }
         ],
-        needId: [
-          { required: true, message: '请选择需求类型', trigger: 'blur' }
+        platform: [
+          { required: true, message: '请选择资源类型', trigger: 'blur' }
         ]
       }
     }

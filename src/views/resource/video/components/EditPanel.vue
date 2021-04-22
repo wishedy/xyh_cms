@@ -15,8 +15,8 @@
       <el-form-item label="作者" prop="author">
         <el-input  v-model="ruleForm.author" autocomplete="off"></el-input>
       </el-form-item>
-      <el-form-item label="需求类型" prop="needId">
-        <el-select v-model="ruleForm.needId" clearable placeholder="请选择" style="width:256px;"  auto-complete="off">
+      <el-form-item label="资源类型" prop="platform">
+        <el-select v-model="ruleForm.platform" clearable placeholder="请选择" style="width:256px;"  auto-complete="off">
           <el-option
             v-for="item in demandList"
             :key="item.id"
@@ -35,6 +35,7 @@
           :show-file-list="false"
           :on-success="handleAvatarSuccess"
           :before-upload="beforeAvatarUpload">
+          <section class="avatar-loading-content" v-show="imageLoading"></section>
           <div class="avatar-delete-mask" v-if="ruleForm.urls">
             <section class="avatar-delete-handle avatar-delete-video">
               <span class="handle-item el-icon-delete-solid" @click="deleteVideo">删除</span>
@@ -42,7 +43,7 @@
             </section>
           </div>
 <!--          <img v-if="imageUrl" :src="imageUrl" class="avatar">-->
-          <i v-else class="el-icon-plus avatar-uploader-icon"></i>
+          <i v-else class="el-icon-plus avatar-uploader-icon" v-show="!imageLoading"></i>
         </el-upload>
       </el-form-item>
     </el-form>
@@ -82,7 +83,7 @@ export default {
   computed: {
     editTypeTitle () {
       const _this = this
-      return parseInt(_this.editType, 10) === 1 ? '编辑需求类型' : '新建需求类型'
+      return parseInt(_this.editType, 10) === 1 ? '编辑资源类型' : '新建资源类型'
     }
   },
   watch: {
@@ -99,10 +100,11 @@ export default {
   data () {
     return {
       imageUrl: '11111',
+      imageLoading: false,
       ruleForm: {
         id: '',
         names: '',
-        needId: '',
+        platform: '',
         urls: '',
         introduce: '',
         author: '',
@@ -112,7 +114,7 @@ export default {
         id: '',
         urls: '',
         names: '',
-        needId: '',
+        platform: '',
         introduce: '',
         author: '',
         contents: ''
@@ -130,8 +132,8 @@ export default {
         introduce: [
           { required: true, message: '请输入视频简介', trigger: 'blur' }
         ],
-        needId: [
-          { required: true, message: '请选择需求类型', trigger: 'blur' }
+        platform: [
+          { required: true, message: '请选择资源类型', trigger: 'blur' }
         ]
       }
     }
@@ -145,6 +147,7 @@ export default {
       const _this = this
       if (res && parseInt(res.code, 10) === 200) {
         _this.ruleForm.urls = res.result.url
+        _this.imageLoading = false
       }
     },
     beforeAvatarUpload (file) {
@@ -157,6 +160,7 @@ export default {
         this.$message.error('上传视频大小不能超过10MB哦!')
         return false
       }
+      this.imageLoading = true
     },
     handleConfirm () {
       const _this = this

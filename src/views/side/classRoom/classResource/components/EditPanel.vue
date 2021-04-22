@@ -65,6 +65,7 @@
           :show-file-list="false"
           :on-success="handleAvatarSuccess"
           :before-upload="beforeAvatarUpload">
+          <section class="avatar-loading-content" v-show="imageLoading"></section>
           <div class="avatar-delete-mask" v-if="ruleForm.imgUrl">
             <section class="avatar-delete-content" :style="{background:'url('+ruleForm.imgUrl+') no-repeat center/contain'}"></section>
             <section class="avatar-delete-handle">
@@ -73,7 +74,7 @@
             </section>
           </div>
           <!--          <img v-if="imageUrl" :src="imageUrl" class="avatar">-->
-          <i v-else class="el-icon-plus avatar-uploader-icon"></i>
+          <i v-else class="el-icon-plus avatar-uploader-icon" v-show="!imageLoading"></i>
         </el-upload>
       </el-form-item>
     </el-form>
@@ -164,6 +165,7 @@ export default {
       }
     }
     return {
+      imageLoading: false,
       ruleForm: {
         id: '',
         orderBy: '',
@@ -247,6 +249,7 @@ export default {
       const _this = this
       if (res && parseInt(res.code, 10) === 200) {
         _this.ruleForm.imgUrl = res.result.url
+        _this.imageLoading = false
       }
     },
     beforeAvatarUpload (file) {
@@ -259,11 +262,13 @@ export default {
         this.$message.error('上传二维码大小不能超过10MB哦!')
         return false
       }
+      this.imageLoading = true
     },
     handleConfirm () {
       const _this = this
       this.$refs.editForm.validate((valid) => {
         if (valid) {
+          console.log({ type: 1, id: _this.ruleForm.resId, resType: _this.ruleForm.resType })
           checkResource({ type: 1, id: _this.ruleForm.resId, resType: _this.ruleForm.resType }).then((res) => {
             _this.$emit('submit', _this.ruleForm)
           }).catch(() => {

@@ -25,7 +25,7 @@
 </template>
 <script>
 import HandleBar from '@/views/resource/article/components/HandleBar'
-import { createArticle, getDemandList, updateArticle, getArticleList } from '@/resource'
+import { createArticle, updateArticle, getArticleList } from '@/resource'
 import EditPanel from './components/EditPanel'
 import SearchPanel from './components/SearchPanel'
 import TablePanel from './components/TablePanel'
@@ -39,7 +39,24 @@ export default {
   },
   data () {
     return {
-      demandList: [],
+      demandList: [
+        {
+          names: '平台介绍',
+          id: '1'
+        },
+        {
+          names: '活动介绍',
+          id: '2'
+        },
+        {
+          names: '业务介绍',
+          id: '3'
+        },
+        {
+          names: '课堂资源',
+          id: '4'
+        }
+      ],
       submitForm: {},
       editItemData: {},
       editType: 0,
@@ -52,7 +69,6 @@ export default {
   },
   mounted () {
     const _this = this
-    _this.getDemand()
     _this.getList()
   },
   methods: {
@@ -133,11 +149,6 @@ export default {
       const _this = this
       _this.pageNum = page
       _this.getList()
-    },
-    async getDemand () {
-      const _this = this
-      const res = await getDemandList({ status: 1 })
-      _this.demandList = res.result
     },
     async getList (form) {
       const _this = this
