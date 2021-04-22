@@ -55,6 +55,10 @@ export default {
         {
           names: '课堂资源',
           id: '4'
+        },
+        {
+          names: '会议培训',
+          id: '5'
         }
       ],
       submitForm: {},

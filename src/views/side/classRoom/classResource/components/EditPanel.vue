@@ -56,7 +56,7 @@
         <el-input  v-model="ruleForm.resId" autocomplete="off"></el-input>
       </el-form-item>
       <el-form-item label="资源价格" prop="price">
-        <el-input  v-model="ruleForm.price" autocomplete="off"></el-input>
+        <el-input  v-model="ruleForm.price" autocomplete="off" :disabled="parseInt(ruleForm.chargeType,10)===1"></el-input>
       </el-form-item>
       <el-form-item label="课程封面" prop="imgUrl">
         <el-upload
@@ -137,6 +137,13 @@ export default {
     }
   },
   watch: {
+    'ruleForm.chargeType' (n) {
+      if (parseInt(n, 10) === 1) {
+        this.ruleForm.price = 0
+      } else {
+        this.ruleForm.price = ''
+      }
+    },
     visible (show) {
       const _this = this
       _this.resetForm()
@@ -162,6 +169,16 @@ export default {
         return callback()
       } else {
         return callback(new Error('请输入正确的连接地址'))
+      }
+    }
+    const checkCostMoney = (rule, value, callback) => {
+      const reg = /(^[1-9]([0-9]+)?(\.[0-9]{1,2})?$)|(^(0){1}$)|(^[0-9]\.[0-9]([0-9])?$)/
+      const val = this.ruleForm.price
+      const numMaxOnOff = Number(val) < 99999.99
+      if (reg.test(val) && numMaxOnOff) {
+        return callback()
+      } else {
+        return callback(new Error('请输入正确的金额'))
       }
     }
     return {
@@ -229,6 +246,7 @@ export default {
           { required: true, message: '请选择课程类别维度', trigger: 'blur' }
         ],
         price: [
+          { message: '请输入正确的金额', validator: checkCostMoney, trigger: 'blur' },
           { required: true, message: '请输入课程价格', trigger: 'blur' }
         ],
         chargeType: [

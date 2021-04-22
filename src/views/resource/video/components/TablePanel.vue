@@ -140,6 +140,9 @@ export default {
         case 4:
           title = '课堂资源'
           break
+        case 5:
+          title = '会议培训'
+          break
       }
       return title
     },
