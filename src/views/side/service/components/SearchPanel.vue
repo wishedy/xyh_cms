@@ -28,7 +28,7 @@
           @keyup.enter.native="handleSearch"
         />
       </el-form-item>
-      <el-form-item label="服务类型状态" prop="proTypeId">
+      <el-form-item label="服务类型状态" prop="status">
         <el-select v-model="formData.status" clearable placeholder="请选择" style="width:256px;"  auto-complete="off">
           <el-option
             v-for="item in status"

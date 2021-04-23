@@ -28,6 +28,26 @@
           @keyup.enter.native="handleSearch"
         />
       </el-form-item>
+      <el-form-item label="轮播图位置" prop="showType">
+        <el-select v-model="formData.showType" clearable placeholder="请选择" style="width:256px;"  auto-complete="off">
+          <el-option
+            v-for="item in showTypeList"
+            :key="item.id"
+            :label="item.title"
+            :value="item.id">
+          </el-option>
+        </el-select>
+      </el-form-item>
+      <el-form-item label="轮播图状态" prop="status">
+        <el-select v-model="formData.status" clearable placeholder="请选择" style="width:256px;"  auto-complete="off">
+          <el-option
+            v-for="item in status"
+            :key="item.value"
+            :label="item.name"
+            :value="item.value">
+          </el-option>
+        </el-select>
+      </el-form-item>
       <el-form-item class="form-button-line block">
         <el-button
           type="primary"
@@ -62,13 +82,43 @@ export default {
   },
   data () {
     return {
+      status: [
+        {
+          value: '0',
+          name: '下架'
+        },
+        {
+          value: '1',
+          name: '上架'
+        }
+      ],
+      showTypeList: [
+        {
+          id: 1,
+          title: 'PC首页'
+        }, {
+          id: 10,
+          title: '小程序'
+        }, {
+          id: 20,
+          title: '学研课堂'
+        },
+        {
+          id: 30,
+          title: '课堂列表'
+        }
+      ],
       originalForm: {
         id: '',
-        names: ''
+        names: '',
+        status: '',
+        showType: ''
       },
       formData: {
         id: '',
-        names: ''
+        names: '',
+        status: '',
+        showType: ''
       }
     }
   },

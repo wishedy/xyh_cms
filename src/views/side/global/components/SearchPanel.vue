@@ -28,6 +28,16 @@
           @keyup.enter.native="handleSearch"
         />
       </el-form-item>
+      <el-form-item label="合作状态" prop="status">
+        <el-select v-model="formData.status" clearable placeholder="请选择" style="width:256px;"  auto-complete="off">
+          <el-option
+            v-for="item in status"
+            :key="item.value"
+            :label="item.name"
+            :value="item.value">
+          </el-option>
+        </el-select>
+      </el-form-item>
       <el-form-item class="form-button-line block">
         <el-button
           type="primary"
@@ -56,12 +66,24 @@ export default {
   },
   data () {
     return {
+      status: [
+        {
+          value: '0',
+          name: '下架'
+        },
+        {
+          value: '1',
+          name: '上架'
+        }
+      ],
       originalForm: {
         id: '',
+        status: '',
         names: ''
       },
       formData: {
         id: '',
+        status: '',
         names: ''
       }
     }
