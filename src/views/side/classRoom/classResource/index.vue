@@ -165,8 +165,8 @@ export default {
         pageNum: _this.pageNum,
         ..._this.searchForm
       })
-      _this.total = res.result.total
-      _this.list = res.result.list
+      _this.total = res.result.topCourse && res.result.topCourse.id ? res.result.resultList.total + 1 : res.result.resultList.total
+      _this.list = res.result.topCourse && res.result.topCourse.id ? res.result.resultList.list.concat(res.result.topCourse && res.result.topCourse) : res.result.resultList.list
     },
     openEditPanel () {
       this.visible = true

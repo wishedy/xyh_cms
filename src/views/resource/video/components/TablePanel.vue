@@ -156,7 +156,7 @@ export default {
     },
     editData (data) {
       const _this = this
-      _this.$emit('handleEdit', { names: data.videoName, needId: data.needId, id: data.id, author: data.author, urls: data.urls })
+      _this.$emit('handleEdit', { names: data.videoName, needId: data.needId, id: data.id, author: data.author, urls: data.urls, introduce: data.introduce ? data.introduce : '', platform: data.platform })
     },
     handleResetPassword (id) {
       const _this = this

@@ -79,7 +79,7 @@ export default {
     },
     editTypeTitle () {
       const _this = this
-      return parseInt(_this.editType, 10) === 1 ? '编辑文章' : '新建文章'
+      return parseInt(_this.editType, 10) === 1 ? '编辑文章资源' : '新建文章资源'
     }
   },
   watch: {

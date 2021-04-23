@@ -83,7 +83,7 @@ export default {
   computed: {
     editTypeTitle () {
       const _this = this
-      return parseInt(_this.editType, 10) === 1 ? '编辑资源类型' : '新建资源类型'
+      return parseInt(_this.editType, 10) === 1 ? '编辑视频资源' : '新建视频资源'
     }
   },
   watch: {

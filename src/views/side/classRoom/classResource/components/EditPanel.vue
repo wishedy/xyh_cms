@@ -52,7 +52,7 @@
     <el-form-item label="描述简介" prop="introduce">
       <el-input  v-model="ruleForm.introduce" autocomplete="off"></el-input>
     </el-form-item>
-      <el-form-item label="资源ID" prop="title">
+      <el-form-item label="资源ID" prop="resId">
         <el-input  v-model="ruleForm.resId" autocomplete="off"></el-input>
       </el-form-item>
       <el-form-item label="资源价格" prop="price">
@@ -133,7 +133,7 @@ export default {
   computed: {
     editTypetitle () {
       const _this = this
-      return parseInt(_this.editType, 10) === 1 ? '编辑课程类别' : '新建课程类别'
+      return parseInt(_this.editType, 10) === 1 ? '编辑课程资源' : '新建课程资源'
     }
   },
   watch: {
@@ -243,7 +243,10 @@ export default {
           { required: true, message: '请上传课程封面', trigger: 'blur' }
         ],
         resType: [
-          { required: true, message: '请选择课程类别维度', trigger: 'blur' }
+          { required: true, message: '请选择课程资源维度', trigger: 'blur' }
+        ],
+        resId: [
+          { required: true, message: '请选择站内资源ID', trigger: 'blur' }
         ],
         price: [
           { message: '请输入正确的金额', validator: checkCostMoney, trigger: 'blur' },
@@ -253,7 +256,7 @@ export default {
           { required: true, message: '请选择付费类型', trigger: 'blur' }
         ],
         orderBy: [
-          { required: true, message: '请输入课程类别排序', trigger: 'blur' }
+          { required: true, message: '请输入课程资源排序', trigger: 'blur' }
         ]
       }
     }
