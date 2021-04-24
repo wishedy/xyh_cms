@@ -5,14 +5,14 @@
       border
     >
       <el-table-column prop="id" label="需求ID" />
-      <el-table-column prop="contacts" label="用户姓名" />
+      <el-table-column prop="contacts" label="联系人姓名" />
       <el-table-column prop="email" label="邮箱" />
       <el-table-column prop="phone" label="手机号" />
       <el-table-column prop="wxNum" label="微信号" />
       <el-table-column prop="followUser" label="跟进人ID" />
       <el-table-column prop="followUserName" label="跟进人姓名" />
-      <el-table-column prop="needType" label="需求类型" />
-      <el-table-column prop="department" label="注册时间" />
+      <el-table-column prop="needTypeList" label="需求类型"  :formatter="formatNeed"/>
+      <el-table-column prop="department" label="需求提交时间" />
       <el-table-column prop="status_name" label="操作"  fixed="right" align="center">
 <!--        <template slot-scope="scope">
           <section class="handle-item">
@@ -71,6 +71,15 @@ export default {
     }
   },
   methods: {
+    formatNeed (row) {
+      let title = ''
+      const list = JSON.parse(JSON.stringify(row.needTypeList))
+      for (let num = 0; num < list.length; num++) {
+        const item = list[num]
+        title.length ? title += ',' + item.names : title += item.names
+      }
+      return title
+    },
     handleSizeChange (size) {
       console.log(size)
     },
