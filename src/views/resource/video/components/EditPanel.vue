@@ -28,7 +28,7 @@
       <el-form-item label="视频简介" prop="introduce">
         <el-input  v-model="ruleForm.introduce" autocomplete="off"></el-input>
       </el-form-item>
-      <el-form-item label="视频内容" prop="author">
+      <el-form-item label="视频内容" prop="urls">
         <el-upload
           class="avatar-uploader"
           action="/api/upload/uploadImg"
@@ -107,8 +107,7 @@ export default {
         platform: '',
         urls: '',
         introduce: '',
-        author: '',
-        contents: ''
+        author: ''
       },
       originalForm: {
         id: '',
@@ -116,15 +115,14 @@ export default {
         names: '',
         platform: '',
         introduce: '',
-        author: '',
-        contents: ''
+        author: ''
       },
       rules: {
         names: [
           { required: true, message: '请输入视频名称', trigger: 'blur' }
         ],
-        contents: [
-          { required: true, message: '请输入视频内容', trigger: 'blur' }
+        urls: [
+          { required: true, message: '请上传视频', trigger: 'blur' }
         ],
         author: [
           { required: true, message: '请输入视频作者名称', trigger: 'blur' }

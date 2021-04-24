@@ -160,7 +160,7 @@ export default {
       if (isURL(val)) {
         return callback()
       } else {
-        return callback(new Error('请输入正确的连接地址'))
+        return callback(new Error('请输入正确的链接地址'))
       }
     }
     const checkVideoUrl = (rule, value, callback) => {
@@ -168,7 +168,7 @@ export default {
       if (isURL(val)) {
         return callback()
       } else {
-        return callback(new Error('请输入正确的连接地址'))
+        return callback(new Error('请输入正确的链接地址'))
       }
     }
     const checkCostMoney = (rule, value, callback) => {
@@ -232,18 +232,18 @@ export default {
           { required: true, message: '请选择课程分类', trigger: 'blur' }
         ],
         videoUrl: [
-          { message: '请输入正确的跳转连接', validator: checkVideoUrl, trigger: 'blur' },
+          { message: '请输入正确的跳转链接', validator: checkVideoUrl, trigger: 'blur' },
           { required: true, message: '请输入视频链接', trigger: 'blur' }
         ],
         articleUrl: [
-          { message: '请输入正确的跳转连接', validator: checkArticleUrl, trigger: 'blur' },
+          { message: '请输入正确的跳转链接', validator: checkArticleUrl, trigger: 'blur' },
           { required: true, message: '请输入文章链接', trigger: 'blur' }
         ],
         imgUrl: [
           { required: true, message: '请上传课程封面', trigger: 'blur' }
         ],
         resType: [
-          { required: true, message: '请选择课程资源维度', trigger: 'blur' }
+          { required: true, message: '请选择课程资源类型', trigger: 'blur' }
         ],
         resId: [
           { required: true, message: '请选择站内资源ID', trigger: 'blur' }

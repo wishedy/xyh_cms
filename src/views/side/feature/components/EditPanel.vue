@@ -12,9 +12,6 @@
       <el-form-item label="优势标题" prop="title">
         <el-input  v-model="ruleForm.title" autocomplete="off"></el-input>
       </el-form-item>
-      <el-form-item label="优势跳转链接" prop="url">
-        <el-input  v-model="ruleForm.url" autocomplete="off"></el-input>
-      </el-form-item>
       <el-form-item label="优势描述" prop="describes">
         <el-input  v-model="ruleForm.describes" autocomplete="off"></el-input>
       </el-form-item>
@@ -94,22 +91,14 @@ export default {
       imageUrl: '11111',
       ruleForm: {
         id: '',
-        url: '',
-        proTypeId: '',
         describes: '',
-        resId: '',
         title: '',
-        imgUrl: '',
-        resType: ''
+        imgUrl: ''
       },
       originalForm: {
         id: '',
-        resType: '',
-        proTypeId: '',
         imgUrl: '',
-        url: '',
         describes: '',
-        resId: '',
         title: ''
       },
       rules: {
@@ -119,23 +108,8 @@ export default {
         describes: [
           { required: true, message: '请输入优势描述', trigger: 'blur' }
         ],
-        resType: [
-          { required: true, message: '请选择资源类型', trigger: 'blur' }
-        ],
         imgUrl: [
           { required: true, message: '请上传封面图', trigger: 'blur' }
-        ],
-        proTypeId: [
-          { required: true, message: '请选择优势类型', trigger: 'blur' }
-        ],
-        url: [
-          { required: true, message: '请输入优势跳转连接', trigger: 'blur' }
-        ],
-        types: [
-          { required: true, message: '请选择课程类别维度', trigger: 'blur' }
-        ],
-        resId: [
-          { required: true, message: '请输入资源ID', trigger: 'blur' }
         ]
       }
     }

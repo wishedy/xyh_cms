@@ -9,7 +9,7 @@
     @close="$emit('handleCancel')"
   >
     <el-form :model="ruleForm" status-icon :rules="rules" ref="editForm" label-width="120px" class="demo-ruleForm">
-      <el-form-item label="文章名" prop="names">
+      <el-form-item label="文章标题" prop="names">
         <el-input  v-model="ruleForm.names" autocomplete="off"></el-input>
       </el-form-item>
       <el-form-item label="作者" prop="author">
@@ -172,7 +172,7 @@ export default {
       },
       rules: {
         names: [
-          { required: true, message: '请输入文章名称', trigger: 'blur' }
+          { required: true, message: '请输入文章标题', trigger: 'blur' }
         ],
         contents: [
           { required: true, message: '请输入文章内容', trigger: 'blur' }

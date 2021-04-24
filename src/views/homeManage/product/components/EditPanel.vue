@@ -157,8 +157,8 @@ export default {
           { required: true, message: '请选择产品类型', trigger: 'blur' }
         ],
         url: [
-          { message: '请输入正确的跳转连接', validator: checkUrl, trigger: 'blur' },
-          { required: true, message: '请输入产品跳转连接', trigger: 'blur' }
+          { message: '请输入正确的产品跳转链接', validator: checkUrl, trigger: 'blur' },
+          { required: true, message: '请输入产品跳转链接', trigger: 'blur' }
         ],
         types: [
           { required: true, message: '请选择课程类别维度', trigger: 'blur' }

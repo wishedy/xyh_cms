@@ -12,10 +12,10 @@
       <el-form-item label="入口名" prop="title">
         <el-input  v-model="ruleForm.title" autocomplete="off"></el-input>
       </el-form-item>
-      <el-form-item label="跳转连接" prop="url">
+      <el-form-item label="跳转链接" prop="url">
         <el-input  v-model="ruleForm.url" autocomplete="off"></el-input>
       </el-form-item>
-      <el-form-item label="入口描述" prop="url">
+      <el-form-item label="入口描述" prop="describes">
         <el-input  v-model="ruleForm.describes" autocomplete="off"></el-input>
       </el-form-item>
       <el-form-item label="入口背景" prop="url">
@@ -110,20 +110,14 @@ export default {
         title: [
           { required: true, message: '请输入入口名称', trigger: 'blur' }
         ],
-        showType: [
-          { required: true, message: '请选择入口展示页面', trigger: 'blur' }
-        ],
-        contents: [
-          { required: true, message: '请输入入口内容', trigger: 'blur' }
+        imgUrl: [
+          { required: true, message: '请上传入口封面', trigger: 'blur' }
         ],
         url: [
-          { required: true, message: '请输入入口作者名称', trigger: 'blur' }
+          { required: true, message: '请输入入口跳转链接', trigger: 'blur' }
         ],
-        introduce: [
-          { required: true, message: '请输入入口简介', trigger: 'blur' }
-        ],
-        needId: [
-          { required: true, message: '请选择入口', trigger: 'blur' }
+        describes: [
+          { required: true, message: '请输入入口描述', trigger: 'blur' }
         ]
       }
     }

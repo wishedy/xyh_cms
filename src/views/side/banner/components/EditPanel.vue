@@ -12,7 +12,7 @@
       <el-form-item label="轮播图名" prop="title">
         <el-input  v-model="ruleForm.title" autocomplete="off"></el-input>
       </el-form-item>
-      <el-form-item label="跳转连接" prop="url">
+      <el-form-item label="跳转链接" prop="url">
         <el-input  v-model="ruleForm.url" autocomplete="off"></el-input>
       </el-form-item>
       <el-form-item label="展示页面" prop="showType">
@@ -125,20 +125,14 @@ export default {
           { required: true, message: '请输入轮播图名称', trigger: 'blur' }
         ],
         showType: [
-          { required: true, message: '请选择轮播图展示页面', trigger: 'blur' }
-        ],
-        contents: [
-          { required: true, message: '请输入轮播图内容', trigger: 'blur' }
+          { required: true, message: '请选择轮播图展示位置', trigger: 'blur' }
         ],
         url: [
-          { message: '请输入正确的跳转连接', validator: checkUrl, trigger: 'blur' },
-          { required: true, message: '请输入轮播图跳转连接', trigger: 'blur' }
+          { message: '请输入正确的跳转链接', validator: checkUrl, trigger: 'blur' },
+          { required: true, message: '请输入轮播图跳转链接', trigger: 'blur' }
         ],
         introduce: [
           { required: true, message: '请输入轮播图简介', trigger: 'blur' }
-        ],
-        needId: [
-          { required: true, message: '请选择轮播图', trigger: 'blur' }
         ]
       }
     }

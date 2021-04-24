@@ -103,8 +103,8 @@ export default {
           { required: true, message: '请选择资源类型', trigger: 'blur' }
         ],
         url: [
-          { message: '请输入正确的跳转连接', validator: checkUrl, trigger: 'blur' },
-          { required: true, message: '请输入服务类型跳转连接', trigger: 'blur' }
+          { message: '请输入正确的跳转链接', validator: checkUrl, trigger: 'blur' },
+          { required: true, message: '请输入服务类型跳转链接', trigger: 'blur' }
         ],
         resId: [
           { required: true, message: '请输入资源ID', trigger: 'blur' }

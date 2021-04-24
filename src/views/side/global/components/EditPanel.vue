@@ -95,11 +95,13 @@ export default {
       ruleForm: {
         id: '',
         title: '',
+        showType: '',
         imgUrl: ''
       },
       originalForm: {
         id: '',
         imgUrl: '',
+        showType: '',
         title: ''
       },
       rules: {
@@ -107,19 +109,10 @@ export default {
           { required: true, message: '请输入合作资源名称', trigger: 'blur' }
         ],
         showType: [
-          { required: true, message: '请选择合作资源展示页面', trigger: 'blur' }
+          { required: true, message: '请选择合作资源类型', trigger: 'blur' }
         ],
         imgUrl: [
-          { required: true, message: '请输入合作资源内容', trigger: 'blur' }
-        ],
-        url: [
-          { required: true, message: '请输入合作资源作者名称', trigger: 'blur' }
-        ],
-        introduce: [
-          { required: true, message: '请输入合作资源简介', trigger: 'blur' }
-        ],
-        needId: [
-          { required: true, message: '请选择合作资源', trigger: 'blur' }
+          { required: true, message: '请上传合作资源封面', trigger: 'blur' }
         ]
       }
     }

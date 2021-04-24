@@ -88,7 +88,7 @@ export default {
   data () {
     return {
       imageLoading: false,
-      imageUrl: '11111',
+      imageUrl: '',
       ruleForm: {
         id: '',
         title: '',
