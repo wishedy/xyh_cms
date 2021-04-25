@@ -25,9 +25,6 @@
           </el-option>
         </el-select>
       </el-form-item>
-      <el-form-item label="视频简介" prop="introduce">
-        <el-input  v-model="ruleForm.introduce" autocomplete="off"></el-input>
-      </el-form-item>
       <el-form-item label="视频内容" prop="urls">
         <el-upload
           class="avatar-uploader"
@@ -42,14 +39,25 @@
               <span class="handle-item el-icon-success">上传成功</span>
             </section>
           </div>
-<!--          <img v-if="imageUrl" :src="imageUrl" class="avatar">-->
+          <!--          <img v-if="imageUrl" :src="imageUrl" class="avatar">-->
           <i v-else class="el-icon-plus avatar-uploader-icon" v-show="!imageLoading"></i>
         </el-upload>
+      </el-form-item>
+      <el-form-item label="视频简介" prop="introduce">
+        <quill-editor
+          v-model="ruleForm.introduce"
+          ref="myQuillEditor"
+            class="editor"
+          :options="editorOption"
+          @blur="onEditorBlur($event)" @focus="onEditorFocus($event)"
+          @change="onEditorChange($event)">
+        </quill-editor>
       </el-form-item>
     </el-form>
   </BaseDrawer>
 </template>
 <script>
+import { quillRedefine } from 'vue-quill-editor-upload'
 import BaseDrawer from '@/components/Drawer/BaseDrawer'
 export default {
   name: 'EditPanel',
@@ -97,8 +105,67 @@ export default {
       }
     }
   },
+  created () {
+    const _this = this
+    _this.editorOption = quillRedefine(
+      {
+        // 图片上传的设置
+        uploadConfig: {
+          action: '/api/upload/uploadImg', // 必填参数 图片上传地址
+          // 必选参数  res是一个函数，函数接收的response为上传成功时服务器返回的数据
+          // 你必须把返回的数据中所包含的图片地址 return 回去
+          res: (response) => {
+            const path = response.result.url// 这里return你的图片地址即可
+            return path
+          },
+          name: 'file' // 图片上传参数名
+        },
+        placeholder: '请输入视频简介',
+        modules: {
+          toolbar: [
+            ['bold', 'italic', 'underline', 'strike'], // 加粗，斜体，下划线，删除线
+            ['blockquote', 'code-block'], // 引用，代码块
+            [{ header: 1 }, { header: 2 }], // 标题，键值对的形式；1、2表示字体大小
+            [{ list: 'ordered' }, { list: 'bullet' }], // 列表
+            [{ script: 'sub' }, { script: 'super' }], // 上下标
+            [{ indent: '-1' }, { indent: '+1' }], // 缩进
+            [{ direction: 'rtl' }], // 文本方向
+            [{ size: ['small', false, 'large', 'huge'] }], // 字体大小
+            [{ header: [1, 2, 3, 4, 5, 6, false] }], // 几级标题
+            [{ color: [] }, { background: [] }], // 字体颜色，字体背景颜色
+            [{ font: [] }], // 字体
+            [{ align: [] }], // 对齐方式
+            ['clean'], // 清除字体样式
+            ['image'] // 上传图片、上传视频
+          ]
+        }
+      }
+    )
+  },
   data () {
     return {
+      editorOption: {
+        placeholder: '请输入视频简介',
+        modules: {
+          toolbar: [
+            ['bold', 'italic', 'underline', 'strike'], // 加粗，斜体，下划线，删除线
+            ['blockquote', 'code-block'], // 引用，代码块
+            [{ header: 1 }, { header: 2 }], // 标题，键值对的形式；1、2表示字体大小
+            [{ list: 'ordered' }, { list: 'bullet' }], // 列表
+            [{ script: 'sub' }, { script: 'super' }], // 上下标
+            [{ indent: '-1' }, { indent: '+1' }], // 缩进
+            [{ direction: 'rtl' }], // 文本方向
+            [{ size: ['small', false, 'large', 'huge'] }], // 字体大小
+            [{ header: [1, 2, 3, 4, 5, 6, false] }], // 几级标题
+            [{ color: [] }, { background: [] }], // 字体颜色，字体背景颜色
+            [{ font: [] }], // 字体
+            [{ align: [] }], // 对齐方式
+            ['clean'], // 清除字体样式
+            ['image'] // 上传图片、上传视频
+          ]
+        }
+
+      },
       imageUrl: '11111',
       imageLoading: false,
       ruleForm: {
@@ -137,6 +204,12 @@ export default {
     }
   },
   methods: {
+    onEditorReady (editor) { // 准备编辑器
+
+    },
+    onEditorBlur () {}, // 失去焦点事件
+    onEditorFocus () {}, // 获得焦点事件
+    onEditorChange () {}, // 内容改变事件
     deleteVideo () {
       const _this = this
       _this.ruleForm.urls = ''

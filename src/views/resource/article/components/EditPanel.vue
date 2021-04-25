@@ -28,7 +28,7 @@
       <el-form-item label="文章简介" prop="introduce">
         <el-input  v-model="ruleForm.introduce" autocomplete="off"></el-input>
       </el-form-item>
-      <el-form-item label="文章内容" prop="author">
+      <el-form-item label="文章内容" prop="contents">
         <quill-editor
           v-model="ruleForm.contents"
           ref="myQuillEditor"

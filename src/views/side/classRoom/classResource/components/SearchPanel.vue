@@ -58,6 +58,16 @@
           </el-option>
         </el-select>
       </el-form-item>
+      <el-form-item label="课程分类" prop="status">
+        <el-select v-model="formData.courseTypeId" clearable placeholder="请选择" style="width:256px;"  auto-complete="off">
+          <el-option
+            v-for="item in itemize"
+            :key="item.id"
+            :label="item.names"
+            :value="item.id">
+          </el-option>
+        </el-select>
+      </el-form-item>
       <el-form-item class="form-button-line block">
         <el-button
           type="primary"
@@ -84,6 +94,12 @@ export default {
       type: Number
     },
     demandList: {
+      default () {
+        return []
+      },
+      type: Array
+    },
+    itemize: {
       default () {
         return []
       },
@@ -126,6 +142,7 @@ export default {
       originalForm: {
         id: '',
         resType: '',
+        courseTypeId: '',
         status: '',
         chargeType: '',
         title: ''
@@ -133,6 +150,7 @@ export default {
       formData: {
         id: '',
         resType: '',
+        courseTypeId: '',
         status: '',
         chargeType: '',
         title: ''

@@ -3,6 +3,7 @@
     <SearchPanel
       @handleSearch="getList"
       :triggerReset="reset"
+      :itemize="itemize"
     />
     <HandleBar @handleCreate="createData"/>
     <TablePanel
@@ -154,6 +155,21 @@ export default {
       _this.pageNum = page
       _this.getList(_this.searchForm)
     },
+    concatList (top, original) {
+      const result = []
+      const list = JSON.parse(JSON.stringify(original))
+      for (let num = 0; num < list.length; num++) {
+        const item = list[num]
+        if (item.id === top.id) {
+          item.isTop = 1
+          continue
+        } else {
+          item.isTop = 0
+          result.push(item)
+        }
+      }
+      return result
+    },
     async getList (form) {
       const _this = this
       _this.searchForm = form ? JSON.parse(JSON.stringify(form)) : {}
@@ -165,8 +181,12 @@ export default {
         pageNum: _this.pageNum,
         ..._this.searchForm
       })
-      _this.total = res.result.topCourse && res.result.topCourse.id ? res.result.resultList.total + 1 : res.result.resultList.total
-      _this.list = res.result.topCourse && res.result.topCourse.id ? res.result.resultList.list.concat(res.result.topCourse && res.result.topCourse) : res.result.resultList.list
+      const haveTop = !!(res.result.topCourse && res.result.topCourse.id)
+      if (haveTop) {
+        res.result.topCourse.isTop = 1
+      }
+      _this.total = haveTop ? res.result.resultList.total + 1 : res.result.resultList.total
+      _this.list = haveTop ? [res.result.topCourse].concat(res.result.resultList.list) : res.result.resultList.list
     },
     openEditPanel () {
       this.visible = true

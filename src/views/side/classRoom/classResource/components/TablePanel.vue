@@ -19,6 +19,7 @@
       <el-table-column prop="resType" label="课程类型" :formatter="formatTypes"/>
       <el-table-column prop="resId" label="资源ID"/>
       <el-table-column prop="chargeType" label="收费类型" :formatter="formatChargeTypes"/>
+      <el-table-column prop="isTop" label="置顶" :formatter="formatIsTop"/>
       <el-table-column prop="price" label="课程价格"/>
       <el-table-column prop="shareNum" label="分享量"/>
       <el-table-column prop="browseNum" label="浏览量"/>
@@ -33,8 +34,9 @@
       </el-table-column>
       <el-table-column prop="status_name" label="操作" min-width="140px">
         <template slot-scope="scope">
+          <section class="handle-item">
           <el-tag
-            title="点击编辑课程类型"
+            title="点击编辑课程"
             type="success"
             style="cursor: pointer;"
             effect="dark"
@@ -63,6 +65,18 @@
           >
             下架
           </el-tag>
+          </section>
+          <section class="handle-item">
+            <el-tag
+              title="点击置顶课程"
+              type="success"
+              style="cursor: pointer;"
+              effect="dark"
+              @click="upTop(scope.row)"
+            >
+              置顶
+            </el-tag>
+          </section>
         </template>
       </el-table-column>
     </el-table>
@@ -78,9 +92,25 @@
         @current-change="handleCurrentChange"
       />
     </div>
+    <el-dialog
+      title="提示"
+      :visible.sync="centerDialogVisible"
+      width="80%"
+      center>
+      <el-checkbox :indeterminate="isIndeterminate" v-model="checkAll" @change="handleCheckAllChange">全选</el-checkbox>
+      <div style="margin: 15px 0;"></div>
+      <el-checkbox-group v-model="selectTypes" @change="handleCheckedCitiesChange">
+        <el-checkbox v-for="item in topList" :label="item.typeId" :key="item.typeId">{{item.names}}</el-checkbox>
+      </el-checkbox-group>
+      <span slot="footer" class="dialog-footer">
+    <el-button @click="centerDialogVisible = false">取 消</el-button>
+    <el-button type="primary" @click="submit">确 定</el-button>
+  </span>
+    </el-dialog>
   </section>
 </template>
 <script>
+import { getCourseType, updateTop } from '@/resource'
 import moment from 'moment'
 export default {
   name: 'AdminTable',
@@ -110,8 +140,69 @@ export default {
       type: Number
     }
   },
+  data () {
+    return {
+      checkAll: false,
+      selectTypes: [],
+      topList: [],
+      courseId: '',
+      centerDialogVisible: false,
+      isIndeterminate: true
+    }
+  },
   methods: {
     moment,
+    handleCheckAllChange (val) {
+      const _this = this
+      _this.selectTypes = val ? _this.getTopList(_this.topList, 1) : []
+      _this.isIndeterminate = false
+    },
+    async submit () {
+      const _this = this
+      try {
+        const res = await updateTop({ courseId: _this.courseId, typeIds: _this.selectTypes })
+        console.log(res)
+        _this.$message.success('更细成功')
+      } catch (e) {
+        _this.$message.error(e.msg || '更新失败')
+      } finally {
+        _this.centerDialogVisible = false
+      }
+    },
+    handleCheckedCitiesChange (value) {
+      const _this = this
+      const checkedCount = value.length
+      _this.checkAll = checkedCount === _this.topList.length
+      _this.isIndeterminate = checkedCount > 0 && checkedCount < _this.topList.length
+    },
+    async upTop (row) {
+      const _this = this
+      _this.courseId = row.id
+      try {
+        const res = await getCourseType({ courseId: _this.courseId })
+        console.log(res)
+        _this.topList = res.result
+        _this.selectTypes = _this.getTopList(res.result)
+        _this.centerDialogVisible = true
+      } catch (e) {
+        console.log(e.msg || '获取数据失败')
+      }
+    },
+    getTopList (list, all) {
+      const originalList = JSON.parse(JSON.stringify(list))
+      const result = []
+      for (let num = 0; num < originalList.length; num++) {
+        const item = originalList[num]
+        if (all) {
+          result.push(item.typeId)
+        } else {
+          if (parseInt(item.isTop, 10)) {
+            result.push(item.typeId)
+          }
+        }
+      }
+      return result
+    },
     formatStatus (row) {
       let title = ''
       switch (parseInt(row.status, 10)) {
@@ -154,6 +245,9 @@ export default {
           break
       }
       return title
+    },
+    formatIsTop: function (row, column) {
+      return row.isTop && parseInt(row.isTop, 10) === 1 ? '置顶' : '未置顶'
     },
     handleSizeChange (size) {
       const _this = this

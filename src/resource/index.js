@@ -22,6 +22,9 @@ export function userLogin (params) {
 export function passwordReset (params) {
   return api.get(`/api/sysUser/passwordReset?${json2Query(params)}`)
 }
+export function getCourseType (params) {
+  return api.get(`/api/course/selectCourseType?${json2Query(params)}`)
+}
 export function getAdminList (params) {
   return api.get(`/api/sysUser/query?${json2Query(params)}`)
 }
@@ -144,6 +147,9 @@ export function updateServiceType (params) {
 }
 export function createService (params) {
   return api.post('/api/serverType/add', params)
+}
+export function updateTop (params) {
+  return api.post('/api/courseType/updateTop', params)
 }
 export function getUserList (params) {
   return api.get(`/api/user/query?${json2Query(params)}`)

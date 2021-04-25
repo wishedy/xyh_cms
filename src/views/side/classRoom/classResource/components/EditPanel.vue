@@ -138,10 +138,11 @@ export default {
   },
   watch: {
     'ruleForm.chargeType' (n) {
+      const _this = this
       if (parseInt(n, 10) === 1) {
         this.ruleForm.price = 0
       } else {
-        this.ruleForm.price = ''
+        this.ruleForm.price = _this.editItemData.price
       }
     },
     visible (show) {
