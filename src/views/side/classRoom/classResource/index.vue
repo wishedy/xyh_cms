@@ -8,6 +8,7 @@
     <HandleBar @handleCreate="createData"/>
     <TablePanel
       @handleEdit="editData"
+      @handleSearch="getList"
       @handleStatus="updateStatus"
       :pageSize="pageSize"
       :pageNum="pageNum"
@@ -155,20 +156,18 @@ export default {
       _this.pageNum = page
       _this.getList(_this.searchForm)
     },
-    concatList (top, original) {
-      const result = []
-      const list = JSON.parse(JSON.stringify(original))
-      for (let num = 0; num < list.length; num++) {
-        const item = list[num]
-        if (item.id === top.id) {
-          item.isTop = 1
-          continue
-        } else {
-          item.isTop = 0
-          result.push(item)
+    unique (arr) {
+      for (let i = 0; i < arr.length; i++) {
+        for (let j = i + 1; j < arr.length; j++) {
+          if (arr[i].id === arr[j].id) { // 第一个等同于第二个，splice方法删除第二个
+            arr[i].isTop = 1
+            arr[j].isTop = 1
+            arr.splice(j, 1)
+            j--
+          }
         }
       }
-      return result
+      return arr
     },
     async getList (form) {
       const _this = this
@@ -186,7 +185,7 @@ export default {
         res.result.topCourse.isTop = 1
       }
       _this.total = haveTop ? res.result.resultList.total + 1 : res.result.resultList.total
-      _this.list = haveTop ? [res.result.topCourse].concat(res.result.resultList.list) : res.result.resultList.list
+      _this.list = haveTop ? _this.unique([res.result.topCourse].concat(res.result.resultList.list)) : res.result.resultList.list
     },
     openEditPanel () {
       this.visible = true

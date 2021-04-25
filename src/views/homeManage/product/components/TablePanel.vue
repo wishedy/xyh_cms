@@ -25,7 +25,7 @@
       <el-table-column prop="status_name" label="操作" min-width="100px">
         <template slot-scope="scope">
           <el-tag
-            title="点击编辑产品类型"
+            title="点击编辑产品"
             type="success"
             style="cursor: pointer;"
             effect="dark"

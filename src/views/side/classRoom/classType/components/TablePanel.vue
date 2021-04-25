@@ -19,7 +19,7 @@
       <el-table-column prop="status_name" label="操作">
         <template slot-scope="scope">
           <el-tag
-            title="点击编辑类别类型"
+            title="点击编辑课程类别"
             type="success"
             style="cursor: pointer;"
             effect="dark"

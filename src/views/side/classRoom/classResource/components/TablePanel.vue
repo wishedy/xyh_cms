@@ -17,6 +17,9 @@
       <el-table-column prop="articleUrl" label="文章链接" />
       <el-table-column prop="orderBy" label="排序" />
       <el-table-column prop="resType" label="课程类型" :formatter="formatTypes"/>
+      <el-table-column prop="labelList" label="课程标签" :formatter="formatLabel"/>
+      <el-table-column prop="itemizeList" label="课程分类" :formatter="formatItemize"/>
+      <el-table-column prop="columnList" label="课程栏目" :formatter="formatColumn"/>
       <el-table-column prop="resId" label="资源ID"/>
       <el-table-column prop="chargeType" label="收费类型" :formatter="formatChargeTypes"/>
       <el-table-column prop="isTop" label="置顶" :formatter="formatIsTop"/>
@@ -68,13 +71,13 @@
           </section>
           <section class="handle-item">
             <el-tag
-              title="点击置顶课程"
+              title="点击编辑课程是否置顶"
               type="success"
               style="cursor: pointer;"
               effect="dark"
               @click="upTop(scope.row)"
             >
-              置顶
+              编辑置顶
             </el-tag>
           </section>
         </template>
@@ -162,7 +165,8 @@ export default {
       try {
         const res = await updateTop({ courseId: _this.courseId, typeIds: _this.selectTypes })
         console.log(res)
-        _this.$message.success('更细成功')
+        _this.$message.success('更新成功')
+        _this.$emit('handleSearch')
       } catch (e) {
         _this.$message.error(e.msg || '更新失败')
       } finally {
@@ -218,6 +222,29 @@ export default {
     updateStatus (data) {
       const _this = this
       _this.$emit('handleStatus', data)
+    },
+    formatList (list) {
+      const result = []
+      const original = JSON.parse(JSON.stringify(list))
+      for (let num = 0; num < original.length; num++) {
+        result.push(original[num].names)
+      }
+      return result.join('、')
+    },
+    formatLabel (row) {
+      const _this = this
+      const list = row.labelList
+      return _this.formatList(list)
+    },
+    formatItemize (row) {
+      const _this = this
+      const list = row.itemizeList
+      return _this.formatList(list)
+    },
+    formatColumn (row) {
+      const _this = this
+      const list = row.columnList
+      return _this.formatList(list)
     },
     formatTypes: function (row, column) {
       let title = ''
