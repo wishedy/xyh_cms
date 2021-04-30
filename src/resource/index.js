@@ -148,6 +148,9 @@ export function updateServiceType (params) {
 export function createService (params) {
   return api.post('/api/serverType/add', params)
 }
+export function createDemandUser (params) {
+  return api.post('/api/userNeed/assignFollowUser', params)
+}
 export function updateTop (params) {
   return api.post('/api/courseType/updateTop', params)
 }

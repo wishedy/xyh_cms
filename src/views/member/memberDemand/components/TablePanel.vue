@@ -12,19 +12,24 @@
       <el-table-column prop="followUser" label="跟进人ID" />
       <el-table-column prop="followUserName" label="跟进人姓名" />
       <el-table-column prop="needTypeList" label="需求类型"  :formatter="formatNeed"/>
-      <el-table-column prop="department" label="需求提交时间" />
+      <el-table-column prop="createTime" label="需求提交时间">
+        <template slot-scope="scope">
+          <span
+          >{{moment(scope.row.createTime).format("YYYY-MM-DD HH:mm:ss")}}</span>
+        </template>
+      </el-table-column>
       <el-table-column prop="status_name" label="操作"  fixed="right" align="center">
-<!--        <template slot-scope="scope">
-          <section class="handle-item">
+        <template slot-scope="scope">
+          <section class="handle-item" v-if="!scope.row.followUser">
             <el-tag
               title="点击指派业务经理"
-              type="danger"
               effect="dark"
+              @click="$emit('handleRedmine',scope.row)"
             >
               指派业务经理
             </el-tag>
           </section>
-        </template>-->
+        </template>
       </el-table-column>
     </el-table>
     <!-- 分页 -->
@@ -42,6 +47,7 @@
   </section>
 </template>
 <script>
+import moment from 'moment'
 export default {
   name: 'AdminTable',
   props: {
@@ -71,6 +77,7 @@ export default {
     }
   },
   methods: {
+    moment,
     formatNeed (row) {
       let title = ''
       const list = JSON.parse(JSON.stringify(row.needTypeList))
