@@ -157,6 +157,9 @@ export function updateOrder (params) {
 export function updateTop (params) {
   return api.post('/api/courseType/updateTop', params)
 }
+export function createOrders (params) {
+  return api.post('/api/orders/add', params)
+}
 export function getUserList (params) {
   return api.get(`/api/user/query?${json2Query(params)}`)
 }

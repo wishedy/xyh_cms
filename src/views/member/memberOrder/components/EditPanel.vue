@@ -83,11 +83,13 @@ export default {
       ruleForm: {
         id: '',
         amount: '',
+        orderType: 2,
         needId: ''
       },
       originalForm: {
         id: '',
         amount: '',
+        orderType: 2,
         needId: ''
       },
       rules: {

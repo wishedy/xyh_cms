@@ -15,11 +15,16 @@
       @handleSizeChange="handleSizeChange"
       @handlePageChange="handlePageChange"
     />
-    <EditPanel :visible.sync="visible" @handleCancel="closeEditPanel" />
+    <EditPanel
+      :visible.sync="visible"
+      @submit="handleSubmit"
+      :editItemData="editItemData"
+      @handleCancel="closeEditPanel"
+      :editType="editType" />
   </section>
 </template>
 <script>
-import { getUserOrderList, updateOrder } from '@/resource'
+import { createOrders, getUserOrderList, updateOrder } from '@/resource'
 import EditPanel from './components/EditPanel'
 import SearchPanel from './components/SearchPanel'
 import TablePanel from './components/TablePanel'
@@ -58,6 +63,34 @@ export default {
       })
       _this.total = res && res.result && res.result.total ? res.result.total : 0
       _this.list = res && res.result && res.result.list ? res.result.list : []
+    },
+    handleSubmit (form) {
+      const _this = this
+      _this.submitForm = form
+      if (parseInt(_this.editType, 10) === 0) {
+        // 无id新增
+        _this.$confirm('请确认该订单用户已经支付过？', {
+          confirmButtonText: '确定',
+          cancelButtonText: '取消',
+          type: 'warning'
+        }).then(async () => {
+          try {
+            _this.handleAddRequest()
+          } catch (e) {
+            _this.$message.error(e.msg)
+          }
+        }).catch(() => {})
+      } else {
+        _this.handleEditConfirm()
+      }
+    },
+    async handleAddRequest () {
+      const _this = this
+      const res = await createOrders(_this.submitForm)
+      if (res) {
+        this.$message.success('保存成功')
+      }
+      _this.handleAfterRequest()
     },
     handleSizeChange (size) {
       const _this = this

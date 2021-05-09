@@ -14,6 +14,7 @@
       <el-table-column prop="orderType" label="订单类型" :formatter="formatOrderType"/>
       <el-table-column prop="resType" label="资源类型" :formatter="formatResTypeType"/>
       <el-table-column prop="phone" label="联系方式" />
+      <el-table-column prop="status" label="支付状态"   :formatter="formatStatus"/>
       <el-table-column prop="needFile" label="需求文件">
         <template slot-scope="scope" v-if="scope.row.needFile&&parseInt(scope.row.orderType,10)===2">
           <el-button
@@ -161,6 +162,21 @@ export default {
       }
       return title
     },
+    formatStatus (row) {
+      let title = ''
+      switch (parseInt(row.status, 10)) {
+        case 0:
+          title = '待支付'
+          break
+        case 1:
+          title = '已支付'
+          break
+        case 2:
+          title = '支付失败'
+          break
+      }
+      return title
+    },
     formatResTypeType (row) {
       let title = ''
       switch (parseInt(row.resType, 10)) {
@@ -176,7 +192,7 @@ export default {
     handleNeedFileSuccess (res, file) {
       const _this = this
       if (res && parseInt(res.code, 10) === 200) {
-        _this.$emit('handleUploadNeedFile', { resultFile: res.result.url, id: _this.editId })
+        _this.$emit('handleUploadNeedFile', { needFile: res.result.url, id: _this.editId })
         _this.imageLoading = false
       }
     },
