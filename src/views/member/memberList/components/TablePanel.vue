@@ -9,7 +9,11 @@
       <el-table-column prop="email" label="邮箱" />
       <el-table-column prop="phone" label="手机号" />
       <el-table-column prop="wxName" label="微信号" />
-      <el-table-column prop="department" label="注册时间" />
+      <el-table-column prop="createTime" label="注册日期">
+        <template  slot-scope="scope">
+          <span  v-text="moment(scope.row.createTime).format('YYYY-MM-DD HH:mm:ss')"></span>
+        </template>
+      </el-table-column>
       <el-table-column prop="status_name" label="操作"  fixed="right" align="center">
 <!--        <template slot-scope="scope">
           <section class="handle-item">
@@ -78,6 +82,7 @@
   </section>
 </template>
 <script>
+import moment from 'moment'
 export default {
   name: 'AdminTable',
   props: {
@@ -107,11 +112,14 @@ export default {
     }
   },
   methods: {
+    moment,
     handleSizeChange (size) {
       console.log(size)
+      this.$emit('handleSizeChange', size)
     },
     handleCurrentChange (page) {
       console.log(page)
+      this.$emit('handlePageChange', page)
     }
   }
 }

@@ -98,12 +98,7 @@ export const constantRoutes = [
         path: 'order',
         component: () => import('@/views/member/memberOrder/index'),
         name: 'Order',
-        meta: { title: '课程订单', icon: 'el-icon-s-goods', affix: false }
-      }, {
-        path: 'collect',
-        component: () => import('@/views/member/memberCollect/index'),
-        name: 'Collect',
-        meta: { title: '会员收藏', icon: 'el-icon-star-off', affix: false }
+        meta: { title: '用户订单', icon: 'el-icon-s-goods', affix: false }
       }, {
         path: 'invoice',
         component: () => import('@/views/member/memberInvoice/index'),

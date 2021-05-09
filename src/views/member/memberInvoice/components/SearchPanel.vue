@@ -19,6 +19,18 @@
         />
       </el-form-item>
       <el-form-item
+        label="用户姓名:"
+        prop="search"
+      >
+        <el-input
+          v-model="formData.userName"
+          class="search-box"
+          type="text"
+          placeholder="请输入用户姓名"
+          @keyup.enter.native="handleSearch"
+        />
+      </el-form-item>
+      <el-form-item
         label="发票抬头:"
         prop="search"
       >
@@ -83,10 +95,12 @@ export default {
       }],
       originalForm: {
         id: '',
+        userName: '',
         rise: ''
       },
       formData: {
         id: '',
+        userName: '',
         rise: ''
       }
     }

@@ -10,7 +10,6 @@
       <el-table-column prop="phone" label="手机号" />
       <el-table-column prop="rise" label="发票抬头" />
       <el-table-column prop="dutyNo" label="纳税人识别号" />
-      <el-table-column prop="department" label="注册时间" />
     </el-table>
     <!-- 分页 -->
     <div class="page">
@@ -27,6 +26,7 @@
   </section>
 </template>
 <script>
+import moment from 'moment'
 export default {
   name: 'AdminTable',
   props: {
@@ -68,11 +68,14 @@ export default {
       }
       return title
     },
+    moment,
     handleSizeChange (size) {
       console.log(size)
+      this.$emit('handleSizeChange', size)
     },
     handleCurrentChange (page) {
       console.log(page)
+      this.$emit('handlePageChange', page)
     }
   }
 }

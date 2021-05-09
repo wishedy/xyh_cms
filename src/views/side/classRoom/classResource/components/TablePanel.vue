@@ -225,7 +225,7 @@ export default {
     },
     formatList (list) {
       const result = []
-      const original = JSON.parse(JSON.stringify(list))
+      const original = list ? JSON.parse(JSON.stringify(list)) : []
       for (let num = 0; num < original.length; num++) {
         result.push(original[num].names)
       }
@@ -260,7 +260,7 @@ export default {
     },
     formatChargeTypes: function (row, column) {
       let title = ''
-      switch (parseInt(row.resType)) {
+      switch (parseInt(row.chargeType)) {
         case 1:
           title = '全员免费'
           break

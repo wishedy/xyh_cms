@@ -91,10 +91,20 @@
         />
       </el-form-item>
       <el-form-item label="资源类型" prop="resType">
-        <el-radio-group v-model="formData.resType">
-          <el-radio label="1">文章</el-radio>
-          <el-radio label="2">视频</el-radio>
-        </el-radio-group>
+        <el-select v-model="formData.resType" clearable placeholder="请选择" style="width:156px;"  auto-complete="off">
+          <el-option label="文章"
+                     value="1"></el-option>
+          <el-option label="视频"
+                     value="2"></el-option>
+        </el-select>
+      </el-form-item>
+      <el-form-item label="订单类型" prop="orderType">
+        <el-select v-model="formData.orderType" clearable placeholder="请选择" style="width:156px;"  auto-complete="off">
+          <el-option label="课程"
+                     value="1"></el-option>
+          <el-option label="需求"
+                     value="2"></el-option>
+        </el-select>
       </el-form-item>
       <el-form-item class="form-button-line block">
         <el-button

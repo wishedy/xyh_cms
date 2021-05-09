@@ -151,6 +151,9 @@ export function createService (params) {
 export function createDemandUser (params) {
   return api.post('/api/userNeed/assignFollowUser', params)
 }
+export function updateOrder (params) {
+  return api.post('/api/orders/update', params)
+}
 export function updateTop (params) {
   return api.post('/api/courseType/updateTop', params)
 }
