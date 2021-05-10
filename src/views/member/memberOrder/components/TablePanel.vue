@@ -82,6 +82,17 @@
               </el-button>
             </el-upload>
           </section>
+          <section class="handle-item" v-if="parseInt(scope.row.status,10)!==1">
+              <el-button
+                title="点击确认用户已经支付订单"
+                type="primary"
+                size="mini"
+                effect="dark"
+                @click.native="submitPay(scope.row.id)"
+              >
+                用户已支付
+              </el-button>
+          </section>
         </template>
       </el-table-column>
     </el-table>
@@ -147,6 +158,16 @@ export default {
   },
   methods: {
     moment,
+    submitPay (id) {
+      const _this = this
+      _this.$confirm('请确认该订单用户已经支付过？', {
+        confirmButtonText: '确定',
+        cancelButtonText: '取消',
+        type: 'warning'
+      }).then(async () => {
+        _this.$emit('handleEdit', { id: id, status: 1 })
+      }).catch(() => {})
+    },
     downFile (url) {
       window.open(url)
     },

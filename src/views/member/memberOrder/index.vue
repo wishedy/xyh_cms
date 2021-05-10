@@ -69,17 +69,11 @@ export default {
       _this.submitForm = form
       if (parseInt(_this.editType, 10) === 0) {
         // 无id新增
-        _this.$confirm('请确认该订单用户已经支付过？', {
-          confirmButtonText: '确定',
-          cancelButtonText: '取消',
-          type: 'warning'
-        }).then(async () => {
-          try {
-            _this.handleAddRequest()
-          } catch (e) {
-            _this.$message.error(e.msg)
-          }
-        }).catch(() => {})
+        try {
+          _this.handleAddRequest()
+        } catch (e) {
+          _this.$message.error(e.msg)
+        }
       } else {
         _this.handleEditConfirm()
       }
@@ -143,8 +137,10 @@ export default {
     closeEditPanel () {
       this.visible = false
     },
-    editData () {
-      this.openEditPanel()
+    editData (data) {
+      this.editType = 1
+      this.submitForm = data
+      this.handleEditConfirm()
     }
   }
 }
