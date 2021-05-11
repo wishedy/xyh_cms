@@ -163,6 +163,9 @@ export function createOrders (params) {
 export function getUserList (params) {
   return api.get(`/api/user/query?${json2Query(params)}`)
 }
+export function getUpLoadToken (params) {
+  return api.get(`/api/upload/getToken?${json2Query(params)}`)
+}
 export function getUserDemandList (params) {
   return api.get(`/api/userNeed/query?${json2Query(params)}`)
 }

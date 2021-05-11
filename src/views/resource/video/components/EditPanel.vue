@@ -28,7 +28,8 @@
       <el-form-item label="视频内容" prop="urls">
         <el-upload
           class="avatar-uploader"
-          action="/api/upload/uploadImg"
+          action="http://up-z1.qiniup.com/"
+          :data="uploadData"
           :show-file-list="false"
           :on-success="handleAvatarSuccess"
           :before-upload="beforeAvatarUpload">
@@ -39,7 +40,6 @@
               <span class="handle-item el-icon-success">上传成功</span>
             </section>
           </div>
-          <!--          <img v-if="imageUrl" :src="imageUrl" class="avatar">-->
           <i v-else class="el-icon-plus avatar-uploader-icon" v-show="!imageLoading"></i>
         </el-upload>
       </el-form-item>
@@ -59,6 +59,7 @@
 <script>
 import { quillRedefine } from 'vue-quill-editor-upload'
 import BaseDrawer from '@/components/Drawer/BaseDrawer'
+import { getUpLoadToken } from '@/resource'
 export default {
   name: 'EditPanel',
   components: {
@@ -97,6 +98,7 @@ export default {
   watch: {
     visible (show) {
       const _this = this
+      _this.getToken()
       _this.resetForm()
       if (show && _this.editItemData.id) {
         Object.keys(_this.ruleForm).forEach((key) => {
@@ -166,7 +168,8 @@ export default {
         }
 
       },
-      imageUrl: '11111',
+      imgHost: '',
+      uploadData: { token: '' },
       imageLoading: false,
       ruleForm: {
         id: '',
@@ -204,6 +207,12 @@ export default {
     }
   },
   methods: {
+    async getToken () {
+      const res = await getUpLoadToken()
+      this.uploadData.token = res.result
+      this.imgHost = 'http://qn.xueyanhui.com/'
+      console.log(res)
+    },
     onEditorReady (editor) { // 准备编辑器
 
     },
@@ -216,10 +225,8 @@ export default {
     },
     handleAvatarSuccess (res, file) {
       const _this = this
-      if (res && parseInt(res.code, 10) === 200) {
-        _this.ruleForm.urls = res.result.url
-        _this.imageLoading = false
-      }
+      this.ruleForm.urls = this.imgHost + res.key
+      _this.imageLoading = false
     },
     beforeAvatarUpload (file) {
       const isLt500M = file.size / 1024 / 1024 < 500
