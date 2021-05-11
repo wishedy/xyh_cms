@@ -28,7 +28,7 @@
       <el-form-item label="视频内容" prop="urls">
         <el-upload
           class="avatar-uploader"
-          action="http://up-z1.qiniup.com/"
+          action="//up-z1.qiniup.com/"
           :data="uploadData"
           :show-file-list="false"
           :on-success="handleAvatarSuccess"
