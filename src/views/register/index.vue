@@ -14,7 +14,7 @@
       <el-form-item label="手机号" prop="phoneNum">
         <el-input v-model="registerForm.phoneNum" auto-complete="off" placeholder="请输入手机号"></el-input>
       </el-form-item>
-      <el-form-item label="身份证号" prop="idNum">
+      <el-form-item label="身份证号">
         <el-input v-model="registerForm.idNum" auto-complete="off" placeholder="请输入身份证号"></el-input>
       </el-form-item>
       <el-form-item label="性别" prop="gender">
@@ -36,7 +36,7 @@
 </template>
 
 <script>
-import { testPhoneNum, testEmail, testID, testName, testPassword } from '@/utils'
+import { testPhoneNum, testEmail, testName, testPassword } from '@/utils'
 import { handleRegister } from '@/resource'
 import md5 from 'blueimp-md5'
 export default {
@@ -84,18 +84,6 @@ export default {
           this.$refs.registerForm.validateField('phoneNum')
         } else {
           callBack(new Error('请输入正确的邮件'))
-        }
-        callBack()
-      }
-    }
-    const validateidNum = (rule, value, callBack) => {
-      if (value === '') {
-        callBack(new Error('请输入身份号'))
-      } else {
-        if (testID(value)) {
-          this.$refs.registerForm.validateField('role')
-        } else {
-          callBack(new Error('请输入正确的身份号'))
         }
         callBack()
       }
@@ -175,16 +163,6 @@ export default {
             required: true,
             message: '性别不能为空',
             trigger: 'blur'
-          }
-        ],
-        idNum: [
-          {
-            required: true,
-            message: '身份证号不能为空',
-            trigger: 'blur'
-          },
-          {
-            validator: validateidNum, trigger: 'blur'
           }
         ],
         code: [

@@ -115,6 +115,8 @@ export default {
         console.log(res)
         _this.handleClose()
         _this.getList()
+        _this.dialogVisible = false
+        _this.$message.success('操作成功')
       } catch (e) {
         console.log(e.msg || '指派业务员失败')
       }

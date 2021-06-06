@@ -6,9 +6,10 @@
     >
       <el-table-column prop="id" label="发票信息ID" />
       <el-table-column prop="userName" label="用户姓名" />
-      <el-table-column prop="email" label="邮箱" />
+      <el-table-column prop="email" label="电子邮箱" />
       <el-table-column prop="phone" label="手机号" />
       <el-table-column prop="rise" label="发票抬头" />
+      <el-table-column prop="address" label="邮寄地址" />
       <el-table-column prop="dutyNo" label="纳税人识别号" />
     </el-table>
     <!-- 分页 -->

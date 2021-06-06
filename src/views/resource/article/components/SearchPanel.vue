@@ -28,8 +28,8 @@
           @keyup.enter.native="handleSearch"
         />
       </el-form-item>
-      <el-form-item label="需求类型" prop="needId">
-        <el-select v-model="formData.needId" clearable placeholder="请选择" style="width:256px;"  auto-complete="off">
+      <el-form-item label="资源类型" prop="platform">
+        <el-select v-model="formData.platform" clearable placeholder="请选择" style="width:256px;"  auto-complete="off">
           <el-option
             v-for="item in demandList"
             :key="item.id"
@@ -95,13 +95,13 @@ export default {
       originalForm: {
         id: '',
         status: '',
-        needId: '',
+        platform: '',
         names: ''
       },
       formData: {
         id: '',
         status: '',
-        needId: '',
+        platform: '',
         names: ''
       }
     }

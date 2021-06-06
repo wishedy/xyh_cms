@@ -189,13 +189,13 @@ export const constantRoutes = [
             path: 'classroomColumn',
             component: () => import('@/views/side/classRoom/classType/index'),
             name: 'ClassroomColumn',
-            meta: { title: '课程类别', icon: 'el-icon-coin', affix: false }
+            meta: { title: '内容类别', icon: 'el-icon-coin', affix: false }
           },
           {
             path: 'classroomList',
             component: () => import('@/views/side/classRoom/classResource/index'),
             name: 'ClassroomList',
-            meta: { title: '课程列表', icon: 'el-icon-s-data', affix: false }
+            meta: { title: '内容列表', icon: 'el-icon-s-data', affix: false }
           }
         ]
       },

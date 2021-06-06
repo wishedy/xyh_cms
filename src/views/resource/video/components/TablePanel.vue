@@ -9,6 +9,11 @@
       <el-table-column prop="status" label="视频状态" :formatter="formatStatus"/>
       <el-table-column prop="author" label="作者" />
       <el-table-column prop="platform" label="资源类型" :formatter="formatPlatform"/>
+      <el-table-column label="复制资源ID" min-width="120px">
+        <template slot-scope="scope">
+          <el-button type="text" @click="handleCopyId(scope.row.id)">复制资源ID</el-button>
+        </template>
+      </el-table-column>
       <el-table-column label="视频链接" min-width="120px">
         <template slot-scope="scope">
           <el-button type="text" @click="handleCopyLink('https://www.xueyanhui.com/video?id='+scope.row.id)">复制完整链接</el-button>
@@ -108,6 +113,16 @@ export default {
         this.$message({
           type: 'success',
           message: '链接复制成功'
+        })
+      } else {
+        this.$message.error('您的系统不支持复制到剪切板')
+      }
+    },
+    handleCopyId (id) {
+      if (copyToClipboard(id)) {
+        this.$message({
+          type: 'success',
+          message: 'ID复制成功'
         })
       } else {
         this.$message.error('您的系统不支持复制到剪切板')

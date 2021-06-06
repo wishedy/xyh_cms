@@ -22,7 +22,7 @@
         </div>
         <el-dropdown-menu slot="dropdown">
           <router-link to="/profile/index">
-            <el-dropdown-item>学研会PC</el-dropdown-item>
+            <el-dropdown-item>学研汇PC</el-dropdown-item>
           </router-link>
           <router-link to="/">
             <el-dropdown-item>首页</el-dropdown-item>

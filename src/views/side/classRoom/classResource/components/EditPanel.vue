@@ -31,12 +31,12 @@
           <el-radio label="3">收费</el-radio>
         </el-radio-group>
       </el-form-item>
-      <el-form-item label="课程标签" prop="labelList" v-if="label&&label.length">
+      <el-form-item label="课程标签" v-if="label&&label.length">
         <el-checkbox-group v-model="ruleForm.labelList">
           <el-checkbox :label="item.id" name="labelList" v-for="(item) in label" :key="item.id">{{item.names}}</el-checkbox>
         </el-checkbox-group>
       </el-form-item>
-      <el-form-item label="课程专栏" prop="columnList" v-if="column&&column.length">
+      <el-form-item label="课程专栏"  v-if="column&&column.length">
         <el-checkbox-group v-model="ruleForm.columnList">
           <el-checkbox :label="item.id" name="columnList" v-for="(item) in column" :key="item.id">{{item.names}}</el-checkbox>
         </el-checkbox-group>
@@ -222,12 +222,6 @@ export default {
         ],
         introduce: [
           { required: true, message: '请输入课程简介', trigger: 'blur' }
-        ],
-        labelList: [
-          { required: true, message: '请选择课程标签', trigger: 'blur' }
-        ],
-        columnList: [
-          { required: true, message: '请选择课程专栏', trigger: 'blur' }
         ],
         itemizeList: [
           { required: true, message: '请选择课程分类', trigger: 'blur' }
