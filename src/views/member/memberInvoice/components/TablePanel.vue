@@ -5,8 +5,10 @@
       border
     >
       <el-table-column prop="id" label="发票信息ID" />
-      <el-table-column prop="userName" label="用户姓名" />
+      <el-table-column prop="contacts" label="联系人" />
       <el-table-column prop="email" label="电子邮箱" />
+      <el-table-column prop="bankNo" label="开户行账号" />
+      <el-table-column prop="bankName" label="开户行" />
       <el-table-column prop="phone" label="手机号" />
       <el-table-column prop="rise" label="发票抬头" />
       <el-table-column prop="address" label="邮寄地址" />

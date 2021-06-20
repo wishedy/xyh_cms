@@ -113,8 +113,29 @@ export default {
     )
   },
   data () {
+    const toolbarOptions = [
+      ['bold', 'italic', 'underline', 'strike'], // 加粗 斜体 下划线 删除线
+      ['blockquote', 'code-block'], // 引用  代码块
+      [{ header: 1 }, { header: 2 }], // 1、2 级标题
+      [{ list: 'ordered' }, { list: 'bullet' }], // 有序、无序列表
+      [{ script: 'sub' }, { script: 'super' }], // 上标/下标
+      [{ indent: '-1' }, { indent: '+1' }], // 缩进
+      // [{'direction': 'rtl'}],                         // 文本方向
+      [{ size: ['10px', '12px', '14px', '16px', '18px', '20px', '22px', '24px', '26px', '32px', '48px'] }], // 字体大小
+      [{ header: [1, 2, 3, 4, 5, 6, false] }], // 标题
+      [{ color: [] }, { background: [] }], // 字体颜色、字体背景颜色
+      [{ font: [] }], // 字体种类
+      [{ align: [] }], // 对齐方式
+      ['clean'], // 清除文本格式
+      ['link', 'image', 'video'] // 链接、图片、视频
+    ]
+
     return {
-      editorOption: {},
+      editorOption: {
+        toolbar: {
+          container: toolbarOptions
+        }
+      },
       ruleForm: {
         id: '',
         names: '',
