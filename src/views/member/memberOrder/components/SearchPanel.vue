@@ -133,6 +133,7 @@ export default {
     }
   },
   data () {
+    const user = localStorage.getItem('user') ? JSON.parse(localStorage.getItem('user')) : {}
     return {
       status: [
         {
@@ -160,20 +161,24 @@ export default {
       originalForm: {
         id: '',
         phone: '',
+        followUser: parseInt(user.role, 10) === 0 ? '' : user.id,
         resType: '',
         courseId: '',
         userName: '',
         courseName: '',
+        status: '1',
         email: '',
         wxName: ''
       },
       formData: {
         id: '',
         phone: '',
+        followUser: parseInt(user.role, 10) === 0 ? '' : user.id,
         resType: '',
         courseId: '',
         userName: '',
         courseName: '',
+        status: '1',
         email: '',
         wxName: ''
       }

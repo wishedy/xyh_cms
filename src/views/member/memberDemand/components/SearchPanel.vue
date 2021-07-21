@@ -127,6 +127,8 @@ export default {
     }
   },
   data () {
+    const user = localStorage.getItem('user') ? JSON.parse(localStorage.getItem('user')) : {}
+    console.log(user)
     return {
       status: [
         {
@@ -156,6 +158,7 @@ export default {
         phone: '',
         needType: '',
         contacts: '',
+        followUser: parseInt(user.role, 10) === 0 ? '' : user.id,
         followUserName: '',
         email: '',
         wxNum: ''
@@ -165,6 +168,7 @@ export default {
         phone: '',
         needType: '',
         contacts: '',
+        followUser: parseInt(user.role, 10) === 0 ? '' : user.id,
         followUserName: '',
         email: '',
         wxNum: ''

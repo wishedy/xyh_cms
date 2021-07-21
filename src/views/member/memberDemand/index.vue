@@ -93,6 +93,7 @@ export default {
     },
     async getList (form) {
       const _this = this
+      const user = localStorage.getItem('user') ? JSON.parse(localStorage.getItem('user')) : {}
       _this.searchForm = form ? JSON.parse(JSON.stringify(form)) : {}
       if (Object.keys(_this.searchForm).length === 0) {
         _this.reset++
@@ -100,7 +101,8 @@ export default {
       const res = await getUserDemandList({
         pageSize: _this.pageSize,
         pageNum: _this.pageNum,
-        ..._this.searchForm
+        ..._this.searchForm,
+        followUser: parseInt(user.role, 10) === 0 ? '867000400287367168' : user.id
       })
       _this.total = res && res.result && res.result.total ? res.result.total : 0
       _this.list = res && res.result && res.result.list ? res.result.list : []
