@@ -161,7 +161,7 @@ export default {
       originalForm: {
         id: '',
         phone: '',
-        followUser: parseInt(user.role, 10) === 0 ? '' : user.id,
+        createUser: parseInt(user.role, 10) === 0 ? '' : user.id,
         resType: '',
         courseId: '',
         userName: '',
@@ -173,7 +173,7 @@ export default {
       formData: {
         id: '',
         phone: '',
-        followUser: parseInt(user.role, 10) === 0 ? '' : user.id,
+        createUser: parseInt(user.role, 10) === 0 ? '' : user.id,
         resType: '',
         courseId: '',
         userName: '',

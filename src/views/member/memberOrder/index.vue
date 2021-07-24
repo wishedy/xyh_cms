@@ -62,7 +62,7 @@ export default {
         pageNum: _this.pageNum,
         ...form,
         status: '1',
-        followUser: parseInt(user.role, 10) === 0 ? '' : user.id
+        createUser: parseInt(user.role, 10) === 0 ? '' : user.id
       })
       _this.total = res && res.result && res.result.total ? res.result.total : 0
       _this.list = res && res.result && res.result.list ? res.result.list : []
